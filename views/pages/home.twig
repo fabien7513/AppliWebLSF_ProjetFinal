@@ -1,0 +1,158 @@
+{% extends "../layout/base.twig" %}
+
+{% block style %}
+	<link rel="stylesheet" href="/static/assets/css/home.css">
+{% endblock %}
+
+{% block main %}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Home</title>
+</head>
+<body>
+
+  <header class="header">
+    <div class="header__top">
+      <h1 class="header__title">HOME</h1>
+    </div>
+
+    <section class="hero">
+      <div class="hero__top">
+        <div class="hero__logo">
+          <img src="/static/assets/images/logo.png" alt="Logo" />
+        </div>
+
+        <div class="hero__badge">
+          <p>Vous êtes interprète?</p>
+        </div>
+      </div>
+
+      <div class="hero__content">
+        <a href="#" class="hero__button">🔎 Trouvez un interprète LSF en toute simplicité</a>
+        <a href="#" class="hero__button">Afficher les interprètes</a>
+      </div>
+    </section>
+  </header>
+
+  <main>
+
+    <section class="map-section">
+      <h2 class="section-title">Localisez un interprète près de vous</h2>
+      <p class="section-text">
+        Cliquez sur la carte pour trouver l’interprète le plus proche de chez vous.
+      </p>
+
+      <div class="map-section__image">
+        <img src="/static/assets/images/map.png" alt="Carte des interprètes" />
+      </div>
+    </section>
+
+    <section class="role-section">
+      <div class="role-section__content">
+        <h2 class="section-title">Le rôle d’une interprète LSF</h2>
+
+        <ul class="role-section__list">
+          <li>Traduction et interprétariat</li>
+          <li>Neutralité et confidentialité</li>
+          <li>Communication accessible</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="services-section">
+      <h2 class="section-title">Ce que nous proposons</h2>
+
+      <div class="services-section__cards">
+
+        <article class="service-card">
+          <div class="service-card__image">
+            <img src="/static/assets/images/service1.png" alt="Interprétation en entreprise" />
+          </div>
+          <div class="service-card__content">
+            <h3>Interprétation en entreprise</h3>
+            <p>
+              Réunions, entretiens, formations, événements professionnels
+              avec accessibilité en Langue des Signes Française.
+            </p>
+            <a href="#" class="service-card__link">Voir plus</a>
+          </div>
+        </article>
+
+        <article class="service-card">
+          <div class="service-card__image">
+            <img src="/static/assets/images/service2.png" alt="Interprétation à distance" />
+          </div>
+          <div class="service-card__content">
+            <h3>Interprétation à distance</h3>
+            <p>
+              Une solution rapide et flexible pour vos rendez-vous, appels
+              vidéo ou besoins d’interprétation à distance.
+            </p>
+            <a href="#" class="service-card__link">Voir plus</a>
+          </div>
+        </article>
+
+        <article class="service-card">
+          <div class="service-card__image">
+            <img src="/static/assets/images/service3.png" alt="Événements accessibles" />
+          </div>
+          <div class="service-card__content">
+            <h3>Événements accessibles</h3>
+            <p>
+              Conférences, ateliers, rencontres culturelles et autres
+              événements avec une communication accessible à tous.
+            </p>
+            <a href="#" class="service-card__link">Voir plus</a>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <section class="about-section">
+      <p>
+        Interprète LSF : Une interprète en Langue des Signes Française aide
+        les personnes sourdes et entendantes à mieux communiquer.
+      </p>
+      <p>
+        Les interprètes assurent une compréhension claire et fidèle des
+        échanges, en toute neutralité et confidentialité.
+      </p>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer__columns">
+      <div class="footer__column">
+        <ul>
+          <li>Relations légales</li>
+          <li>Politique de confidentialité</li>
+        </ul>
+      </div>
+
+      <div class="footer__column">
+        <ul>
+          <li>Trouver un interprète</li>
+          <li>Voir tous les interprètes</li>
+          <li>Nous rejoindre</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer__bottom">
+      <p>© 2025 WebLSF MARGAUX/YA - Plateforme de mise en relation</p>
+    </div>
+  </footer>
+
+</body>
+</html>
+
+
+
+
+{% endblock %}

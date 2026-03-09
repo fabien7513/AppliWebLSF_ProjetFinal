@@ -1,0 +1,106 @@
+model Address {
+  id_address Int @id @default(autoincrement())
+
+  street     String
+  city       String
+  postalCode String @db.VarChar(10)
+  maps       String
+
+  users User[]
+}
+
+model Availability {
+  id_availability Int @id @default(autoincrement())
+
+  startDateTime DateTime
+  endDateTime   DateTime
+
+  interventionType String?
+  comment          String?
+
+  userId Int
+  user   User @relation(fields: [userId], references: [id_user])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Event {
+  id_demande Int @id @default(autoincrement())
+
+  createdAt DateTime @default(now())
+
+  location      String
+  startDateTime DateTime
+  endDateTime   DateTime
+
+  interventionType String
+
+  status EventStatus @default(PENDING)
+
+  users User[]
+}
+
+enum EventStatus {
+  PENDING
+  ACCEPTED
+  REFUSED
+  CANCELLED
+}
+
+model InterventionZone {
+  id_zone Int @id @default(autoincrement())
+
+  department Int
+  city       String?
+  postalCode String? @db.VarChar(10)
+  radiusKm   Int
+
+  userId Int
+  user   User @relation(fields: [userId], references: [id_user])
+}
+
+model User {
+  id_user   Int    @id @default(autoincrement())
+  lastName  String @db.VarChar(50)
+  firstName String @db.VarChar(50)
+  mail      String @unique
+
+  description String?
+  photo       String?
+
+  password String
+
+  phone       String? @db.VarChar(20)
+  siretNumber String  @unique @db.VarChar(14)
+
+  profilStatus String?
+
+  planning_public Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  interventionZones InterventionZone[]
+  availabilities    Availability[]
+
+  events Event[]
+
+  addressId Int?
+  address   Address? @relation(fields: [addressId], references: [id_address])
+}
+
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+}

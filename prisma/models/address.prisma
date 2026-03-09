@@ -1,0 +1,10 @@
+model Address {
+    id_address Int @id @default(autoincrement())
+    
+    street String
+    city String
+    postalCode String @db.VarChar(10)
+    maps String
+
+    users User[]
+}

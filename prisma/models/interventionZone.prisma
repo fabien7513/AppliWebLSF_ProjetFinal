@@ -1,0 +1,11 @@
+model InterventionZone{
+    id_zone Int @id @default(autoincrement())
+    
+    department Int
+    city String? 
+    postalCode String? @db.VarChar(10)
+    radiusKm Int
+
+    userId Int
+    user User @relation(fields: [userId], references: [id_user])
+}

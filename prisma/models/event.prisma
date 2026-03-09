@@ -1,0 +1,24 @@
+model Event{
+    id_demande Int @id @default(autoincrement())
+    
+    createdAt DateTime @default(now())
+
+    location String
+    startDateTime DateTime
+    endDateTime DateTime
+
+    interventionType String
+
+    status EventStatus @default(PENDING)
+
+    users User[]
+
+
+}
+
+  enum EventStatus {
+        PENDING
+        ACCEPTED
+        REFUSED
+        CANCELLED
+    }
