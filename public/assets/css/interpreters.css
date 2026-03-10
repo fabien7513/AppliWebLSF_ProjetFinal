@@ -1,0 +1,35 @@
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+/*....................Partie HEADER.......................... */
+body{
+  font-family:'Poppins', sans-serif;
+   background: rgb(230, 244, 243);
+}
+
+.home-header{
+  background:#35b7b2;
+  min-height:85vh;
+  padding:30px;
+
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% 100%,
+    0 90%
+  );
+}
+
+.header-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.logo img{
+  width:200px;
+  height:auto;
+  cursor: pointer;
+}

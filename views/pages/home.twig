@@ -13,9 +13,9 @@
 				<img src="/static/assets/images/logo2.png" alt="Logo">
 			</div>
 
-			<button class="interpreter-btn">
+			<a href="/login" class="interpreter-btn">
 				Vous êtes interprète ?
-			</button>
+			</a>
 		</div>
 
 		<div class="header-center">
@@ -23,9 +23,9 @@
 				🔎 Trouvez un interprète LSF en toute simplicité
 			</button>
 
-			<button class="show-btn">
+			<a href="/interpreters" class="show-btn">
 				Afficher les interprètes
-			</button>
+			</a>
 		</div>
 	</header>
 
@@ -64,7 +64,7 @@
 					<h3>Interprétation et déontologie</h3>
 					<p>
 						L’interprète a pour rôle de transmettre un discours d’une langue vers
-																														          une autre. Respect du sens, neutralité et confidentialité.
+																																										          une autre. Respect du sens, neutralité et confidentialité.
 					</p>
 					<ul>
 						<li>Secret professionnel</li>
@@ -78,7 +78,7 @@
 					<h3>Domaines d'interventions</h3>
 					<p>
 						Nos interventions couvrent plusieurs domaines professionnels et
-																														          institutionnels.
+																																										          institutionnels.
 					</p>
 					<ul>
 						<li>Institutionnel</li>
@@ -94,7 +94,7 @@
 					<h3>Éthique et expertise</h3>
 					<p>
 						Tous nos interprètes sont diplômés et s'engagent à respecter une
-																														          déontologie professionnelle stricte.
+																																										          déontologie professionnelle stricte.
 					</p>
 				</div>
 			</div>
@@ -109,13 +109,13 @@
 				<div class="about-text">
 					<p>
 						Réseau LSF Méditerranée facilite la mise en relation entre clients
-																														          et interprètes en Langue des Signes Française.
+																																										          et interprètes en Langue des Signes Française.
 					</p>
 
 					<p>
 						Les interprètes exercent en tant qu’indépendants et gèrent
-																														          directement leurs interventions, disponibilités et modalités
-																														          d’interventions.
+																																										          directement leurs interventions, disponibilités et modalités
+																																										          d’interventions.
 					</p>
 				</div>
 			</div>
@@ -139,7 +139,7 @@
 				<label>Heure fin</label>
 				<input type="time" id="end-time">
 
-        <label >Durée</label>
+				<label>Durée</label>
 				<input type="text" id="duration" readonly placeholder="Calcul automatique">
 
 				<button type="submit" class="modal-submit">Rechercher</button>
@@ -151,7 +151,9 @@
 	<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
 	<script>
-		const map = L.map('map').setView([43.22, 5.48], 9);
+		const map = L.map('map').setView([
+43.22, 5.48
+], 9);
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: '&copy; OpenStreetMap contributors'}).addTo(map);
 
@@ -161,11 +163,9 @@ L.marker([43.1748, 5.6045]).addTo(map).bindPopup('Interprète à La Ciotat');
 	</script>
 
 
-
-
-{# Modale bouton "Trouvez un interprète" #}
+	{# Modale bouton "Trouvez un interprète" #}
 	<script>
-const openModalBtn = document.querySelector('#open-modal');
+		const openModalBtn = document.querySelector('#open-modal');
 const closeModalBtn = document.querySelector('#close-modal');
 const modal = document.querySelector('#search-modal');
 const startTime = document.querySelector("#start-time");

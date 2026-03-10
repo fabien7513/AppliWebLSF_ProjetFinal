@@ -8,50 +8,65 @@
 	<title>{{ title }}</title>
 {% endblock %}
 
-{% block main %}
-	<main>
-		<section>
 
-			<div>
-				<h2>Inscription de l'Interprète
-				</h2>
-			</div>
-			<div>
+{% block main %}
+	<main class="register-page">
+
+		<section class="register-top">
+			<a href="/">
+				<img src="/static/assets/images/logo2.png" alt="Logo Réseau LSF">
+			</a>
+		</section>
+
+		<section class="register-section">
+			<div class="register-box">
+
+				<div class="register-title">
+					<h2>Inscription de l'Interprète</h2>
+				</div>
+
 				<form action="/register" method="post">
 
 					<div>
 						<label for="siretNumber">Numéro de Siret</label>
 						<input id="siretNumber" type="text" name="siretNumber" placeholder="14 chiffres" pattern="\d{14}" maxlength="14"/>
 						{% if error %}
-							<p>{{error.siretNumber}}</p>
+							<p>{{ error.siretNumber }}</p>
 						{% endif %}
 					</div>
+
 					<div>
 						<label for="lastName">Nom</label>
 						<input id="lastName" type="text" name="lastName" placeholder="Votre nom de famille"/>
 					</div>
+
 					<div>
 						<label for="firstName">Prénom</label>
 						<input id="firstName" type="text" name="firstName" placeholder="Votre prénom"/>
 					</div>
+
 					<div>
 						<label for="mail">Email</label>
-						<input id="mail" type="mail" name="mail" placeholder="Votre email"/>
+						<input id="mail" type="email" name="mail" placeholder="Votre email"/>
 					</div>
+
 					<div>
-						<label for="confirm_mail">Confirmez votre mot de passe</label>
-						<input id="confirm_mail" type="mail" name="confirm_mail" placeholder="Confirmer votre email"/>
+						<label for="confirm_mail">Confirmez votre email</label>
+						<input id="confirm_mail" type="email" name="confirm_mail" placeholder="Confirmer votre email"/>
 						{% if error %}
 							{{error}}
 						{% endif %}
+
 					</div>
+
 					<div>
-						<label for="password">Mot de Passe</label>
-						<input id="password" type="password" name="password" placeholder="Mot de Passe"/>
+						<label for="password">Mot de passe</label>
+						<input id="password" type="password" name="password" placeholder="Mot de passe"/>
 					</div>
+
 					<div>
 						<label for="confirm_password">Confirmez votre mot de passe</label>
-						<input id="confirm_password" type="password" name="confirm_password" placeholder="Confirmer votre Mot de Passe"/>
+						<input id="confirm_password" type="password" name="confirm_password" placeholder="Confirmer votre mot de passe"/>
 						{% if error %}
 							{{error}}
 						{% endif %}
@@ -60,11 +75,11 @@
 					<div>
 						<button type="submit">S'enregistrer</button>
 					</div>
-					<a href="/login">Déja un compte?</a>
+
+					<a href="/login">Déjà un compte ?</a>
 				</form>
 			</div>
 		</section>
 
 	</main>
-
 {% endblock %}

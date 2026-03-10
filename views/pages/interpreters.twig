@@ -1,0 +1,27 @@
+{% extends "../layout/base.twig" %}
+
+{% block style %}
+<link rel="stylesheet" href="/static/assets/css/home.css">
+{% endblock %}
+
+
+{% block main %}
+
+<header class="home-header">
+		<div class="header-top">
+			<div class="logo">
+				<img src="/static/assets/images/logo2.png" alt="Logo">
+			</div>
+
+			<a href="/login" class="interpreter-btn">
+				Vous êtes interprète ?
+			</a>
+		</div>
+	</header>
+
+
+<h1>Liste des interprètes</h1>
+
+<p>Ici tu afficheras tous les interprètes.</p>
+
+{% endblock %}

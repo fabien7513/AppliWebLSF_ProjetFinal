@@ -1,4 +1,5 @@
 {% extends "../layout/base.twig" %}
+
 {% block style %}
 	<link rel="stylesheet" href="/static/assets/css/login.css">
 {% endblock %}
@@ -8,31 +9,55 @@
 {% endblock %}
 
 {% block main %}
-	<main>
-		<section>
-			<div>
-				<h2>Connexion</h2>
-			</div>
-			<div>
+
+	<main class="login-page">
+
+		<section class="login-top">
+			<a href="/">
+				<img src="/static/assets/images/logo2.png" alt="Logo Réseau LSF">
+			</a>
+		</section>
+
+		<section class="login-section">
+
+			<div class="login-box">
+
+				<div class="login-title">
+					<h2>Connexion</h2>
+				</div>
+
 				<form action="/login" method="post">
+
 					<div>
 						<label for="siretNumber">Votre numéro de Siret</label>
-						<input id="siretNumber" type="text" name="siretNumber" pattern="\d{14}" maxlength="14"></input>
-					{% if error %}
-						<p>{{ error.siretNumber }}</p>
-					{% endif %}
-				</div>
-				<div>
-					<label for="password">Votre mot de passe</label>
-					<input id="password" type="password" name="password"></input>
-				{% if error %}
-					<p>{{ error.password }}</p>
-				{% endif %}
+						<input id="siretNumber" type="text" name="siretNumber" pattern="\d{14}" maxlength="14">
+
+						{% if error %}
+							<p>{{ error.siretNumber }}</p>
+						{% endif %}
+					</div>
+
+					<div>
+						<label for="password">Votre mot de passe</label>
+						<input id="password" type="password" name="password">
+
+						{% if error %}
+							<p>{{ error.password }}</p>
+						{% endif %}
+					</div>
+
+					<div>
+						<button type="submit">Se connecter</button>
+					</div>
+
+					<a href="/register">S'inscrire</a>
+
+				</form>
+
 			</div>
-			<div>
-				<button type="submit">Envoyer</button>
-			</div>
-			<a href="/register">S'inscrire</a>
-		</form>
-	</div>
-</section></main>{% endblock %}
+
+		</section>
+
+	</main>
+
+{% endblock %}

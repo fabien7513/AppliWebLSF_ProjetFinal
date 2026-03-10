@@ -4,6 +4,7 @@ import { authRouter } from "./routers/authRouter.js";
 import session from "express-session";
 import path from "node:path";
 import { mainRouter } from "./routers/homeRouter.js";
+import { interpretersRouter } from "./routers/interpretersRouter.js";
 
 
 const app = express()
@@ -21,6 +22,7 @@ app.use(express.urlencoded({ extended:true}))
 
 app.use(authRouter);
 app.use(mainRouter);
+app.use(interpretersRouter)
 
 app.listen(process.env.PORT, (error)=>{
     if (error) {

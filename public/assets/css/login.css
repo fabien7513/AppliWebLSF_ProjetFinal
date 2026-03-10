@@ -1,0 +1,133 @@
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:'Poppins', sans-serif;
+  background:#dfeaea;
+}
+
+.login-page{
+  min-height:100vh;
+}
+
+/* bande verte */
+
+.login-top{
+  width:100%;
+  background:#35b7b2;
+  padding:30px 20px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.login-top a{
+  display:flex;
+  justify-content:center;
+}
+
+.login-top img{
+  width:170px;
+  height:auto;
+  transition: 0.2s;
+}
+.login-top img:hover{
+  transform:scale(1.05);
+}
+
+
+
+/* section formulaire */
+
+.login-section{
+  padding:50px 20px;
+  display:flex;
+  justify-content:center;
+}
+
+.login-box{
+  width:100%;
+  max-width:420px;
+  background:#f5f5f5;
+  border-radius:10px;
+  padding:30px;
+}
+
+.login-title h2{
+  text-align:center;
+  font-size:28px;
+  margin-bottom:25px;
+}
+
+/* formulaire */
+
+form{
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+}
+
+form > div{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+
+label{
+  font-size:14px;
+  font-weight:600;
+}
+
+input{
+  width:100%;
+  height:42px;
+  border:none;
+  border-radius:8px;
+  background:#d9d9d9;
+  padding:0 14px;
+  font-family:'Poppins', sans-serif;
+}
+
+input:focus{
+  background:#fff;
+  border:2px solid #2f80ed;
+}
+
+form p{
+  font-size:12px;
+  color:#c0392b;
+}
+
+/* bouton */
+
+button{
+  width:100%;
+  height:45px;
+  border:none;
+  border-radius:8px;
+  background:#1f3b6d;
+  color:white;
+  font-size:15px;
+  font-weight:600;
+  cursor:pointer;
+}
+
+button:hover{
+  opacity:0.95;
+}
+
+/* lien */
+
+form a{
+  text-align:center;
+  text-decoration:none;
+  color:#111;
+  margin-top:6px;
+}
+
+form a:hover{
+  text-decoration:underline;
+}

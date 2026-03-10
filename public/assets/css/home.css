@@ -35,12 +35,16 @@ body{
 }
 
 .interpreter-btn{
-  background:white;
-  border:none;
+  display:flex;
+  justify-content:center;
+  align-items:center;
   padding:12px 20px;
   border-radius:25px;
-  cursor:pointer;
+  background:white;
+  color:#1f3b6d;
+  text-decoration:none;
   font-weight:500;
+  cursor:pointer;
 }
 
 .header-center{
@@ -65,8 +69,17 @@ body{
 }
 
 .show-btn{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  width:400px;
+  height:55px;
+  border-radius:30px;
   background:#1f4b8f;
   color:white;
+  text-decoration:none;
+  font-size:16px;
+  cursor:pointer;
 }
 
 /*....................Partie CARTE.......................... */
