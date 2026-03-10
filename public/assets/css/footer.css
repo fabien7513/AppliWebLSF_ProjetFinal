@@ -1,0 +1,26 @@
+.footer{
+  padding:60px 20px 30px;
+}
+
+.footer-container{
+  max-width:1000px;
+  margin:0 auto;
+  display:flex;
+  justify-content:space-between;
+}
+
+.footer-links ul{
+  list-style:disc;
+}
+
+.footer-links li{
+  margin:8px 0;
+  color:#243b6b;
+}
+
+.footer-copy{
+  text-align:center;
+  margin-top:40px;
+  color:#243b6b;
+  font-size:14px;
+}
