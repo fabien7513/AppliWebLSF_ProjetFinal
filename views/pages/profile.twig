@@ -1,0 +1,69 @@
+{% extends "../layout/base.twig" %}
+
+{% block style %}
+	<link rel="stylesheet" href="/static/assets/css/profile.css">
+{% endblock %}
+
+{% block main %}
+
+	<main class="profile-page">
+
+		<section class="profile-top">
+
+			<a href="/" class="profile-logo">
+				<img src="/static/assets/images/logo2.png" alt="Logo Réseau LSF">
+			</a>
+
+			<h1>Mon Profil</h1>
+
+		</section>
+
+		<section>
+			<div>
+				<img src="" alt="">
+			</div>
+			<div>
+				<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum, adipisci?</p>
+			</div>
+
+			<form action="">
+				<div>
+					<label for="name">Nom</label>
+					<input type="text">
+				</div>
+				<div>
+					<label for="name">Prénom</label>
+					<input type="text">
+				</div>
+				<div>
+					<label for="name">Adresse</label>
+					<input type="text">
+				</div>
+				<div>
+					<label for="name">Code Postal</label>
+					<input type="text">
+				</div>
+				<div>
+					<label for="name">Ville</label>
+					<input type="text">
+				</div>
+				<div>
+					<label for="name">Télephone</label>
+					<input type="text">
+				</div>
+				<div>
+					<label for="name">Email</label>
+					<input type="text">
+				</div>
+				<div>
+					<button>Enregistrer mon profil</button>
+				</div>
+			</form>
+
+		</section>
+
+
+	</main>
+
+
+{% endblock %}

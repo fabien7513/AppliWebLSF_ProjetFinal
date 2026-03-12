@@ -1,0 +1,221 @@
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:'Poppins', sans-serif;
+  background:#dfeaea;
+  color:#1f3b6d;
+}
+
+.schedule-page{
+  min-height:100vh;
+}
+
+.schedule-top{
+  width:100%;
+  background:#35b7b2;
+  padding:28px 20px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  position:relative;
+}
+
+.schedule-logo{
+  position:absolute;
+  left:30px;
+  display:flex;
+  align-items:center;
+}
+
+.schedule-top img{
+  width:160px;
+  height:auto;
+  display:block;
+  transition:0.2s;
+}
+
+.schedule-top img:hover{
+  transform:scale(1.04);
+}
+
+.schedule-top h1{
+  color:white;
+  font-size:34px;
+  font-weight:700;
+}
+
+.calendar-section{
+  padding:48px 20px 60px;
+  display:flex;
+  justify-content:center;
+}
+
+.calendar-box{
+  width:100%;
+  max-width:1200px;
+  background:#f5f7f8;
+  border-radius:18px;
+  padding:26px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.08);
+}
+
+#calendar{
+  background:white;
+  border-radius:14px;
+  padding:22px;
+}
+
+/* barre du haut */
+.fc .fc-toolbar.fc-header-toolbar{
+  margin-bottom:1.5rem;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+.fc .fc-toolbar-title{
+  font-family:'Poppins', sans-serif;
+  font-size:30px;
+  font-weight:700;
+  color:#1f3b6d;
+}
+
+/* boutons */
+.fc .fc-button{
+  box-shadow:none !important;
+}
+
+.fc .fc-button-primary{
+  background:#1f3b6d !important;
+  border:none !important;
+  border-radius:10px !important;
+  padding:10px 16px !important;
+  font-family:'Poppins', sans-serif;
+  font-weight:600;
+}
+
+.fc .fc-button-primary:hover{
+  background:#28508f !important;
+}
+
+.fc .fc-button-primary:disabled{
+  background:#8a97ab !important;
+}
+
+.fc .fc-button-primary.fc-button-active{
+  background:#35b7b2 !important;
+}
+
+/* grille */
+.fc-theme-standard td,
+.fc-theme-standard th{
+  border-color:#dde5e8;
+}
+
+.fc .fc-scrollgrid{
+  border-radius:12px;
+  overflow:hidden;
+  border:1px solid #dde5e8;
+}
+
+.fc .fc-col-header-cell{
+  background:#f8fbfb;
+}
+
+.fc .fc-col-header-cell-cushion{
+  color:#1f3b6d;
+  font-weight:600;
+  text-decoration:none;
+  padding:10px 4px;
+}
+
+.fc .fc-timegrid-axis-cushion,
+.fc .fc-timegrid-slot-label-cushion{
+  color:#526274;
+  text-decoration:none;
+  font-size:14px;
+}
+
+.fc .fc-timegrid-slot{
+  height:3em;
+}
+
+.fc .fc-timegrid-now-indicator-line{
+  border-color:#e36b5f;
+}
+
+.fc .fc-timegrid-now-indicator-arrow{
+  border-color:#e36b5f;
+}
+
+/* aujourd’hui */
+.fc .fc-day-today{
+  background:#f7f2dc !important;
+}
+
+/* événements */
+.fc .fc-event{
+  background:#3f86d6;
+  border:none;
+  border-radius:10px;
+  padding:4px 6px;
+  font-size:12px;
+  box-shadow:0 4px 10px rgba(63,134,214,0.25);
+}
+
+.fc .fc-event-main{
+  font-weight:500;
+}
+
+/* hover léger sur cellules */
+.fc .fc-timegrid-col:hover{
+  background:rgba(53,183,178,0.03);
+}
+
+@media (max-width: 900px){
+  .schedule-top{
+    padding:24px 18px;
+  }
+
+  .schedule-logo{
+    left:18px;
+  }
+
+  .schedule-top img{
+    width:130px;
+  }
+
+  .schedule-top h1{
+    font-size:28px;
+  }
+
+  .calendar-box{
+    padding:16px;
+  }
+
+  #calendar{
+    padding:12px;
+  }
+
+  .fc .fc-toolbar-title{
+    font-size:22px;
+  }
+}
+
+@media (max-width: 700px){
+  .schedule-top{
+    flex-direction:column;
+    gap:12px;
+  }
+
+  .schedule-logo{
+    position:static;
+  }
+
+  .schedule-top h1{
+    text-align:center;
+  }
+}

@@ -5,6 +5,8 @@ import session from "express-session";
 import path from "node:path";
 import { mainRouter } from "./routers/homeRouter.js";
 import { interpretersRouter } from "./routers/interpretersRouter.js";
+import { scheduleInterpretersRouter } from "./routers/scheduleInterpretersRouter.js";
+import { profileRouter } from "./routers/profileRouter.js";
 
 
 const app = express()
@@ -17,12 +19,19 @@ app.use(session({
     saveUninitialized:true,
 }))
 
+app.use((req, res, next) => {
+    res.locals.user = req.session.user;
+    next();
+});
+
 app.use(express.urlencoded({ extended:true}))
 
 
 app.use(authRouter);
 app.use(mainRouter);
-app.use(interpretersRouter)
+app.use(interpretersRouter);
+app.use(scheduleInterpretersRouter)
+app.use(profileRouter)
 
 app.listen(process.env.PORT, (error)=>{
     if (error) {

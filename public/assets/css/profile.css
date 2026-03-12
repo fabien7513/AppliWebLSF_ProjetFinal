@@ -1,0 +1,49 @@
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:'Poppins', sans-serif;
+  background:#dfeaea;
+  color:#1f3b6d;
+}
+
+.profile-page{
+  min-height:100vh;
+}
+
+.profile-top{
+  width:100%;
+  background:#35b7b2;
+  padding:28px 20px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  position:relative;
+}
+
+.profile-logo{
+  position:absolute;
+  left:30px;
+  display:flex;
+  align-items:center;
+}
+
+.profile-top img{
+  width:160px;
+  height:auto;
+  display:block;
+  transition:0.2s;
+}
+
+.profile-top img:hover{
+  transform:scale(1.04);
+}
+
+.profile-top h1{
+  color:white;
+  font-size:34px;
+  font-weight:700;
+}

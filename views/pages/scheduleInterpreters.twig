@@ -1,0 +1,89 @@
+{% extends "../layout/base.twig" %}
+
+{% block style %}
+<link rel="stylesheet" href="/static/assets/css/scheduleInterpreters.css">
+{% endblock %}
+
+{% block main %}
+
+<main class="schedule-page">
+
+  <section class="schedule-top">
+
+    <a href="/" class="schedule-logo">
+      <img src="/static/assets/images/logo2.png" alt="Logo Réseau LSF">
+    </a>
+
+    <h1>Mon Planning</h1>
+
+  </section>
+
+  <section class="calendar-section">
+    <div class="calendar-box">
+      <div id="calendar"></div>
+    </div>
+  </section>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.20/index.global.min.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+  const calendarEl = document.getElementById('calendar');
+
+  const calendar = new FullCalendar.Calendar(calendarEl, {
+
+    initialView: 'timeGridWeek',
+    locale: 'fr',
+    selectable: true,
+    editable: true,
+
+    headerToolbar: {
+      left: 'prev,next today',
+      center: 'title',
+      right: 'dayGridMonth,timeGridWeek,timeGridDay'
+    },
+
+    events: [
+      {
+        title: 'Rendez-vous Marseille',
+        start: '2026-03-11T09:00:00',
+        end: '2026-03-11T11:00:00'
+      }
+    ],
+
+    select: function(info) {
+
+      const title = prompt("Nom de l'événement :");
+
+      if (title) {
+        calendar.addEvent({
+          title: title,
+          start: info.start,
+          end: info.end,
+          allDay: info.allDay
+        });
+      }
+
+      calendar.unselect();
+
+    },
+
+    eventClick: function(info) {
+
+      if (confirm("Supprimer cet événement ?")) {
+        info.event.remove();
+      }
+
+    }
+
+  });
+
+  calendar.render();
+
+});
+</script>
+
+{% endblock %}

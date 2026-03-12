@@ -354,3 +354,34 @@ body{
     opacity:1;
   }
 }
+
+/* DROPDOWN.*/
+.user-menu{
+  position:relative;
+}
+
+.user-btn{
+  background:#1f3b6d;
+  color:white;
+  border:none;
+  padding:12px 20px;
+  border-radius:25px;
+  cursor:pointer;
+}
+
+.user-dropdown{
+  position:absolute;
+  top:55px;
+  right:0;
+  width:220px;
+  background:#e6eeee;
+  border-radius:20px;
+  padding:20px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.hidden{
+  display:none;
+}

@@ -13,9 +13,32 @@
 				<img src="/static/assets/images/logo2.png" alt="Logo">
 			</div>
 
-			<a href="/login" class="interpreter-btn">
-				Vous êtes interprète ?
-			</a>
+			{% if user %}
+
+<div class="user-menu">
+
+  <button id="user-btn" class="user-btn">
+    Bonjour {{ user.firstName }} {{ user.lastName }} ▾
+  </button>
+
+  <div id="user-dropdown" class="user-dropdown hidden">
+
+    <a href="/profile">Mon profil</a>
+    <a href="/reservations">Mes réservations</a>
+    <a href="/scheduleinterpreters">Mon planning</a>
+    <a href="/logout">Déconnexion</a>
+
+  </div>
+
+</div>
+
+{% else %}
+
+<a href="/login" class="interpreter-btn">
+  Vous êtes interprète ?
+</a>
+
+{% endif %}
 		</div>
 
 		<div class="header-center">
@@ -63,8 +86,7 @@
 					<img src="/static/assets/images/trad1.png" alt="Interprétation">
 					<h3>Interprétation et déontologie</h3>
 					<p>
-						L’interprète a pour rôle de transmettre un discours d’une langue vers
-																																										          une autre. Respect du sens, neutralité et confidentialité.
+						L’interprète a pour rôle de transmettre un discours d’une langue vers une autre. Respect du sens, neutralité et confidentialité.
 					</p>
 					<ul>
 						<li>Secret professionnel</li>
@@ -77,8 +99,7 @@
 					<img src="/static/assets/images/trad2.png" alt="Domaines d'interventions">
 					<h3>Domaines d'interventions</h3>
 					<p>
-						Nos interventions couvrent plusieurs domaines professionnels et
-																																										          institutionnels.
+						Nos interventions couvrent plusieurs domaines professionnels et institutionnels.
 					</p>
 					<ul>
 						<li>Institutionnel</li>
@@ -94,7 +115,7 @@
 					<h3>Éthique et expertise</h3>
 					<p>
 						Tous nos interprètes sont diplômés et s'engagent à respecter une
-																																										          déontologie professionnelle stricte.
+																																																          déontologie professionnelle stricte.
 					</p>
 				</div>
 			</div>
@@ -108,14 +129,11 @@
 
 				<div class="about-text">
 					<p>
-						Réseau LSF Méditerranée facilite la mise en relation entre clients
-																																										          et interprètes en Langue des Signes Française.
+						Réseau LSF Méditerranée facilite la mise en relation entre clients et interprètes en Langue des Signes Française.
 					</p>
 
 					<p>
-						Les interprètes exercent en tant qu’indépendants et gèrent
-																																										          directement leurs interventions, disponibilités et modalités
-																																										          d’interventions.
+						Les interprètes exercent en tant qu’indépendants et gèrent directement leurs interventions, disponibilités et modalités																																											          d’interventions.
 					</p>
 				</div>
 			</div>
@@ -213,5 +231,25 @@ duration.value = "Heure invalide";
 startTime.addEventListener("change", calculateDuration);
 endTime.addEventListener("change", calculateDuration);
 	</script>
+
+
+{# dropdown #}
+	<script>
+const userBtn = document.querySelector("#user-btn");
+const dropdown = document.querySelector("#user-dropdown");
+
+if(userBtn){
+  userBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    dropdown.classList.toggle("hidden");
+  });
+
+  document.addEventListener("click", () => {
+    dropdown.classList.add("hidden");
+  });
+}
+</script>
+	
+	
 
 {% endblock %}

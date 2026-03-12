@@ -1,27 +1,124 @@
 {% extends "../layout/base.twig" %}
 
 {% block style %}
-<link rel="stylesheet" href="/static/assets/css/home.css">
+	<link rel="stylesheet" href="/static/assets/css/interpreters.css">
 {% endblock %}
 
 
 {% block main %}
 
-<header class="home-header">
+	<header class="home-header">
 		<div class="header-top">
-			<div class="logo">
-				<img src="/static/assets/images/logo2.png" alt="Logo">
-			</div>
+			<a href="/">
+				<img src="/static/assets/images/logo2.png" alt="Logo Réseau LSF">
+			</a>
 
 			<a href="/login" class="interpreter-btn">
 				Vous êtes interprète ?
 			</a>
 		</div>
+
+		<section class="search-interpreter-section">
+			<div class="search-box">
+				<h2>Recherche un interprète
+					<span>🔎</span>
+				</h2>
+
+				<form class="search-form">
+					<div class="form-row">
+						<label for="department">Département :</label>
+						<select id="department">
+							<option value="13">13 - Bouches-du-Rhône</option>
+							<option value="83">83 - Var</option>
+						</select>
+					</div>
+
+					<div class="form-row">
+						<label for="city">Ville :</label>
+						<select id="city">
+							<option>Choisissez une ville</option>
+						</select>
+					</div>
+
+					<div class="form-row">
+						<label for="availability">Disponibilité :</label>
+						<select id="availability" name="availability">
+							<option value="today">Aujourd'hui</option>
+							<option value="tomorrow">Demain</option>
+							<option value="week">Cette semaine</option>
+						</select>
+					</div>
+
+					<div class="form-row">
+						<label for="name">Nom :</label>
+						<input id="name" type="text" name="name" placeholder="Nom (optionnel)">
+					</div>
+
+					<div class="form-button">
+						<button type="submit">🔎 Trouvez un interprète</button>
+					</div>
+				</form>
+			</div>
+		</section>
 	</header>
 
 
-<h1>Liste des interprètes</h1>
+	<h1>Liste des interprètes</h1>
 
-<p>Ici tu afficheras tous les interprètes.</p>
+	<section class="interpreter-card-section">
+  <div class="interpreter-card">
+
+    <div class="interpreter-image">
+      <img src="/static/assets/images/interpreter-avatar.png" alt="Photo interprète">
+    </div>
+
+    <div class="interpreter-info">
+      <h3>Nom Prénom</h3>
+
+      <p>Interprète depuis 2015, diplômé de l’université Paris 8.</p>
+
+      <p><strong>Ville :</strong> Marseille</p>
+      <p><strong>Téléphone :</strong> 06 70 15 15 18</p>
+      <p><strong>Email :</strong> xhfhzheye@hnh.fr</p>
+      <p><strong>N° SIRET :</strong> 11111111111111</p>
+
+      <a href="#" class="planning-btn">Planning</a>
+    </div>
+
+  </div>
+</section>
+
+
+	<script>
+		const departmentSelect = document.querySelector("#department");
+const citySelect = document.querySelector("#city");
+
+async function loadCities(department) {
+
+const response = await fetch (`https://geo.api.gouv.fr/departements/${department}/communes?fields=nom&format=json`);
+
+const cities = await response.json();
+
+citySelect.innerHTML = "";
+
+cities.forEach(city => {
+
+const option = document.createElement("option");
+option.value = city.nom;
+option.textContent = city.nom;
+
+citySelect.appendChild(option);
+
+});
+
+}
+
+departmentSelect.addEventListener("change", () => {
+loadCities(departmentSelect.value);
+});
+
+/* charger les villes du 13 au démarrage */
+loadCities("13");
+	</script>
 
 {% endblock %}
