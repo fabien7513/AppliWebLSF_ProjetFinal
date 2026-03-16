@@ -1,23 +1,18 @@
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-}
-
 body{
   font-family:'Poppins', sans-serif;
   background:#dfeaea;
-  color:#1f3b6d;
 }
 
 .profile-page{
   min-height:100vh;
 }
 
+/* bandeau */
+
 .profile-top{
   width:100%;
   background:#35b7b2;
-  padding:28px 20px;
+  padding:30px 20px;
   display:flex;
   justify-content:center;
   align-items:center;
@@ -27,23 +22,93 @@ body{
 .profile-logo{
   position:absolute;
   left:30px;
-  display:flex;
-  align-items:center;
 }
 
 .profile-top img{
   width:160px;
-  height:auto;
-  display:block;
-  transition:0.2s;
-}
-
-.profile-top img:hover{
-  transform:scale(1.04);
 }
 
 .profile-top h1{
   color:white;
   font-size:34px;
   font-weight:700;
+}
+
+/* section */
+
+.profile-section{
+  padding:50px 20px;
+  display:flex;
+  justify-content:center;
+}
+
+.profile-container{
+  width:100%;
+  max-width:1100px;
+  display:grid;
+  grid-template-columns:300px 1fr;
+  gap:40px;
+}
+
+/* colonne gauche */
+
+.profile-left{
+  text-align:center;
+}
+
+.profile-left img{
+  width:180px;
+  margin-bottom:20px;
+}
+
+.profile-left p{
+  font-size:15px;
+  line-height:1.6;
+}
+
+/* formulaire */
+
+.profile-form{
+  display:flex;
+  flex-direction:column;
+  gap:20px;
+}
+
+.form-row{
+  display:flex;
+  gap:20px;
+}
+
+.form-group{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+}
+
+.form-group label{
+  font-weight:600;
+  margin-bottom:6px;
+}
+
+.form-group input{
+  height:42px;
+  border:none;
+  border-radius:8px;
+  padding:0 12px;
+  background:#d3cece;
+}
+
+.profile-btn{
+  margin-top:20px;
+  height:45px;
+  background:#1f3b6d;
+  color:white;
+  border:none;
+  border-radius:8px;
+  font-weight:600;
+  cursor:pointer;
+}
+
+.profile-btn:hover{
+  background:#274a86;
 }

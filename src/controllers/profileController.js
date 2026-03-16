@@ -8,3 +8,4 @@ export function getProfile(req, res) {
     title: "profileInterpreter"
   });
 }
+

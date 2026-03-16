@@ -8,3 +8,6 @@ export const profileRouter = express.Router();
 
 
 profileRouter.get("/profile", getProfile)
+
+
+// faire profile routerPost
