@@ -32,20 +32,38 @@ export async function postRegister(req, res) {
         res.redirect("/login")
     }
     catch (error) {
-        console.log(error);
+        let errors = {};
+        
+        // Gestion des erreurs Prisma avec MariaDB adapter
+        if (error.code === "P2002") {
+            const originalMessage = error.meta?.driverAdapterError?.cause?.originalMessage || "";
+            
+            if (originalMessage.includes("User_mail_key")) {
+                errors.email = "Cet email est déjà utilisé";
+            }
+            if (originalMessage.includes("User_siretNumber_key")) {
+                errors.siretNumber = "Ce numéro SIRET est déjà enregistré";
+            }
+            if (originalMessage.includes("User_id_user_key")) {
+                errors.id_user = "Cet identifiant est déjà utilisé";
+            }
+            
+            if (Object.keys(errors).length === 0) {
+                errors.general = "Une ou plusieurs valeurs existent déjà";
+            }
+        } else {
+            errors.general = "Erreur lors de l'inscription";
+        }
+        
         res.render("pages/register.twig", {
             title: "Inscription",
-            error: "Erreur lors de l'inscription"
+            errors: errors
         })
-
     }
-
 }
-
 
 //...........................................CONNEXION......................................................
 export async function getLogin(req, res) {
-    const login = await prisma.user.findMany();
     res.render("pages/login.twig", {
         title: "Connexion"
     })

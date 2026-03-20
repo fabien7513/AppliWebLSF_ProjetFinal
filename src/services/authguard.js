@@ -4,7 +4,7 @@ const prisma = new PrismaClient({ adapter })
 
 export async function authguard (req, res, next) {
     try {
-        if (req.session.user){
+        if (req.session.user) {
             const user = await prisma.user.findUnique({
                 select:{
                     id_user:true,
@@ -20,7 +20,7 @@ export async function authguard (req, res, next) {
                     planning_public:true
                 },
                 where:{
-                    id_user: req.session.user
+                    id_user: req.session.user.id_user
                 }
             })
             if (user) {

@@ -4,7 +4,9 @@ model Address {
     street String
     city String
     postalCode String @db.VarChar(10)
-    maps String
+    latitude Float?
+    longitude Float?
 
-    users User[]
+    id_user Int @unique
+    user    User @relation(fields: [id_user], references: [id_user], onDelete: Cascade)
 }

@@ -1,7 +1,7 @@
 {% extends "../layout/base.twig" %}
 
 {% block style %}
-<link rel="stylesheet" href="/static/assets/css/profile.css">
+  <link rel="stylesheet" href="/static/assets/css/profile.css">
 {% endblock %}
 
 {% block main %}
@@ -9,76 +9,97 @@
 <main class="profile-page">
 
   <section class="profile-top">
-
     <a href="/" class="profile-logo">
       <img src="/static/assets/images/logo2.png" alt="Logo Réseau LSF">
     </a>
 
     <h1>Mon Profil</h1>
-
   </section>
 
   <section class="profile-section">
 
-    <div class="profile-container">
+    <div class="profile-card">
 
       <div class="profile-left">
+        <div class="profile-photo-box">
+          <img id="profile-preview" src="{{ user.photo ?? '/static/assets/images/avatar.png' }}" alt="Avatar interprète">
+        </div>
 
-        <img src="/static/assets/images/avatar.png" alt="Avatar interprète">
+        <label for="photo" class="photo-upload-btn">Changer la photo</label>
+        <input id="photo" type="file" name="photo" class="photo-input" form="profile-form" accept="image/*">
 
-        <p>
-          Description de l’interprète : parcours, origine, spécialités...
-        </p>
+        <div class="profile-presentation-box">
+          <p class="profile-description">
+            {{ user.description ?? "Ajoutez ici votre parcours, vos spécialités, votre expérience..." }}
+          </p>
 
+          <button type="button" id="toggle-presentation" class="presentation-btn">
+            {% if user.description %}
+              Modifier ma présentation
+            {% else %}
+              Compléter ma présentation
+            {% endif %}
+          </button>
+        </div>
       </div>
 
-      <!-- Colonne droite -->
-      <form class="profile-form">
+      <form id="profile-form" class="profile-form" method="post" action="/profile" enctype="multipart/form-data">
+
+        {% if success %}
+          <p class="success-message">{{ success }}</p>
+        {% endif %}
+
+        {% if error %}
+          <p class="error-message">{{ error }}</p>
+        {% endif %}
 
         <div class="form-row">
-
           <div class="form-group">
-            <label>Nom</label>
-            <input type="text">
+            <label for="lastName">Nom</label>
+            <input id="lastName" type="text" name="lastName" value="{{ user.lastName ?? '' }}">
           </div>
 
           <div class="form-group">
-            <label>Prénom</label>
-            <input type="text">
+            <label for="firstName">Prénom</label>
+            <input id="firstName" type="text" name="firstName" value="{{ user.firstName ?? '' }}">
           </div>
-
         </div>
 
         <div class="form-group">
-          <label>Adresse</label>
-          <input type="text">
+          <label for="address">Adresse</label>
+          <input id="address" type="text" name="address" value="{{ user.address.street ?? '' }}">
         </div>
 
         <div class="form-row">
-
           <div class="form-group">
-            <label>Code Postal</label>
-            <input type="text">
+            <label for="postalCode">Code Postal</label>
+            <input id="postalCode" type="text" name="postalCode" value="{{ user.address.postalCode ?? '' }}">
           </div>
 
           <div class="form-group">
-            <label>Ville</label>
-            <input type="text">
+            <label for="city">Ville</label>
+            <input id="city" type="text" name="city" value="{{ user.address.city ?? '' }}">
           </div>
-
         </div>
 
         <div class="form-group">
-          <label>Téléphone</label>
-          <input type="text">
+          <label for="phone">Téléphone</label>
+          <input id="phone" type="text" name="phone" value="{{ user.phone ?? '' }}">
         </div>
 
         <div class="form-group">
-          <label>Email</label>
-          <input type="text">
+          <label for="mail">Email</label>
+          <input id="mail" type="email" name="mail" value="{{ user.mail ?? '' }}">
         </div>
 
-        <button class="profile-btn">
+        <div id="presentation-edit-box" class="presentation-edit-box hidden">
+          <div class="form-group">
+            <label for="description">Présentation</label>
+            <textarea id="description" name="description" rows="5">{{ user.description ?? '' }}</textarea>
+          </div>
+        </div>
+
+        <button class="profile-btn" type="submit">
           Enregistrer
         </button>
 
@@ -89,5 +110,45 @@
   </section>
 
 </main>
+
+
+
+<<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const togglePresentationBtn = document.getElementById("toggle-presentation");
+    const presentationEditBox = document.getElementById("presentation-edit-box");
+
+    if (togglePresentationBtn && presentationEditBox) {
+      togglePresentationBtn.addEventListener("click", () => {
+        presentationEditBox.classList.toggle("hidden");
+      });
+    }
+
+    const photoInput = document.getElementById("photo");
+    const profilePreview = document.getElementById("profile-preview");
+
+    if (photoInput && profilePreview) {
+      photoInput.addEventListener("change", (event) => {
+        const file = event.target.files[0];
+
+        if (!file) return;
+
+        if (!file.type.startsWith("image/")) {
+          alert("Veuillez sélectionner une image.");
+          photoInput.value = "";
+          return;
+        }
+
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+          profilePreview.src = e.target.result;
+        };
+
+        reader.readAsDataURL(file);
+      });
+    }
+  });
+</script>
 
 {% endblock %}

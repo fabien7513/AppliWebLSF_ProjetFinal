@@ -30,8 +30,8 @@
 					<div>
 						<label for="siretNumber">Numéro de Siret</label>
 						<input id="siretNumber" type="text" name="siretNumber" placeholder="14 chiffres" pattern="\d{14}" maxlength="14"/>
-						{% if error %}
-							<p>{{ error.siretNumber }}</p>
+						{% if errors.siretNumber %}
+							<p>{{ errors.siretNumber }}</p>
 						{% endif %}
 					</div>
 
@@ -48,15 +48,15 @@
 					<div>
 						<label for="mail">Email</label>
 						<input id="mail" type="email" name="mail" placeholder="Votre email"/>
+						{% if errors.email %}
+							<p>{{ errors.email }}</p>
+						{% endif %}
 					</div>
 
 					<div>
 						<label for="confirm_mail">Confirmez votre email</label>
 						<input id="confirm_mail" type="email" name="confirm_mail" placeholder="Confirmer votre email"/>
-						{% if error %}
-							{{error}}
-						{% endif %}
-
+						
 					</div>
 
 					<div>
@@ -71,7 +71,9 @@
 							{{error}}
 						{% endif %}
 					</div>
-
+					{% if errors.general %}
+						<p>{{ errors.general }}</p>
+					{% endif %}
 					<div>
 						<button type="submit">S'enregistrer</button>
 					</div>

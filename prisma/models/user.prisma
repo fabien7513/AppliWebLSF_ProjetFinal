@@ -24,6 +24,5 @@ model User {
 
     events Event[]
 
-    addressId Int?
-    address   Address? @relation(fields: [addressId], references: [id_address])
+    address Address?
 }

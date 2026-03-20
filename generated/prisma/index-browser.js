@@ -125,7 +125,9 @@ exports.Prisma.AddressScalarFieldEnum = {
   street: 'street',
   city: 'city',
   postalCode: 'postalCode',
-  maps: 'maps'
+  latitude: 'latitude',
+  longitude: 'longitude',
+  id_user: 'id_user'
 };
 
 exports.Prisma.AvailabilityScalarFieldEnum = {
@@ -171,8 +173,7 @@ exports.Prisma.UserScalarFieldEnum = {
   profilStatus: 'profilStatus',
   planning_public: 'planning_public',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  addressId: 'addressId'
+  updatedAt: 'updatedAt'
 };
 
 exports.Prisma.SortOrder = {
@@ -180,16 +181,15 @@ exports.Prisma.SortOrder = {
   desc: 'desc'
 };
 
-exports.Prisma.AddressOrderByRelevanceFieldEnum = {
-  street: 'street',
-  city: 'city',
-  postalCode: 'postalCode',
-  maps: 'maps'
-};
-
 exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
+};
+
+exports.Prisma.AddressOrderByRelevanceFieldEnum = {
+  street: 'street',
+  city: 'city',
+  postalCode: 'postalCode'
 };
 
 exports.Prisma.AvailabilityOrderByRelevanceFieldEnum = {

@@ -4,8 +4,24 @@ const prisma = new PrismaClient({ adapter });
 
 
 
-export function getListInterpreters(req, res) {
-  res.render("pages/interpreters.twig", {
-    title: "ListInterpreters"
-  });
+export async function getListInterpreters(req, res) {
+  try {
+    const interpreters = await prisma.user.findMany({
+      include: {
+        address: true
+      }
+    });
+
+    res.render("pages/interpreters.twig", {
+      title: "Liste des interprètes",
+      interpreters
+    });
+  } catch (error) {
+    console.log(error);
+    res.render("pages/interpreters.twig", {
+      title: "Liste des interprètes",
+      interpreters: [],
+      error: "Erreur chargement interprètes"
+    });
+  }
 }

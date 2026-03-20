@@ -66,25 +66,28 @@
 	<h1>Liste des interprètes</h1>
 
 	<section class="interpreter-card-section">
-  <div class="interpreter-card">
+  <div class="interpreters-grid">
+    {% for interpreter in interpreters %}
+      <div class="interpreter-card">
 
-    <div class="interpreter-image">
-      <img src="/static/assets/images/interpreter-avatar.png" alt="Photo interprète">
-    </div>
+        <div class="interpreter-image">
+          <img src="{{ interpreter.photo ?? '/static/assets/images/avatar.png' }}" alt="Photo interprète">
+        </div>
 
-    <div class="interpreter-info">
-      <h3>Nom Prénom</h3>
+        <div class="interpreter-info">
+          <h3>{{ interpreter.firstName }} {{ interpreter.lastName }}</h3>
 
-      <p>Interprète depuis 2015, diplômé de l’université Paris 8.</p>
+          <p>{{ interpreter.description ?? 'Aucune description disponible' }}</p>
+          <p><strong>Ville :</strong> {{ interpreter.address.city ?? 'Ville non spécifiée' }}</p>
+          <p><strong>Téléphone :</strong> {{ interpreter.phone ?? 'Téléphone non spécifié' }}</p>
+          <p><strong>Email :</strong> {{ interpreter.mail }}</p>
+          <p><strong>N° SIRET :</strong> {{ interpreter.siretNumber }}</p>
 
-      <p><strong>Ville :</strong> Marseille</p>
-      <p><strong>Téléphone :</strong> 06 70 15 15 18</p>
-      <p><strong>Email :</strong> xhfhzheye@hnh.fr</p>
-      <p><strong>N° SIRET :</strong> 11111111111111</p>
+          <a href="/schedule-interpreters" class="planning-btn">Planning</a>
+        </div>
 
-      <a href="#" class="planning-btn">Planning</a>
-    </div>
-
+      </div>
+    {% endfor %}
   </div>
 </section>
 

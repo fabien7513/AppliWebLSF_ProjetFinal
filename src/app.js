@@ -7,6 +7,7 @@ import { mainRouter } from "./routers/homeRouter.js";
 import { interpretersRouter } from "./routers/interpretersRouter.js";
 import { scheduleInterpretersRouter } from "./routers/scheduleInterpretersRouter.js";
 import { profileRouter } from "./routers/profileRouter.js";
+import { reservationsRouter } from "./routers/reservationsRouter.js";
 
 
 const app = express()
@@ -32,6 +33,7 @@ app.use(mainRouter);
 app.use(interpretersRouter);
 app.use(scheduleInterpretersRouter)
 app.use(profileRouter)
+app.use(reservationsRouter)
 
 app.listen(process.env.PORT, (error)=>{
     if (error) {

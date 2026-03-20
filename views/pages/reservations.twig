@@ -1,0 +1,47 @@
+{% extends "../layout/base.twig" %}
+
+{% block style %}
+  <link rel="stylesheet" href="/static/assets/css/reservations.css">
+{% endblock %}
+
+{% block title %}
+  <title>Mes réservations</title>
+{% endblock %}
+
+{% block main %}
+
+<main class="reservations-page">
+
+  <section class="reservations-top">
+    <a href="/" class="reservations-logo">
+      <img src="/static/assets/images/logo2.png" alt="Logo Réseau LSF">
+    </a>
+
+    <h1>Mes réservations</h1>
+  </section>
+
+  <section class="reservations-section">
+    <div class="reservations-container">
+
+      <div class="reservation-card past-card">
+        <h2>Rendez-vous passés</h2>
+
+        <div class="reservation-list">
+          <p class="empty-text">Aucune réservation passée pour le moment.</p>
+        </div>
+      </div>
+
+      <div class="reservation-card upcoming-card">
+        <h2>À venir</h2>
+
+        <div class="reservation-list">
+          <p class="empty-text">Aucune réservation à venir pour le moment.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+{% endblock %}
