@@ -3,6 +3,44 @@ import { adapter } from "../../prisma/adapter.js";
 
 const prisma = new PrismaClient({ adapter });
 
+// Fonction pour géocoder une adresse
+async function geocodeAddress(street, city, postalCode) {
+  try {
+    const addressString = `${street || ""} ${postalCode || ""} ${city || ""}`.trim();
+    
+    // Ajouter un délai pour respecter les limites de Nominatim
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    
+    const response = await fetch(
+      `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(addressString)}&format=json&limit=1`,
+      {
+        headers: {
+          'User-Agent': 'AppliWebLSF/1.0 (Node.js)'
+        }
+      }
+    );
+
+    // Vérifier le statut HTTP
+    if (!response.ok) {
+      console.log(`Erreur géocodage HTTP ${response.status}`);
+      return { latitude: null, longitude: null };
+    }
+
+    const data = await response.json();
+
+    if (data && data.length > 0) {
+      return {
+        latitude: parseFloat(data[0].lat),
+        longitude: parseFloat(data[0].lon)
+      };
+    }
+  } catch (error) {
+    console.log("Erreur lors du géocodage:", error.message);
+  }
+
+  return { latitude: null, longitude: null };
+}
+
 export async function getProfile(req, res) {
   try {
     const user = await prisma.user.findUnique({
@@ -86,6 +124,10 @@ export async function postProfile(req, res) {
         address?.trim() || postalCode?.trim() || city?.trim();
 
       if (hasAddressData) {
+        // Récupérer les coordonnées géographiques
+        const { latitude, longitude } = await geocodeAddress(address, city, postalCode);
+        console.log(latitude);
+        
         const existingAddress = await tx.address.findUnique({
           where: {
             id_user: req.session.user.id_user
@@ -100,7 +142,9 @@ export async function postProfile(req, res) {
             data: {
               street: address || "",
               postalCode: postalCode || "",
-              city: city || ""
+              city: city || "",
+              latitude: latitude,
+              longitude: longitude
             }
           });
         } else {
@@ -109,6 +153,8 @@ export async function postProfile(req, res) {
               street: address || "",
               postalCode: postalCode || "",
               city: city || "",
+              latitude: latitude,
+              longitude: longitude,
               id_user: req.session.user.id_user
             }
           });

@@ -68,7 +68,7 @@
 	<section class="interpreter-card-section">
   <div class="interpreters-grid">
     {% for interpreter in interpreters %}
-      <div class="interpreter-card">
+      <div class="interpreter-card" data-interpreter="{{ interpreter|json_encode|raw }}">
 
         <div class="interpreter-image">
           <img src="{{ interpreter.photo ?? '/static/assets/images/avatar.png' }}" alt="Photo interprète">
@@ -92,36 +92,7 @@
 </section>
 
 
-	<script>
-		const departmentSelect = document.querySelector("#department");
-const citySelect = document.querySelector("#city");
 
-async function loadCities(department) {
-
-const response = await fetch (`https://geo.api.gouv.fr/departements/${department}/communes?fields=nom&format=json`);
-
-const cities = await response.json();
-
-citySelect.innerHTML = "";
-
-cities.forEach(city => {
-
-const option = document.createElement("option");
-option.value = city.nom;
-option.textContent = city.nom;
-
-citySelect.appendChild(option);
-
-});
-
-}
-
-departmentSelect.addEventListener("change", () => {
-loadCities(departmentSelect.value);
-});
-
-/* charger les villes du 13 au démarrage */
-loadCities("13");
-	</script>
+	<script src="/static/assets/js/interpreters.js"></script>
 
 {% endblock %}

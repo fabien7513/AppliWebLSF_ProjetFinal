@@ -15,30 +15,33 @@
 
 			{% if user %}
 
-<div class="user-menu">
+				<div class="user-menu">
 
-  <button id="user-btn" class="user-btn">
-    Bonjour {{ user.firstName }} {{ user.lastName }} ▾
-  </button>
+					<button id="user-btn" class="user-btn">
+						Bonjour
+						{{ user.firstName }}
+						{{ user.lastName }}
+						▾
+					</button>
 
-  <div id="user-dropdown" class="user-dropdown hidden">
+					<div id="user-dropdown" class="user-dropdown hidden">
 
-    <a href="/profile">Mon profil</a>
-    <a href="/reservations">Mes réservations</a>
-    <a href="/scheduleinterpreters">Mon planning</a>
-    <a href="/logout">Déconnexion</a>
+						<a href="/profile">Mon profil</a>
+						<a href="/reservations">Mes réservations</a>
+						<a href="/scheduleinterpreters">Mon planning</a>
+						<a href="/logout">Déconnexion</a>
 
-  </div>
+					</div>
 
-</div>
+				</div>
 
-{% else %}
+			{% else %}
 
-<a href="/login" class="interpreter-btn">
-  Vous êtes interprète ?
-</a>
+				<a href="/login" class="interpreter-btn">
+					Vous êtes interprète ?
+				</a>
 
-{% endif %}
+			{% endif %}
 		</div>
 
 		<div class="header-center">
@@ -115,7 +118,7 @@
 					<h3>Éthique et expertise</h3>
 					<p>
 						Tous nos interprètes sont diplômés et s'engagent à respecter une
-																																																          déontologie professionnelle stricte.
+																																																												          déontologie professionnelle stricte.
 					</p>
 				</div>
 			</div>
@@ -165,91 +168,43 @@
 		</div>
 	</div>
 
+	<div id="interpreter-modal" class="interpreter-modal hidden">
+		<div class="interpreter-modal-box">
+			<button id="close-interpreter-modal" type="button" class="interpreter-modal-close">×</button>
+
+			<div class="interpreter-modal-content">
+				<div class="interpreter-modal-photo">
+					<img id="modal-photo" src="/static/assets/images/avatar.png" alt="Photo interprète">
+				</div>
+
+				<div class="interpreter-modal-info">
+					<h3 id="modal-name">Nom Prénom</h3>
+					<p id="modal-description">Description</p>
+					<p>
+						<strong>Ville :</strong>
+						<span id="modal-city"></span>
+					</p>
+					<p>
+						<strong>Téléphone :</strong>
+						<span id="modal-phone"></span>
+					</p>
+					<p>
+						<strong>Email :</strong>
+						<span id="modal-mail"></span>
+					</p>
+					<p>
+						<strong>SIRET :</strong>
+						<span id="modal-siret"></span>
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		const interpreters = {{ interpreters|json_encode|raw }};
+	</script>
 
 	<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-
-	<script>
-		const map = L.map('map').setView([
-43.22, 5.48
-], 9);
-
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {attribution: '&copy; OpenStreetMap contributors'}).addTo(map);
-
-L.marker([43.2965, 5.3698]).addTo(map).bindPopup('Interprète à Marseille');
-
-L.marker([43.1748, 5.6045]).addTo(map).bindPopup('Interprète à La Ciotat');
-	</script>
-
-
-	{# Modale bouton "Trouvez un interprète" #}
-	<script>
-		const openModalBtn = document.querySelector('#open-modal');
-const closeModalBtn = document.querySelector('#close-modal');
-const modal = document.querySelector('#search-modal');
-const startTime = document.querySelector("#start-time");
-const endTime = document.querySelector("#end-time");
-const duration = document.querySelector("#duration");
-
-openModalBtn.addEventListener('click', () => {
-modal.classList.remove('hidden');
-});
-
-closeModalBtn.addEventListener('click', () => {
-modal.classList.add('hidden');
-});
-
-modal.addEventListener('click', (event) => {
-if (event.target === modal) {
-modal.classList.add('hidden');
-}
-});
-
-function calculateDuration() {
-
-if (startTime.value && endTime.value) {
-
-const start = new Date (`1970-01-01T${
-startTime.value
-}:00`);
-const end = new Date (`1970-01-01T${
-endTime.value
-}:00`);
-
-const diff = (end - start) / 60000;
-
-if (diff > 0) {
-const hours = Math.floor(diff / 60);
-const minutes = diff % 60;
-
-duration.value = `${hours}h ${minutes}min`;
-} else {
-duration.value = "Heure invalide";
-}
-}
-}
-
-startTime.addEventListener("change", calculateDuration);
-endTime.addEventListener("change", calculateDuration);
-	</script>
-
-
-{# dropdown #}
-	<script>
-const userBtn = document.querySelector("#user-btn");
-const dropdown = document.querySelector("#user-dropdown");
-
-if(userBtn){
-  userBtn.addEventListener("click", (e) => {
-    e.stopPropagation();
-    dropdown.classList.toggle("hidden");
-  });
-
-  document.addEventListener("click", () => {
-    dropdown.classList.add("hidden");
-  });
-}
-</script>
-	
-	
-
+	<script src="/static/assets/js/home.js"></script>
 {% endblock %}
