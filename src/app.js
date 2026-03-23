@@ -9,12 +9,11 @@ import { scheduleInterpretersRouter } from "./routers/scheduleInterpretersRouter
 import { profileRouter } from "./routers/profileRouter.js";
 import { reservationsRouter } from "./routers/reservationsRouter.js";
 
-import { configDotenv } from "dotenv";
 
 
 const app = express()
 
-configDotenv();
+
 
 app.use ('/static', express.static(path.resolve('public')))
 app.use(session({
