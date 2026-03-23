@@ -24,9 +24,39 @@
     </div>
   </section>
 
-</main>
+  <aside class="schedule-aside">
+    <h2>Interprète : {{ interpreter.firstName }} {{ interpreter.lastName }}</h2>
+    <p>{{ interpreter.description ?? 'Aucune description fournie' }}</p>
 
-<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.20/index.global.min.js"></script>
-<script src="/static/assets/js/scheduleInterpreters.js"></script>
+    {% if editable %}
+      <form action="/scheduleinterpreters" method="post" class="availability-form">
+        <h3>Ajouter une disponibilité</h3>
+        <label>Début</label>
+        <input type="datetime-local" name="startDateTime" required>
+
+        <label>Fin</label>
+        <input type="datetime-local" name="endDateTime" required>
+
+        <label>Type</label>
+        <input type="text" name="interventionType" placeholder="Réunion, Santé, ...">
+
+        <label>Commentaire</label>
+        <textarea name="comment" rows="2" placeholder="Optionnel"></textarea>
+
+        <button type="submit">Enregistrer</button>
+      </form>
+    {% endif %}
+
+    <a href="/interpreters" class="back-btn">Retour à la liste des interprètes</a>
+  </aside>
+
+  <script>
+    const interpreter = {{ interpreter | json_encode | raw }};
+    const availabilities = {{ availabilities | json_encode | raw }};
+    const editable = {{ editable ? 'true' : 'false' }};
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.20/index.global.min.js"></script>
+  <script src="/static/assets/js/scheduleInterpreters.js"></script>
 
 {% endblock %}
