@@ -28,13 +28,22 @@
 
 				<form action="/login" method="post">
 
-					<div>
+					{# <div>
 						<label for="siretNumber">Votre numéro de Siret</label>
 						<input id="siretNumber" type="text" name="siretNumber" pattern="\d{14}" maxlength="14">
 
 						{% if error %}
 							<p>{{ error.siretNumber }}</p>
 						{% endif %}
+					</div> #}
+
+					<div>
+					<label for="email">Votre adresse email</label>
+					<input id="email" type="email" name="email">
+
+					{% if error %}
+						<p>{{ error.email }}</p>
+					{% endif %}
 					</div>
 
 					<div>

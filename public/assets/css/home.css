@@ -3,17 +3,17 @@
   padding:0;
   box-sizing:border-box;
 }
-/*....................Partie HEADER.......................... */
+
 body{
   font-family:'Poppins', sans-serif;
-   background: rgb(230, 244, 243);
+  background:rgb(230, 244, 243);
 }
 
+/* HEADER */
 .home-header{
   background:#35b7b2;
   min-height:85vh;
   padding:30px;
-
   clip-path: polygon(
     0 0,
     100% 0,
@@ -26,12 +26,13 @@ body{
   display:flex;
   justify-content:space-between;
   align-items:center;
+  gap: 20px;
 }
 
 .logo img{
   width:200px;
   height:auto;
-  cursor: pointer;
+  cursor:pointer;
 }
 
 .interpreter-btn{
@@ -45,8 +46,76 @@ body{
   text-decoration:none;
   font-weight:500;
   cursor:pointer;
+  transition:0.2s;
 }
 
+.interpreter-btn:hover{
+  transform:translateY(-1px);
+  box-shadow:0 6px 18px rgba(0,0,0,0.08);
+}
+
+/* BOUTON USER + DROPDOWN */
+.user-menu{
+  position:relative;
+  display:flex;
+  justify-content:flex-end;
+  min-width:260px;
+}
+
+.user-btn{
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:10px;
+  min-width:240px;
+  height:46px;
+  padding:0 18px;
+  border-radius:30px;
+  background:#1f3b6d;
+  color:white;
+  font-size:14px;
+  font-weight:500;
+  border:none;
+  cursor:pointer;
+  transition:0.2s;
+}
+
+.user-btn:hover{
+  background:#274a86;
+  transform:translateY(-1px);
+}
+
+.user-dropdown{
+  position:absolute;
+  top:calc(100% + 10px);
+  right:0;
+  width:240px;
+  background:#e6eeee;
+  border-radius:20px;
+  padding:18px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.1);
+  z-index:1000;
+}
+
+.user-dropdown a{
+  text-decoration:none;
+  color:#1f3b6d;
+  font-size:14px;
+  font-weight:500;
+  padding:4px 0;
+}
+
+.user-dropdown a:hover{
+  text-decoration:underline;
+}
+
+.hidden{
+  display:none;
+}
+/* HEADER CENTER */
 .header-center{
   display:flex;
   flex-direction:column;
@@ -82,11 +151,76 @@ body{
   cursor:pointer;
 }
 
-/*....................Partie CARTE.......................... */
+/* INTRO */
+.intro-section{
+  background:#e6f4f3;
+  padding:80px 20px;
+  display:flex;
+  justify-content:center;
+}
 
+.intro-container{
+  width:100%;
+  max-width:1100px;
+  background:white;
+  border-radius:24px;
+  padding:60px 40px;
+  text-align:center;
+  box-shadow:0 10px 30px rgba(0,0,0,0.06);
+}
 
+.intro-container h2{
+  font-size:42px;
+  color:#1f3b6d;
+  margin-bottom:20px;
+  font-weight:700;
+}
+
+.intro-text{
+  max-width:760px;
+  margin:0 auto 50px;
+  font-size:20px;
+  line-height:1.6;
+  color:#444;
+}
+
+.intro-steps{
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:24px;
+}
+
+.step-card{
+  background:#f7fbfb;
+  border-radius:18px;
+  padding:28px 20px;
+  box-shadow:0 4px 14px rgba(0,0,0,0.04);
+}
+
+.step-number{
+  width:52px;
+  height:52px;
+  border-radius:50%;
+  background:#27b4b0;
+  color:white;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  margin:0 auto 18px;
+  font-size:20px;
+  font-weight:700;
+}
+
+.step-card p{
+  font-size:17px;
+  line-height:1.5;
+  color:#1f3b6d;
+  font-weight:500;
+}
+
+/* CARTE */
 .map-section{
-  background: rgb(230, 244, 243);
+  background:rgb(230, 244, 243);
   padding:120px 20px 100px;
   margin-top:-120px;
 }
@@ -98,7 +232,6 @@ body{
 }
 
 .map-title{
-  font-family:'Poppins', sans-serif;
   font-size:32px;
   font-weight:700;
   color:#1f3b6d;
@@ -106,7 +239,6 @@ body{
 }
 
 .map-subtitle{
-  font-family:'Poppins', sans-serif;
   font-size:15px;
   font-weight:500;
   color:#1f3b6d;
@@ -118,21 +250,18 @@ body{
   justify-content:center;
 }
 
-
 #map{
-  width: 100%;
-  max-width: 900px;
-  height: 500px;
-  margin: 0 auto;
-  border-radius: 8px;
+  width:100%;
+  max-width:900px;
+  height:500px;
+  margin:0 auto;
+  border-radius:8px;
 }
 
-
-/*....................Partie Role.......................... */
-
+/* ROLE */
 .role-section{
   background:#39a7a0;
-  width: 100vw;
+  width:100vw;
   padding:100px 20px;
 }
 
@@ -143,7 +272,6 @@ body{
 }
 
 .role-container h2{
-  font-family:'Poppins', sans-serif;
   font-size:28px;
   color:#243b6b;
   margin-bottom:50px;
@@ -155,23 +283,19 @@ body{
 }
 
 .role-list li{
-  font-family:'Poppins', sans-serif;
   font-size:18px;
   color:white;
   margin:20px 0;
 }
 
-
-/*....................Partie propositions.......................... */
-
+/* SERVICES */
 .services-section{
-  background: rgb(230, 244, 243);
+  background:rgb(230, 244, 243);
   padding:100px 20px;
 }
 
 .services-title{
   text-align:center;
-  font-family:'Poppins', sans-serif;
   font-size:30px;
   margin-bottom:60px;
   color:#243b6b;
@@ -219,13 +343,10 @@ body{
   margin:8px 0;
 }
 
-
-/*....................Partie Avant Footer.......................... */
-
+/* ABOUT */
 .about-section{
   background:#39a7a0;
   padding:100px 20px;
-
   clip-path: polygon(
     0 10%,
     100% 0,
@@ -252,9 +373,7 @@ body{
   line-height:1.6;
 }
 
-/*....................Partie Modale.......................... */
-
-
+/* MODALE RECHERCHE */
 .modal{
   position:fixed;
   inset:0;
@@ -278,6 +397,7 @@ body{
   border-radius:30px;
   padding:40px 30px;
   text-align:center;
+  animation:modalOpen 0.3s ease;
 }
 
 #close-modal{
@@ -301,17 +421,6 @@ body{
   font-size:28px;
   color:#1f3b6d;
   margin-bottom:30px;
-}
-
-.modal-close{
-  position:absolute;
-  top:20px;
-  right:25px;
-  background:none;
-  border:none;
-  font-size:22px;
-  cursor:pointer;
-  color:#1f3b6d;
 }
 
 .modal-form{
@@ -340,10 +449,6 @@ body{
   cursor:pointer;
 }
 
-.modal-box{
-  animation:modalOpen 0.3s ease;
-}
-
 @keyframes modalOpen{
   from{
     transform:scale(0.9);
@@ -355,42 +460,10 @@ body{
   }
 }
 
-/* DROPDOWN.*/
-.user-menu{
-  position:relative;
+/* MODALE INTERPRETE */
+.interpreter-modal.hidden{
+  display:none !important;
 }
-
-.user-btn{
-  background:#1f3b6d;
-  color:white;
-  border:none;
-  padding:12px 20px;
-  border-radius:25px;
-  cursor:pointer;
-}
-
-.user-dropdown{
-  position:absolute;
-  top:55px;
-  right:0;
-  width:220px;
-  background:#e6eeee;
-  border-radius:20px;
-  padding:20px;
-  display:flex;
-  flex-direction:column;
-  gap:12px;
-}
-
-.interpreter-modal.hidden {
-  display: none !important;
-}
-
-.hidden{
-  display:none;
-}
-
-
 
 .interpreter-modal{
   position:fixed;
@@ -456,6 +529,25 @@ body{
   line-height:1.6;
   margin-bottom:10px;
   color:#1f1f1f;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px){
+  .intro-container{
+    padding:45px 24px;
+  }
+
+  .intro-container h2{
+    font-size:32px;
+  }
+
+  .intro-text{
+    font-size:17px;
+  }
+
+  .intro-steps{
+    grid-template-columns:1fr;
+  }
 }
 
 @media (max-width: 700px){

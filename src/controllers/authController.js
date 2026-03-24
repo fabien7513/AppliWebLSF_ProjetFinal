@@ -70,11 +70,11 @@ export async function getLogin(req, res) {
 }
 
 export async function postLogin(req, res) {
-    const { siretNumber, password, confirm_password } = req.body
+    const { mail, password } = req.body
     try {
         const user = await prisma.user.findFirst({
             where: {
-                siretNumber: req.body.siretNumber
+                mail: req.body.email
             }
         })
         if (user) {
@@ -92,7 +92,7 @@ export async function postLogin(req, res) {
             }
         }
         else {
-            throw { siretNumber: "Cet utilisateur n'est pas enregistré" }
+            throw { email: "Cet utilisateur n'est pas enregistré" }
         }
     } catch (error) {
         console.log(error);
