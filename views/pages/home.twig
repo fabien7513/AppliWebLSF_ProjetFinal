@@ -176,27 +176,30 @@
 	</main>
 
 
-	<div id="search-modal" class="modal hidden">
-		<div class="modal-box">
-			<button id="close-modal" type="button">x</button>
+		<div id="search-modal" class="modal hidden">
+			<div class="modal-box">
+				<button id="close-modal" type="button" aria-label="Fermer la recherche">×</button>
 
-			<h2 class="modal-title">Trouvez un interprète</h2>
+				<h2 class="modal-title">Trouvez un interprète</h2>
 
-			<form class="modal-form">
-				<input type="text" placeholder="Lieu de votre rendez-vous">
-				<input type="date">
+				<form class="modal-form" action="/interpreters/search" method="get">
+					<label for="city">Lieu du rendez-vous</label>
+					<input id="city" type="text" name="city" placeholder="Lieu de votre rendez-vous">
 
-				<label>Heure début</label>
-				<input type="time" id="start-time">
+					<label for="date">Date du rendez-vous</label>
+					<input id="date" type="date" name="date">
 
-				<label>Heure fin</label>
-				<input type="time" id="end-time">
+					<label for="startTime">Heure début</label>
+					<input type="time" name="startTime" id="startTime">
 
-				<label>Durée</label>
-				<input type="text" id="duration" readonly placeholder="Calcul automatique">
+					<label for="endTime">Heure fin</label>
+					<input type="time" name="endTime" id="endTime">
 
-				<button type="submit" class="modal-submit">Rechercher</button>
-			</form>
+					<label for="duration">Durée</label>
+					<input type="text" id="duration" readonly placeholder="Calcul automatique">
+
+					<button type="submit" class="modal-submit">Rechercher</button>
+				</form>
 		</div>
 	</div>
 

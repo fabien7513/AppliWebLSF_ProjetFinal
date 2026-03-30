@@ -79,6 +79,17 @@
 
 	<h1>Liste des interprètes</h1>
 
+  {% if search %}
+  <p class="search-summary">
+    Résultats pour <strong>{{ search.city }}</strong> le <strong>{{ search.date }}</strong>
+    de <strong>{{ search.startTime }}</strong> à <strong>{{ search.endTime }}</strong>
+  </p>
+{% endif %}
+
+  {% if error %}
+    <p class="search-error">{{ error }}</p>
+  {% endif %}
+
 	<section class="interpreter-card-section">
 		<div class="interpreters-grid">
 			{% for interpreter in interpreters %}

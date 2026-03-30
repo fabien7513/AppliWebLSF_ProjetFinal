@@ -1,5 +1,5 @@
 import express from "express";
-import { getListInterpreters } from "../controllers/interpretersController.js";
+import { getListInterpreters, searchInterpreters } from "../controllers/interpretersController.js";
 
 
 export const interpretersRouter = express.Router();
@@ -8,6 +8,7 @@ export const interpretersRouter = express.Router();
 
 
 interpretersRouter.get("/interpreters", getListInterpreters)
+interpretersRouter.get("/interpreters/search", searchInterpreters)
 
 
 

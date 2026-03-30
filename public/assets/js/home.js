@@ -88,8 +88,8 @@ document.addEventListener("DOMContentLoaded", () => {
 const openModalBtn = document.querySelector('#open-modal');
 const closeModalBtn = document.querySelector('#close-modal');
 const modal = document.querySelector('#search-modal');
-const startTime = document.querySelector("#start-time");
-const endTime = document.querySelector("#end-time");
+const startTime = document.querySelector("#startTime");
+const endTime = document.querySelector("#endTime");
 const duration = document.querySelector("#duration");
 
 openModalBtn.addEventListener('click', () => {
@@ -124,8 +124,8 @@ function calculateDuration() {
   }
 }
 
-startTime.addEventListener("change", calculateDuration);
-endTime.addEventListener("change", calculateDuration);
+startTime.addEventListener("input", calculateDuration);
+endTime.addEventListener("input", calculateDuration);
 
 // Dropdown
 const userBtn = document.querySelector("#user-btn");
