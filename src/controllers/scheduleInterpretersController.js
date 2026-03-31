@@ -19,14 +19,16 @@ export async function getScheduleInterpreters(req, res) {
       return res.redirect("/interpreters");
     }
 
-    const editable = req.session.user?.id_user === interpreter.id_user;
+    const isOwner = req.session.user?.id_user === interpreter.id_user;
+
 
     res.render("pages/scheduleInterpreters.twig", {
       title: "Planning interprète",
       interpreter,
       availabilities: interpreter.availabilities,
-      editable
+      editable: isOwner
     });
+
   } catch (error) {
     console.error(error);
     res.redirect("/interpreters");
@@ -39,7 +41,7 @@ export async function postScheduleInterpreters(req, res) {
       return res.status(401).json({ error: "Non autorisé" });
     }
 
-    const { startDateTime, endDateTime, interventionType, comment } = req.body;
+    const { startDateTime, endDateTime, interventionType, comment, location } = req.body;
     const userId = req.session.user.id_user;
 
     if (!startDateTime || !endDateTime) {
@@ -52,6 +54,7 @@ export async function postScheduleInterpreters(req, res) {
         endDateTime: new Date(endDateTime),
         interventionType: interventionType || null,
         comment: comment || null,
+        location: location || null,
         userId
       }
     });

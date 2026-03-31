@@ -2313,6 +2313,7 @@ export namespace Prisma {
     endDateTime: Date | null
     interventionType: string | null
     comment: string | null
+    location: string | null
     userId: number | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -2324,6 +2325,7 @@ export namespace Prisma {
     endDateTime: Date | null
     interventionType: string | null
     comment: string | null
+    location: string | null
     userId: number | null
     createdAt: Date | null
     updatedAt: Date | null
@@ -2335,6 +2337,7 @@ export namespace Prisma {
     endDateTime: number
     interventionType: number
     comment: number
+    location: number
     userId: number
     createdAt: number
     updatedAt: number
@@ -2358,6 +2361,7 @@ export namespace Prisma {
     endDateTime?: true
     interventionType?: true
     comment?: true
+    location?: true
     userId?: true
     createdAt?: true
     updatedAt?: true
@@ -2369,6 +2373,7 @@ export namespace Prisma {
     endDateTime?: true
     interventionType?: true
     comment?: true
+    location?: true
     userId?: true
     createdAt?: true
     updatedAt?: true
@@ -2380,6 +2385,7 @@ export namespace Prisma {
     endDateTime?: true
     interventionType?: true
     comment?: true
+    location?: true
     userId?: true
     createdAt?: true
     updatedAt?: true
@@ -2478,6 +2484,7 @@ export namespace Prisma {
     endDateTime: Date
     interventionType: string | null
     comment: string | null
+    location: string | null
     userId: number
     createdAt: Date
     updatedAt: Date
@@ -2508,6 +2515,7 @@ export namespace Prisma {
     endDateTime?: boolean
     interventionType?: boolean
     comment?: boolean
+    location?: boolean
     userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -2522,12 +2530,13 @@ export namespace Prisma {
     endDateTime?: boolean
     interventionType?: boolean
     comment?: boolean
+    location?: boolean
     userId?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type AvailabilityOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_availability" | "startDateTime" | "endDateTime" | "interventionType" | "comment" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["availability"]>
+  export type AvailabilityOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_availability" | "startDateTime" | "endDateTime" | "interventionType" | "comment" | "location" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["availability"]>
   export type AvailabilityInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -2543,6 +2552,7 @@ export namespace Prisma {
       endDateTime: Date
       interventionType: string | null
       comment: string | null
+      location: string | null
       userId: number
       createdAt: Date
       updatedAt: Date
@@ -2921,6 +2931,7 @@ export namespace Prisma {
     readonly endDateTime: FieldRef<"Availability", 'DateTime'>
     readonly interventionType: FieldRef<"Availability", 'String'>
     readonly comment: FieldRef<"Availability", 'String'>
+    readonly location: FieldRef<"Availability", 'String'>
     readonly userId: FieldRef<"Availability", 'Int'>
     readonly createdAt: FieldRef<"Availability", 'DateTime'>
     readonly updatedAt: FieldRef<"Availability", 'DateTime'>
@@ -6471,6 +6482,7 @@ export namespace Prisma {
     endDateTime: 'endDateTime',
     interventionType: 'interventionType',
     comment: 'comment',
+    location: 'location',
     userId: 'userId',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -6550,7 +6562,8 @@ export namespace Prisma {
 
   export const AvailabilityOrderByRelevanceFieldEnum: {
     interventionType: 'interventionType',
-    comment: 'comment'
+    comment: 'comment',
+    location: 'location'
   };
 
   export type AvailabilityOrderByRelevanceFieldEnum = (typeof AvailabilityOrderByRelevanceFieldEnum)[keyof typeof AvailabilityOrderByRelevanceFieldEnum]
@@ -6714,6 +6727,7 @@ export namespace Prisma {
     endDateTime?: DateTimeFilter<"Availability"> | Date | string
     interventionType?: StringNullableFilter<"Availability"> | string | null
     comment?: StringNullableFilter<"Availability"> | string | null
+    location?: StringNullableFilter<"Availability"> | string | null
     userId?: IntFilter<"Availability"> | number
     createdAt?: DateTimeFilter<"Availability"> | Date | string
     updatedAt?: DateTimeFilter<"Availability"> | Date | string
@@ -6726,6 +6740,7 @@ export namespace Prisma {
     endDateTime?: SortOrder
     interventionType?: SortOrderInput | SortOrder
     comment?: SortOrderInput | SortOrder
+    location?: SortOrderInput | SortOrder
     userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -6742,6 +6757,7 @@ export namespace Prisma {
     endDateTime?: DateTimeFilter<"Availability"> | Date | string
     interventionType?: StringNullableFilter<"Availability"> | string | null
     comment?: StringNullableFilter<"Availability"> | string | null
+    location?: StringNullableFilter<"Availability"> | string | null
     userId?: IntFilter<"Availability"> | number
     createdAt?: DateTimeFilter<"Availability"> | Date | string
     updatedAt?: DateTimeFilter<"Availability"> | Date | string
@@ -6754,6 +6770,7 @@ export namespace Prisma {
     endDateTime?: SortOrder
     interventionType?: SortOrderInput | SortOrder
     comment?: SortOrderInput | SortOrder
+    location?: SortOrderInput | SortOrder
     userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -6773,6 +6790,7 @@ export namespace Prisma {
     endDateTime?: DateTimeWithAggregatesFilter<"Availability"> | Date | string
     interventionType?: StringNullableWithAggregatesFilter<"Availability"> | string | null
     comment?: StringNullableWithAggregatesFilter<"Availability"> | string | null
+    location?: StringNullableWithAggregatesFilter<"Availability"> | string | null
     userId?: IntWithAggregatesFilter<"Availability"> | number
     createdAt?: DateTimeWithAggregatesFilter<"Availability"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Availability"> | Date | string
@@ -7087,6 +7105,7 @@ export namespace Prisma {
     endDateTime: Date | string
     interventionType?: string | null
     comment?: string | null
+    location?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
     user: UserCreateNestedOneWithoutAvailabilitiesInput
@@ -7098,6 +7117,7 @@ export namespace Prisma {
     endDateTime: Date | string
     interventionType?: string | null
     comment?: string | null
+    location?: string | null
     userId: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -7108,6 +7128,7 @@ export namespace Prisma {
     endDateTime?: DateTimeFieldUpdateOperationsInput | Date | string
     interventionType?: NullableStringFieldUpdateOperationsInput | string | null
     comment?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutAvailabilitiesNestedInput
@@ -7119,6 +7140,7 @@ export namespace Prisma {
     endDateTime?: DateTimeFieldUpdateOperationsInput | Date | string
     interventionType?: NullableStringFieldUpdateOperationsInput | string | null
     comment?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
     userId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -7130,6 +7152,7 @@ export namespace Prisma {
     endDateTime: Date | string
     interventionType?: string | null
     comment?: string | null
+    location?: string | null
     userId: number
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -7140,6 +7163,7 @@ export namespace Prisma {
     endDateTime?: DateTimeFieldUpdateOperationsInput | Date | string
     interventionType?: NullableStringFieldUpdateOperationsInput | string | null
     comment?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -7150,6 +7174,7 @@ export namespace Prisma {
     endDateTime?: DateTimeFieldUpdateOperationsInput | Date | string
     interventionType?: NullableStringFieldUpdateOperationsInput | string | null
     comment?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
     userId?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -7595,6 +7620,7 @@ export namespace Prisma {
     endDateTime?: SortOrder
     interventionType?: SortOrder
     comment?: SortOrder
+    location?: SortOrder
     userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -7611,6 +7637,7 @@ export namespace Prisma {
     endDateTime?: SortOrder
     interventionType?: SortOrder
     comment?: SortOrder
+    location?: SortOrder
     userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -7622,6 +7649,7 @@ export namespace Prisma {
     endDateTime?: SortOrder
     interventionType?: SortOrder
     comment?: SortOrder
+    location?: SortOrder
     userId?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -8736,6 +8764,7 @@ export namespace Prisma {
     endDateTime: Date | string
     interventionType?: string | null
     comment?: string | null
+    location?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -8746,6 +8775,7 @@ export namespace Prisma {
     endDateTime: Date | string
     interventionType?: string | null
     comment?: string | null
+    location?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -8859,6 +8889,7 @@ export namespace Prisma {
     endDateTime?: DateTimeFilter<"Availability"> | Date | string
     interventionType?: StringNullableFilter<"Availability"> | string | null
     comment?: StringNullableFilter<"Availability"> | string | null
+    location?: StringNullableFilter<"Availability"> | string | null
     userId?: IntFilter<"Availability"> | number
     createdAt?: DateTimeFilter<"Availability"> | Date | string
     updatedAt?: DateTimeFilter<"Availability"> | Date | string
@@ -8988,6 +9019,7 @@ export namespace Prisma {
     endDateTime: Date | string
     interventionType?: string | null
     comment?: string | null
+    location?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -9020,6 +9052,7 @@ export namespace Prisma {
     endDateTime?: DateTimeFieldUpdateOperationsInput | Date | string
     interventionType?: NullableStringFieldUpdateOperationsInput | string | null
     comment?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -9030,6 +9063,7 @@ export namespace Prisma {
     endDateTime?: DateTimeFieldUpdateOperationsInput | Date | string
     interventionType?: NullableStringFieldUpdateOperationsInput | string | null
     comment?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -9040,6 +9074,7 @@ export namespace Prisma {
     endDateTime?: DateTimeFieldUpdateOperationsInput | Date | string
     interventionType?: NullableStringFieldUpdateOperationsInput | string | null
     comment?: NullableStringFieldUpdateOperationsInput | string | null
+    location?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

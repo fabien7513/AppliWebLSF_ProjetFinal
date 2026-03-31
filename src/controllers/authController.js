@@ -13,7 +13,7 @@ export function getRegister(req, res) {
 
 export async function postRegister(req, res) {
     try {
-        const { id_user, lastName, firstName, mail, description, photo, password, phone, siretNumber, profilStatus, planning_public } = req.body;
+        const { id_user, lastName, firstName, mail, description, photo, password, phone, siretNumber, profilStatus } = req.body;
         await prisma.user.create({
             data: {
                 id_user,
@@ -25,8 +25,7 @@ export async function postRegister(req, res) {
                 password,
                 phone,
                 siretNumber,
-                profilStatus,
-                planning_public
+                profilStatus
             }
         })
         res.redirect("/login")

@@ -1,62 +1,152 @@
 {% extends "../layout/base.twig" %}
 
 {% block style %}
-<link rel="stylesheet" href="/static/assets/css/scheduleInterpreters.css">
+	<link rel="stylesheet" href="/static/assets/css/scheduleInterpreters.css">
 {% endblock %}
 
 {% block main %}
 
-<main class="schedule-page">
+	<main class="schedule-page">
 
-  <section class="schedule-top">
+		<section class="schedule-top">
 
-    <a href="/" class="schedule-logo">
-      <img src="/static/assets/images/logo2.png" alt="Logo Réseau LSF">
-    </a>
+			<a href="/" class="schedule-logo">
+				<img src="/static/assets/images/logo2.png" alt="Logo Réseau LSF">
+			</a>
 
-    <h1>Mon Planning</h1>
+			<h1>
+				{% if editable %}
+					Mon planning
+				{% else %}
+					Planning de l'interprète
+				{% endif %}
+			</h1>
 
-  </section>
 
-  <section class="calendar-section">
-    <div class="calendar-box">
-      <div id="calendar"></div>
-    </div>
-  </section>
+		</section>
 
-  <aside class="schedule-aside">
-    <h2>Interprète : {{ interpreter.firstName }} {{ interpreter.lastName }}</h2>
-    <p>{{ interpreter.description ?? 'Aucune description fournie' }}</p>
+		<section class="schedule-intro">
+			<div class="schedule-intro-card">
+				<div class="schedule-intro-meta">
+					<p class="schedule-eyebrow">Planning interprete</p>
+					<span class="schedule-view-badge">
+						{% if editable %}
+							Mode gestion
+						{% else %}
+							Lecture seule
+						{% endif %}
+					</span>
+				</div>
+				<h2>{{ interpreter.firstName }} {{ interpreter.lastName }}</h2>
+				<p>
+					{% if editable %}
+						Gerez vos creneaux, ajoutez vos informations utiles et gardez un planning lisible en un coup d'oeil.
+					{% else %}
+						Consultez les creneaux occupes de l'interprete. Les informations privees restent masquees aux visiteurs.
+					{% endif %}
+				</p>
+			</div>
+		</section>
 
-    {% if editable %}
-      <form action="/scheduleinterpreters" method="post" class="availability-form">
-        <h3>Ajouter une disponibilité</h3>
-        <label>Début</label>
-        <input type="datetime-local" name="startDateTime" required>
+		<div class="schedule-content{% if not editable %} schedule-content-public{% endif %}">
+			<section class="calendar-section">
+				<div class="calendar-box">
+					<div class="calendar-box-header">
+						<div>
+							<p class="calendar-kicker">Vue calendrier</p>
+							<h3>Organisation de la semaine</h3>
+						</div>
+						<p class="calendar-hint">
+							{% if editable %}
+								Cliquez sur un creneau pour afficher ses details.
+							{% else %}
+								Les creneaux visibles apparaissent comme occupes.
+							{% endif %}
+						</p>
+					</div>
+					<div id="calendar"></div>
+				</div>
+			</section>
 
-        <label>Fin</label>
-        <input type="datetime-local" name="endDateTime" required>
+			<aside class="schedule-aside{% if not editable %} schedule-aside-public{% endif %}">
+				{% if editable %}
+					<form action="/scheduleinterpreters" method="post" class="availability-form schedule-panel">
+						<p class="panel-kicker">Nouveau creneau</p>
+						<h3>Ajouter une disponibilite</h3>
+						<label>Debut</label>
+						<input type="datetime-local" name="startDateTime" required>
 
-        <label>Type</label>
-        <input type="text" name="interventionType" placeholder="Réunion, Santé, ...">
+						<label>Fin</label>
+						<input type="datetime-local" name="endDateTime" required>
 
-        <label>Commentaire</label>
-        <textarea name="comment" rows="2" placeholder="Optionnel"></textarea>
+						<label>Type</label>
+						<input type="text" name="interventionType" placeholder="Reunion, Sante, ...">
 
-        <button type="submit">Enregistrer</button>
-      </form>
-    {% endif %}
+						<label>Commentaire</label>
+						<textarea name="comment" rows="2" placeholder="Optionnel"></textarea>
 
-    <a href="/interpreters" class="back-btn">Retour à la liste des interprètes</a>
-  </aside>
+						<label>Lieu</label>
+						<input type="text" name="location" placeholder="Adresse ou lieu">
 
-  <script>
-    const interpreter = {{ interpreter | json_encode | raw }};
-    const availabilities = {{ availabilities | json_encode | raw }};
-    const editable = {{ editable ? 'true' : 'false' }};
-  </script>
+						<button type="submit">Enregistrer</button>
+					</form>
+				{% endif %}
 
-  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.20/index.global.min.js"></script>
-  <script src="/static/assets/js/scheduleInterpreters.js"></script>
+				<a href="/interpreters" class="back-btn">Retour a la liste des interpretes</a>
+			</aside>
+		</div>
 
-{% endblock %}
+		<div id="event-modal" class="event-modal hidden">
+			<div class="event-modal-card">
+				<button id="close-event-modal" type="button" class="event-modal-close" aria-label="Fermer">×</button>
+				<p class="panel-kicker">Creneau selectionne</p>
+				<h3>
+					{% if editable %}
+						Detail du creneau
+					{% else %}
+						Informations du creneau
+					{% endif %}
+				</h3>
+
+				<div class="event-modal-content">
+					<p class="event-detail-line"><strong>Type</strong><span id="event-details-title"></span></p>
+					<p class="event-detail-line"><strong>Debut</strong><span id="event-details-start"></span></p>
+					<p class="event-detail-line"><strong>Fin</strong><span id="event-details-end"></span></p>
+					<p class="event-detail-line"><strong>Lieu</strong><span id="event-details-location"></span></p>
+					<p class="event-detail-line"><strong>Commentaire</strong><span id="event-details-comment"></span></p>
+				</div>
+
+				{% if editable %}
+					<div class="event-modal-edit">
+						<h4>Modifier les horaires</h4>
+						<label for="event-edit-start">Debut</label>
+						<input id="event-edit-start" type="datetime-local">
+
+						<label for="event-edit-end">Fin</label>
+						<input id="event-edit-end" type="datetime-local">
+
+						<p class="event-modal-edit-help">Ajustez ce creneau puis validez la modification.</p>
+					</div>
+
+					<div class="event-modal-actions">
+						<button id="save-selected-event" type="button" class="save-event-btn">
+							Mettre a jour
+						</button>
+						<button id="delete-selected-event" type="button" class="delete-event-btn">
+							Supprimer
+						</button>
+					</div>
+				{% endif %}
+			</div>
+		</div>
+
+		<script>
+			const interpreter = {{ interpreter | json_encode | raw }};
+const availabilities = {{ availabilities | json_encode | raw }};
+const editable = {{ editable ? 'true' : 'false' }};
+		</script>
+
+		<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.20/index.global.min.js"></script>
+		<script src="/static/assets/js/scheduleInterpreters.js"></script>
+
+	{% endblock %}

@@ -136,6 +136,7 @@ exports.Prisma.AvailabilityScalarFieldEnum = {
   endDateTime: 'endDateTime',
   interventionType: 'interventionType',
   comment: 'comment',
+  location: 'location',
   userId: 'userId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -194,7 +195,8 @@ exports.Prisma.AddressOrderByRelevanceFieldEnum = {
 
 exports.Prisma.AvailabilityOrderByRelevanceFieldEnum = {
   interventionType: 'interventionType',
-  comment: 'comment'
+  comment: 'comment',
+  location: 'location'
 };
 
 exports.Prisma.EventOrderByRelevanceFieldEnum = {

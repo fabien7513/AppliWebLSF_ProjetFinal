@@ -6,6 +6,7 @@ model Availability{
 
    interventionType String? 
    comment String?
+   location String?
 
    userId Int
    user User @relation(fields: [userId], references: [id_user])
