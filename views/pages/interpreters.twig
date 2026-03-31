@@ -2,93 +2,96 @@
 
 {% block style %}
 	<link rel="stylesheet" href="/static/assets/css/interpreters.css">
+	<link rel="stylesheet" href="/static/assets/css/address-autocomplete.css">
 {% endblock %}
 
 
 {% block main %}
 
 	<header class="home-header">
-  <div class="header-top">
-    <div class="logo">
-      <a href="/">
-        <img src="/static/assets/images/logo2.png" alt="Logo Réseau LSF">
-      </a>
-    </div>
+		<div class="header-top">
+			<div class="logo">
+				<a href="/">
+					<img src="/static/assets/images/logo2.png" alt="Logo Réseau LSF">
+				</a>
+			</div>
 
-    {% if user %}
-      <div class="user-menu">
-        <button id="user-btn" class="user-btn">
-          Bonjour {{ user.firstName }} {{ user.lastName }} ▾
-        </button>
+			{% if user %}
+				<div class="user-menu">
+					<button id="user-btn" class="user-btn">
+						Bonjour
+						{{ user.firstName }}
+						{{ user.lastName }}
+						▾
+					</button>
 
-        <div id="user-dropdown" class="user-dropdown hidden">
-          <a href="/profile">Mon profil</a>
-          <a href="/reservations">Mes réservations</a>
-          <a href="/scheduleinterpreters">Mon planning</a>
-          <a href="/logout">Déconnexion</a>
-        </div>
-      </div>
-    {% else %}
-      <a href="/login" class="interpreter-btn">
-        Vous êtes interprète ?
-      </a>
-    {% endif %}
-  </div>
+					<div id="user-dropdown" class="user-dropdown hidden">
+						<a href="/profile">Mon profil</a>
+						<a href="/reservations">Mes réservations</a>
+						<a href="/scheduleinterpreters">Mon planning</a>
+						<a href="/logout">Déconnexion</a>
+					</div>
+				</div>
+			{% else %}
+				<a href="/login" class="interpreter-btn">
+					Vous êtes interprète ?
+				</a>
+			{% endif %}
+		</div>
 
-  <section class="search-interpreter-section">
-    <div class="search-box">
-      <h2>Recherche un interprète <span>🔎</span></h2>
+		<section class="search-interpreter-section">
+			<div class="search-box">
+				<h2>Recherche un interprète
+					<span>🔎</span>
+				</h2>
 
-      <form class="search-form">
-        <div class="form-row">
-          <label for="department">Département :</label>
-          <select id="department">
-            <option value="13">13 - Bouches-du-Rhône</option>
-            <option value="83">83 - Var</option>
-          </select>
-        </div>
+				<form class="search-form" action="/interpreters/search" method="GET">
+					<div class="form-row">
+						<label for="meetingAddress">Adresse du rendez-vous :</label>
+						<input id="meetingAddress" type="text" name="meetingAddress" value="{{ search.meetingAddress ?? '' }}" placeholder="15 rue de Rome, 13001 Marseille" data-address-autocomplete required>
+					</div>
 
-        <div class="form-row">
-          <label for="city">Ville :</label>
-          <select id="city">
-            <option>Choisissez une ville</option>
-          </select>
-        </div>
+					<div class="form-row">
+						<label for="date">Date :</label>
+						<input id="date" type="date" name="date" value="{{ search.date ?? '' }}">
+					</div>
 
-        <div class="form-row">
-          <label for="availability">Disponibilité :</label>
-          <select id="availability" name="availability">
-            <option value="today">Aujourd'hui</option>
-            <option value="tomorrow">Demain</option>
-            <option value="week">Cette semaine</option>
-          </select>
-        </div>
+					<div class="form-row">
+						<label for="startTime">Heure début :</label>
+						<input id="startTime" type="time" name="startTime" value="{{ search.startTime ?? '' }}">
+					</div>
 
-        <div class="form-row">
-          <label for="name">Nom :</label>
-          <input id="name" type="text" name="name" placeholder="Nom (optionnel)">
-        </div>
+					<div class="form-row">
+						<label for="endTime">Heure fin :</label>
+						<input id="endTime" type="time" name="endTime" value="{{ search.endTime ?? '' }}">
+					</div>
 
-        <div class="form-button">
-          <button type="submit">🔎 Trouvez un interprète</button>
-        </div>
-      </form>
-    </div>
-  </section>
-</header>
+					<div class="form-button">
+						<button type="submit">🔎 Trouvez un interprète</button>
+					</div>
+				</form>
+			</div>
+		</section>
+	</header>
 
 	<h1>Liste des interprètes</h1>
 
-  {% if search %}
-  <p class="search-summary">
-    Résultats pour <strong>{{ search.city }}</strong> le <strong>{{ search.date }}</strong>
-    de <strong>{{ search.startTime }}</strong> à <strong>{{ search.endTime }}</strong>
-  </p>
-{% endif %}
+	{% if search %}
+		<p class="search-summary">
+			Résultats pour
+			<strong>{{ search.meetingAddress }}</strong>
+			le
+			<strong>{{ search.date }}</strong>
+			de
+			<strong>{{ search.startTime }}</strong>
+			à
+			<strong>{{ search.endTime }}</strong>
+		</p>
+	{% endif %}
 
-  {% if error %}
-    <p class="search-error">{{ error }}</p>
-  {% endif %}
+	{% if error %}
+		<p class="search-error">{{ error }}</p>
+	{% endif %}
 
 	<section class="interpreter-card-section">
 		<div class="interpreters-grid">
@@ -118,14 +121,20 @@
 							<strong>N° SIRET :</strong>
 							{{ interpreter.siretNumber }}</p>
 
-						<a href="/scheduleinterpreters?userId={{ interpreter.id_user }}" class="planning-btn">Planning</a>
+						<div class="card-actions">
+							<a href="/scheduleinterpreters?userId={{ interpreter.id_user }}" class="planning-btn">Planning</a>
+
+							<a href="/request/{{ interpreter.id_user }}?meetingAddress={{ search.meetingAddress|default('')|url_encode }}&date={{ search.date|default('')|url_encode }}&startTime={{ search.startTime|default('')|url_encode }}&endTime={{ search.endTime|default('')|url_encode }}" class="request-btn">
+								Faire une demande
+							</a>
+						</div>
 					</div>
 				</div>
 			{% endfor %}
 		</div>
 	</section>
 
-
+	<script src="/static/assets/js/addressAutocomplete.js"></script>
 	<script src="/static/assets/js/interpreters.js"></script>
 
 {% endblock %}

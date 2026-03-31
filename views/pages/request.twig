@@ -1,0 +1,62 @@
+{% extends "../layout/base.twig" %}
+
+{% block style %}
+  <link rel="stylesheet" href="/static/assets/css/request.css">
+  <link rel="stylesheet" href="/static/assets/css/address-autocomplete.css">
+{% endblock %}
+
+{% block main %}
+
+<main class="request-page">
+  <section class="request-section">
+    <div class="request-container">
+
+      <div class="request-card">
+        <div class="request-photo">
+          <img src="{{ interpreter.photo ?? '/static/assets/images/avatar.png' }}" alt="Photo interprète">
+        </div>
+
+        <h2>{{ interpreter.firstName }} {{ interpreter.lastName }}</h2>
+
+        <p>{{ interpreter.description ?? "Aucune présentation disponible." }}</p>
+        <p><strong>Ville :</strong> {{ interpreter.address.city ?? "Non renseignée" }}</p>
+        <p><strong>Email :</strong> {{ interpreter.mail }}</p>
+        <p><strong>Téléphone :</strong> {{ interpreter.phone ?? "Non renseigné" }}</p>
+      </div>
+
+      <form class="request-form" action="/request/{{ interpreter.id_user }}" method="post">
+
+        <h1>Faire une demande</h1>
+
+        {% if success %}
+          <p class="success-message">{{ success }}</p>
+        {% endif %}
+
+        {% if error %}
+          <p class="error-message">{{ error }}</p>
+        {% endif %}
+
+        <label for="meetingAddress">Lieu</label>
+        <input id="meetingAddress" type="text" name="meetingAddress" value="{{ search.meetingAddress ?? '' }}" data-address-autocomplete>
+
+        <label for="date">Date</label>
+        <input id="date" type="date" name="date" value="{{ search.date ?? '' }}">
+
+        <label for="startTime">Heure début</label>
+        <input id="startTime" type="time" name="startTime" value="{{ search.startTime ?? '' }}">
+
+        <label for="endTime">Heure fin</label>
+        <input id="endTime" type="time" name="endTime" value="{{ search.endTime ?? '' }}">
+
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="6" placeholder="Décrivez votre besoin"></textarea>
+
+        <button type="submit">Envoyer la demande</button>
+      </form>
+
+    </div>
+  </section>
+</main>
+
+<script src="/static/assets/js/addressAutocomplete.js"></script>
+{% endblock %}

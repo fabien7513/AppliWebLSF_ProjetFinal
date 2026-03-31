@@ -1,27 +1,3 @@
-const departmentSelect = document.querySelector("#department");
-const citySelect = document.querySelector("#city");
-
-async function loadCities(department) {
-	const response = await fetch(`https://geo.api.gouv.fr/departements/${department}/communes?fields=nom&format=json`);
-	const cities = await response.json();
-
-	citySelect.innerHTML = "";
-
-	cities.forEach(city => {
-		const option = document.createElement("option");
-		option.value = city.nom;
-		option.textContent = city.nom;
-		citySelect.appendChild(option);
-	});
-}
-
-departmentSelect.addEventListener("change", () => {
-	loadCities(departmentSelect.value);
-});
-
-/* charger les villes du 13 au démarrage */
-loadCities("13");
-
 // Gestion du modal
 const modal = document.getElementById("interpreter-modal");
 const closeModalBtn = document.getElementById("close-interpreter-modal");

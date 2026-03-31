@@ -83,19 +83,19 @@ export async function getListInterpreters(req, res) {
 
 export async function searchInterpreters(req, res) {
   try {
-    const { city, date, startTime, endTime } = req.query;
+    const { meetingAddress, date, startTime, endTime } = req.query;
 
-    if (!city || !date || !startTime || !endTime) {
+    if (!meetingAddress || !date || !startTime || !endTime) {
       return res.render("pages/interpreters.twig", {
         title: "Résultats de recherche",
         interpreters: [],
-        error: "Merci de remplir le lieu, la date et les horaires."
+        error: "Merci de remplir l'adresse du rendez-vous, la date et les horaires."
       });
     }
 
     const requestedStart = new Date(`${date}T${startTime}:00`);
     const requestedEnd = new Date(`${date}T${endTime}:00`);
-    const requestedLocation = await geocodeLocation(city);
+    const requestedLocation = await geocodeLocation(meetingAddress);
 
     if (
       Number.isNaN(requestedStart.getTime()) ||
@@ -103,9 +103,9 @@ export async function searchInterpreters(req, res) {
       requestedStart >= requestedEnd
     ) {
       return res.render("pages/interpreters.twig", {
-        title: "Resultats de recherche",
+        title: "Résultats de recherche",
         interpreters: [],
-        error: "Le creneau demande est invalide."
+        error: "Le créneau demandé est invalide."
       });
     }
 
@@ -131,51 +131,41 @@ export async function searchInterpreters(req, res) {
     });
 
     const sortedInterpreters = interpreters
+      .filter((interpreter) => hasCoordinates(interpreter.address) && requestedLocation)
       .map((interpreter) => {
-        const distanceKm =
-          requestedLocation && hasCoordinates(interpreter.address)
-            ? getDistanceInKm(
-                requestedLocation.latitude,
-                requestedLocation.longitude,
-                interpreter.address.latitude,
-                interpreter.address.longitude
-              )
-            : null;
+        const distanceKm = getDistanceInKm(
+          requestedLocation.latitude,
+          requestedLocation.longitude,
+          interpreter.address.latitude,
+          interpreter.address.longitude
+        );
 
         return {
           ...interpreter,
           distanceKm
         };
       })
-      .sort((a, b) => {
-        const distanceA = typeof a.distanceKm === "number" ? a.distanceKm : Number.POSITIVE_INFINITY;
-        const distanceB = typeof b.distanceKm === "number" ? b.distanceKm : Number.POSITIVE_INFINITY;
-
-        if (distanceA !== distanceB) {
-          return distanceA - distanceB;
-        }
-
-        return `${a.lastName} ${a.firstName}`.localeCompare(`${b.lastName} ${b.firstName}`, "fr", {
-          sensitivity: "base"
-        });
-      });
+      .filter((interpreter) => interpreter.distanceKm <= 50)
+      .sort((a, b) => a.distanceKm - b.distanceKm);
 
     res.render("pages/interpreters.twig", {
-      title: "Resultats de recherche",
+      title: "Résultats de recherche",
       interpreters: sortedInterpreters,
       search: {
-        city,
+        meetingAddress,
         date,
         startTime,
         endTime
       },
-      error: sortedInterpreters.length === 0 ? "Aucun interprete disponible pour cette recherche." : null
+      error: sortedInterpreters.length === 0
+        ? "Aucun interprète disponible pour cette recherche."
+        : null
     });
 
   } catch (error) {
     console.log(error);
     res.render("pages/interpreters.twig", {
-      title: "Resultats de recherche",
+      title: "Résultats de recherche",
       interpreters: [],
       error: "Erreur lors de la recherche."
     });

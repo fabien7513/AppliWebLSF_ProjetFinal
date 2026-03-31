@@ -8,6 +8,7 @@ import { interpretersRouter } from "./routers/interpretersRouter.js";
 import { scheduleInterpretersRouter } from "./routers/scheduleInterpretersRouter.js";
 import { profileRouter } from "./routers/profileRouter.js";
 import { reservationsRouter } from "./routers/reservationsRouter.js";
+import { requestRouter } from "./routers/requestRouter.js";
 
 
 
@@ -36,9 +37,10 @@ app.use(express.json())
 app.use(authRouter);
 app.use(mainRouter);
 app.use(interpretersRouter);
-app.use(scheduleInterpretersRouter)
-app.use(profileRouter)
-app.use(reservationsRouter)
+app.use(scheduleInterpretersRouter);
+app.use(profileRouter);
+app.use(reservationsRouter);
+app.use(requestRouter)
 
 app.listen(process.env.PORT, (error)=>{
     if (error) {

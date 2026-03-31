@@ -2,6 +2,7 @@
 
 {% block style %}
 	<link rel="stylesheet" href="/static/assets/css/home.css">
+	<link rel="stylesheet" href="/static/assets/css/address-autocomplete.css">
 	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
 {% endblock %}
 
@@ -183,8 +184,8 @@
 				<h2 class="modal-title">Trouvez un interprète</h2>
 
 				<form class="modal-form" action="/interpreters/search" method="get">
-					<label for="city">Lieu du rendez-vous</label>
-					<input id="city" type="text" name="city" placeholder="Lieu de votre rendez-vous">
+					<label for="meetingAddress">Adresse du rendez-vous</label>
+					<input id="meetingAddress" type="text" name="meetingAddress" placeholder="15 rue de Rome, 13001 Marseille" data-address-autocomplete required>
 
 					<label for="date">Date du rendez-vous</label>
 					<input id="date" type="date" name="date">
@@ -241,5 +242,6 @@
 	</script>
 
 	<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+	<script src="/static/assets/js/addressAutocomplete.js"></script>
 	<script src="/static/assets/js/home.js"></script>
 {% endblock %}
