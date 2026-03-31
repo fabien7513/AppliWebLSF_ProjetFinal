@@ -124,3 +124,32 @@ form a{
 form a:hover{
   text-decoration:underline;
 }
+
+@media (max-width: 640px){
+  .login-section{
+    padding:36px 16px 48px;
+  }
+
+  .login-box{
+    padding:22px 18px;
+    border-radius:14px;
+  }
+
+  .login-title h2{
+    font-size:24px;
+    margin-bottom:20px;
+  }
+
+  .login-top img{
+    width:150px;
+  }
+
+  input{
+    height:46px;
+    font-size:16px;
+  }
+
+  button{
+    height:48px;
+  }
+}

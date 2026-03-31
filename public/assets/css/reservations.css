@@ -107,8 +107,13 @@ body{
 }
 
 @media (max-width: 900px){
+  .reservations-section{
+    padding:40px 16px 56px;
+  }
+
   .reservations-container{
     grid-template-columns:1fr;
+    gap:24px;
   }
 
   .reservation-card{
@@ -129,5 +134,9 @@ body{
   .reservations-top h1{
     text-align:center;
     font-size:28px;
+  }
+
+  .reservations-logo img{
+    width:140px;
   }
 }

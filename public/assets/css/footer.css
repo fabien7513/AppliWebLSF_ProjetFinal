@@ -7,6 +7,8 @@
   margin:0 auto;
   display:flex;
   justify-content:space-between;
+  gap:24px;
+  flex-wrap:wrap;
 }
 
 .footer-links ul{
@@ -23,4 +25,14 @@
   margin-top:40px;
   color:#243b6b;
   font-size:14px;
+}
+
+@media (max-width: 700px){
+  .footer{
+    padding:44px 20px 24px;
+  }
+
+  .footer-container{
+    flex-direction:column;
+  }
 }

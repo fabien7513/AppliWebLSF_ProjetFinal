@@ -130,26 +130,35 @@ body{
 }
 
 @media (max-width: 900px){
+  .request-section{
+    padding:36px 16px 56px;
+  }
+
   .request-container{
     grid-template-columns:1fr;
+    gap:20px;
   }
 }
 
 @media (max-width: 640px){
-  .request-top{
-    flex-direction:column;
-    gap:12px;
+  .request-card{
+    padding:18px;
   }
 
-  .request-top a{
-    position:static;
-  }
-
-  .request-top h1{
-    font-size:28px;
+  .request-photo{
+    height:220px;
   }
 
   .request-form{
     padding:20px;
+  }
+
+  .request-form h1{
+    font-size:28px;
+  }
+
+  .request-form input,
+  .request-form textarea{
+    font-size:16px;
   }
 }

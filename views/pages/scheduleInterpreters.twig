@@ -2,6 +2,7 @@
 
 {% block style %}
 	<link rel="stylesheet" href="/static/assets/css/scheduleInterpreters.css">
+	<link rel="stylesheet" href="/static/assets/css/address-autocomplete.css">
 {% endblock %}
 
 {% block main %}
@@ -86,7 +87,7 @@
 						<textarea name="comment" rows="2" placeholder="Optionnel"></textarea>
 
 						<label>Lieu</label>
-						<input type="text" name="location" placeholder="Adresse ou lieu">
+						<input type="text" name="location" placeholder="Adresse ou lieu" data-address-autocomplete>
 
 						<button type="submit">Enregistrer</button>
 					</form>
@@ -147,6 +148,7 @@ const editable = {{ editable ? 'true' : 'false' }};
 		</script>
 
 		<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.20/index.global.min.js"></script>
+		<script src="/static/assets/js/addressAutocomplete.js"></script>
 		<script src="/static/assets/js/scheduleInterpreters.js"></script>
 
 	{% endblock %}

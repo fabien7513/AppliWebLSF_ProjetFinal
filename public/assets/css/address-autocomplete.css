@@ -13,23 +13,23 @@
   flex-direction: column;
   max-height: 240px;
   overflow-y: auto;
-  background: white;
-  border: 1px solid rgba(31, 59, 109, 0.14);
-  border-radius: 12px;
-  box-shadow: 0 14px 30px rgba(20, 42, 78, 0.16);
+  background: #ffffff !important;
+  border: 1px solid #d9e2e8 !important;
+  border-radius: 8px !important;
+  box-shadow: 0 4px 12px rgba(20, 42, 78, 0.06) !important;
 }
 
 .address-autocomplete-list.hidden {
   display: none;
-}
+} 
 
 .address-autocomplete-item {
   width: 100%;
   padding: 12px 14px;
   border: none;
-  border-bottom: 1px solid rgba(31, 59, 109, 0.08);
-  background: white;
-  color: #1f3b6d;
+  border-bottom: 1px solid #eef2f5;
+  background: #ffffff !important;
+  color: #243244 !important;
   font-family: inherit;
   font-size: 14px;
   text-align: left;
@@ -42,5 +42,33 @@
 
 .address-autocomplete-item:hover,
 .address-autocomplete-item.active {
-  background: #eef6ff;
+  background: #f3f4f6 !important;
+}
+
+.search-form .address-autocomplete-list,
+.modal-form .address-autocomplete-list,
+.request-form .address-autocomplete-list,
+.availability-form .address-autocomplete-list {
+  background: #ffffff !important;
+  border: 1px solid #d9e2e8 !important;
+  box-shadow: 0 4px 12px rgba(20, 42, 78, 0.06) !important;
+}
+
+.search-form .address-autocomplete-item,
+.modal-form .address-autocomplete-item,
+.request-form .address-autocomplete-item,
+.availability-form .address-autocomplete-item {
+  background: #ffffff !important;
+  color: #243244 !important;
+}
+
+.search-form .address-autocomplete-item:hover,
+.search-form .address-autocomplete-item.active,
+.modal-form .address-autocomplete-item:hover,
+.modal-form .address-autocomplete-item.active,
+.request-form .address-autocomplete-item:hover,
+.request-form .address-autocomplete-item.active,
+.availability-form .address-autocomplete-item:hover,
+.availability-form .address-autocomplete-item.active {
+  background: #f3f4f6 !important;
 }

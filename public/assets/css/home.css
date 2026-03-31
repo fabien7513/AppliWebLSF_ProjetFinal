@@ -270,7 +270,7 @@ body{
 /* ROLE */
 .role-section{
   background:#39a7a0;
-  width:100vw;
+  width:100%;
   padding:100px 20px;
 }
 
@@ -315,12 +315,14 @@ body{
   margin:0 auto;
   display:flex;
   justify-content:center;
+  flex-wrap:wrap;
   gap:40px;
 }
 
 .service-card{
   background:#39a7a0;
-  width:300px;
+  width:100%;
+  max-width:300px;
   padding:25px;
   border-radius:12px;
   text-align:center;
@@ -369,6 +371,7 @@ body{
   margin:0 auto;
   display:flex;
   align-items:center;
+  justify-content:center;
   gap:60px;
 }
 
@@ -597,6 +600,20 @@ body{
   .intro-steps{
     grid-template-columns:1fr;
   }
+
+  .about-container{
+    flex-direction:column;
+    text-align:center;
+    gap:28px;
+  }
+
+  .about-logo img{
+    width:150px;
+  }
+
+  .about-text{
+    font-size:16px;
+  }
 }
 
 @media (max-width: 700px){
@@ -716,7 +733,12 @@ body{
 
   .services-container{
     flex-direction:column;
+    align-items:center;
     gap:24px;
+  }
+
+  .service-card{
+    max-width:420px;
   }
 }
 
@@ -740,5 +762,14 @@ body{
 
   #map{
     height:280px;
+  }
+
+  .about-section{
+    clip-path:none;
+    padding:72px 20px;
+  }
+
+  .role-section{
+    padding:72px 20px;
   }
 }

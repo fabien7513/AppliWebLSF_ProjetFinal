@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   const editableFlag = typeof editable !== 'undefined' && editable === true;
   let selectedEvent = null;
+  const compactBreakpoint = 760;
 
   const events = Array.isArray(availabilities)
     ? availabilities.map((a) => ({
@@ -198,16 +199,52 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
-  const calendar = new FullCalendar.Calendar(calendarEl, {
-    initialView: 'timeGridWeek',
-    locale: 'fr',
-    selectable: editableFlag,
-    editable: editableFlag,
-    headerToolbar: {
+  function isCompactScreen() {
+    return window.innerWidth <= compactBreakpoint;
+  }
+
+  function getResponsiveHeaderToolbar() {
+    if (isCompactScreen()) {
+      return {
+        left: 'prev,next',
+        center: 'title',
+        right: 'dayGridMonth,timeGridDay'
+      };
+    }
+
+    return {
       left: 'prev,next today',
       center: 'title',
       right: 'dayGridMonth,timeGridWeek,timeGridDay'
-    },
+    };
+  }
+
+  function syncCalendarResponsiveLayout(calendar) {
+    const compact = isCompactScreen();
+    const expectedView = compact ? 'timeGridDay' : 'timeGridWeek';
+
+    calendar.setOption('headerToolbar', getResponsiveHeaderToolbar());
+    calendar.setOption('dayHeaderFormat', compact
+      ? { weekday: 'short', day: '2-digit', month: '2-digit' }
+      : { weekday: 'short', day: 'numeric' });
+    calendar.setOption('titleFormat', compact
+      ? { month: 'short', day: 'numeric' }
+      : { year: 'numeric', month: 'long' });
+    calendar.setOption('buttonText', compact
+      ? { today: 'Auj.', month: 'Mois', week: 'Semaine', day: 'Jour' }
+      : { today: 'Aujourd’hui', month: 'Mois', week: 'Semaine', day: 'Jour' });
+
+    if (calendar.view.type !== expectedView) {
+      calendar.changeView(expectedView);
+    }
+  }
+
+  const calendar = new FullCalendar.Calendar(calendarEl, {
+    initialView: isCompactScreen() ? 'timeGridDay' : 'timeGridWeek',
+    locale: 'fr',
+    selectable: editableFlag,
+    editable: editableFlag,
+    headerToolbar: getResponsiveHeaderToolbar(),
     events,
     select: function (info) {
       if (!editableFlag) return;
@@ -317,4 +354,9 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   calendar.render();
+  syncCalendarResponsiveLayout(calendar);
+
+  window.addEventListener('resize', () => {
+    syncCalendarResponsiveLayout(calendar);
+  });
 });
