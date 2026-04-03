@@ -20,34 +20,13 @@ body{
 
 .schedule-top{
   width:100%;
-  background:linear-gradient(135deg, #2caea8 0%, #1f4b8f 100%);
+  background:linear-gradient(135deg, #2caea8);
   padding:32px 20px 64px;
   display:flex;
   justify-content:center;
   align-items:center;
   position:relative;
   overflow:hidden;
-}
-
-.schedule-top::after{
-  content:"";
-  position:absolute;
-  inset:auto -120px -140px auto;
-  width:320px;
-  height:320px;
-  border-radius:50%;
-  background:rgba(255,255,255,0.12);
-}
-
-.schedule-top::before{
-  content:"";
-  position:absolute;
-  left:-90px;
-  top:-120px;
-  width:260px;
-  height:260px;
-  border-radius:50%;
-  background:rgba(255,255,255,0.08);
 }
 
 .schedule-logo{
@@ -168,14 +147,6 @@ body{
   overflow:hidden;
 }
 
-.calendar-box::after{
-  content:"";
-  position:absolute;
-  inset:0 0 auto 0;
-  height:4px;
-  background:linear-gradient(90deg, #35b7b2 0%, #1f4b8f 100%);
-}
-
 .calendar-box-header{
   display:flex;
   justify-content:space-between;
@@ -232,14 +203,6 @@ body{
 .availability-form.schedule-panel{
   overflow:visible;
   z-index:5;
-}
-
-.schedule-panel::before{
-  content:"";
-  position:absolute;
-  inset:0 0 auto 0;
-  height:3px;
-  background:linear-gradient(90deg, rgba(53,183,178,0.95) 0%, rgba(31,75,143,0.92) 100%);
 }
 
 .schedule-panel h3{
@@ -615,7 +578,7 @@ body{
 
 /* événements */
 .fc .fc-event{
-  background:linear-gradient(135deg, #2d74c7 0%, #35b7b2 100%);
+  background:linear-gradient(135deg, #378cd1);
   border:none;
   border-radius:12px;
   padding:5px 7px;

@@ -27,7 +27,39 @@
         <h2>Rendez-vous passés</h2>
 
         <div class="reservation-list">
-          <p class="empty-text">Aucune réservation passée pour le moment.</p>
+          {% if error %}
+            <p class="empty-text">{{ error }}</p>
+          {% elseif pastReservationGroups|length == 0 %}
+            <p class="empty-text">Aucune réservation passée pour le moment.</p>
+          {% else %}
+            {% for monthGroup in pastReservationGroups %}
+              <details class="reservation-month" {% if loop.first %}open{% endif %}>
+                {% set count = monthGroup.reservations|length %}
+                <summary>
+                  <span class="reservation-month-title">{{ monthGroup.label }}</span>
+                  <span class="reservation-month-meta">
+                    <span class="reservation-month-hint">Cliquer pour afficher</span>
+                    <span class="reservation-month-count">
+                      {{ count }} rendez-vous
+                    </span>
+                  </span>
+                </summary>
+                <div class="reservation-month-list">
+                  {% for reservation in monthGroup.reservations %}
+                    <article class="reservation-item">
+                      <h3>{{ reservation.title }}</h3>
+                      <p><strong>Début :</strong> {{ reservation.startLabel }}</p>
+                      <p><strong>Fin :</strong> {{ reservation.endLabel }}</p>
+                      <p><strong>Lieu :</strong> {{ reservation.location }}</p>
+                      {% if reservation.comment %}
+                        <p><strong>Commentaire :</strong> {{ reservation.comment }}</p>
+                      {% endif %}
+                    </article>
+                  {% endfor %}
+                </div>
+              </details>
+            {% endfor %}
+          {% endif %}
         </div>
       </div>
 
@@ -35,7 +67,23 @@
         <h2>À venir</h2>
 
         <div class="reservation-list">
-          <p class="empty-text">Aucune réservation à venir pour le moment.</p>
+          {% if error %}
+            <p class="empty-text">{{ error }}</p>
+          {% elseif upcomingReservations|length == 0 %}
+            <p class="empty-text">Aucune réservation à venir pour le moment.</p>
+          {% else %}
+            {% for reservation in upcomingReservations %}
+              <article class="reservation-item">
+                <h3>{{ reservation.title }}</h3>
+                <p><strong>Début :</strong> {{ reservation.startLabel }}</p>
+                <p><strong>Fin :</strong> {{ reservation.endLabel }}</p>
+                <p><strong>Lieu :</strong> {{ reservation.location }}</p>
+                {% if reservation.comment %}
+                  <p><strong>Commentaire :</strong> {{ reservation.comment }}</p>
+                {% endif %}
+              </article>
+            {% endfor %}
+          {% endif %}
         </div>
       </div>
 
