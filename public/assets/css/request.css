@@ -13,13 +13,42 @@ body{
   min-height:100vh;
 }
 
-.request-section{
-  padding:50px 20px 80px;
+.request-top{
+  width:100%;
+  background:#35b7b2;
+  padding:30px 20px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  position:relative;
 }
 
-.request-form h1{
+.request-logo{
+  position:absolute;
+  left:30px;
+  display:flex;
+  align-items:center;
+}
+
+.request-logo img{
+  width:160px;
+  height:auto;
+  display:block;
+}
+
+.request-section{
+  padding:60px 20px 80px;
+}
+
+.request-top h1{
+  color:white;
+  font-size:34px;
+  font-weight:700;
+}
+
+.request-form-title{
   color:#1f3b6d;
-  font-size:32px;
+  font-size:28px;
   font-weight:700;
   margin-bottom:6px;
 }
@@ -130,8 +159,12 @@ body{
 }
 
 @media (max-width: 900px){
+  .request-top{
+    padding:30px 16px;
+  }
+
   .request-section{
-    padding:36px 16px 56px;
+    padding:40px 16px 56px;
   }
 
   .request-container{
@@ -141,6 +174,24 @@ body{
 }
 
 @media (max-width: 640px){
+  .request-top{
+    flex-direction:column;
+    gap:14px;
+  }
+
+  .request-logo{
+    position:static;
+  }
+
+  .request-top h1{
+    text-align:center;
+    font-size:28px;
+  }
+
+  .request-logo img{
+    width:140px;
+  }
+
   .request-card{
     padding:18px;
   }
@@ -153,8 +204,8 @@ body{
     padding:20px;
   }
 
-  .request-form h1{
-    font-size:28px;
+  .request-form-title{
+    font-size:24px;
   }
 
   .request-form input,

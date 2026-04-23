@@ -8,6 +8,14 @@
 {% block main %}
 
 <main class="request-page">
+  <section class="request-top">
+    <a href="/" class="request-logo" aria-label="Retour à l'accueil">
+      <img src="/static/assets/images/logo2.png" alt="Logo Réseau LSF">
+    </a>
+
+    <h1>Faire une demande</h1>
+  </section>
+
   <section class="request-section">
     <div class="request-container">
 
@@ -26,7 +34,7 @@
 
       <form class="request-form" action="/request/{{ interpreter.id_user }}" method="post">
 
-        <h1>Faire une demande</h1>
+        <h2 class="request-form-title">Détails de la demande</h2>
 
         {% if success %}
           <p class="success-message">{{ success }}</p>

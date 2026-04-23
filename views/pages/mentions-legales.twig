@@ -1,0 +1,82 @@
+{% extends "../layout/base.twig" %}
+
+{% block style %}
+  <link rel="stylesheet" href="/static/assets/css/legal.css">
+{% endblock %}
+
+{% block main %}
+<main class="legal-layout">
+  <section class="legal-top">
+    <a href="/">
+      <img src="/static/assets/images/logo2.png" alt="Logo Réseau LSF">
+    </a>
+  </section>
+
+  <section class="legal-shell">
+    <article class="legal-card">
+      <div class="legal-card-head">
+        <p class="legal-kicker">Informations du site</p>
+        <h1>Mentions légales</h1>
+        <p class="legal-lead">
+          Cette page présente les informations d'identification du projet, son
+          objet et le cadre général d'utilisation de la plateforme.
+        </p>
+
+        <div class="legal-actions">
+          <a class="legal-action legal-action-primary" href="/">Retour à l'accueil</a>
+          <a class="legal-action" href="/legal/confidentialite">Voir la confidentialité</a>
+        </div>
+      </div>
+
+      <div class="legal-sections">
+        <section class="legal-section">
+          <span class="legal-meta">Édition</span>
+          <h2>Éditeur du site</h2>
+          <p><strong>Nom :</strong> Fabien BARGE</p>
+          <p>Projet réalisé dans le cadre de la formation Développeur Web et Web Mobile (DWWM).</p>
+        </section>
+
+        <section class="legal-section">
+          <span class="legal-meta">Projet</span>
+          <h2>Objet du site</h2>
+          <p>
+            Cette application a pour objectif de faciliter la mise en relation
+            entre des interprètes en Langue des Signes Française (LSF) et des
+            personnes ayant besoin de leurs services, comme des personnes
+            sourdes, des entreprises ou des associations.
+          </p>
+        </section>
+
+        <section class="legal-section">
+          <span class="legal-meta">Hébergement</span>
+          <h2>Hébergement</h2>
+          <p>
+            Le site est hébergé sur : à compléter selon ton hébergeur
+            (Vercel, Render, etc.).
+          </p>
+        </section>
+
+        <section class="legal-section">
+          <span class="legal-meta">Cadre d'usage</span>
+          <h2>Responsabilité</h2>
+          <p>
+            Ce site est un projet pédagogique réalisé dans le cadre d'une
+            formation. Les informations présentées sont fournies à titre
+            d'exemple et peuvent être amenées à évoluer.
+          </p>
+        </section>
+
+        <section class="legal-section">
+          <span class="legal-meta">Contenus</span>
+          <h2>Propriété intellectuelle</h2>
+          <p>
+            L'ensemble des contenus présents sur ce site, notamment les textes,
+            maquettes et éléments de design, sont utilisés dans le cadre du
+            projet. Toute reproduction non autorisée est interdite.
+          </p>
+        </section>
+      </div>
+    </article>
+  </section>
+</main>
+{% endblock %}

@@ -9,6 +9,7 @@ import { scheduleInterpretersRouter } from "./routers/scheduleInterpretersRouter
 import { profileRouter } from "./routers/profileRouter.js";
 import { reservationsRouter } from "./routers/reservationsRouter.js";
 import { requestRouter } from "./routers/requestRouter.js";
+import legalRouter from "./routers/legalRouter.js";
 
 
 
@@ -41,7 +42,7 @@ app.use(scheduleInterpretersRouter);
 app.use(profileRouter);
 app.use(reservationsRouter);
 app.use(requestRouter)
-
+app.use("/legal", legalRouter);
 app.listen(process.env.PORT, (error)=>{
     if (error) {
         console.error(error);

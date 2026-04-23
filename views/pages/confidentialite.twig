@@ -1,0 +1,98 @@
+{% extends "../layout/base.twig" %}
+
+{% block style %}
+  <link rel="stylesheet" href="/static/assets/css/legal.css">
+{% endblock %}
+
+{% block main %}
+<main class="legal-layout">
+  <section class="legal-top">
+    <a href="/">
+      <img src="/static/assets/images/logo2.png" alt="Logo Réseau LSF">
+    </a>
+  </section>
+
+  <section class="legal-shell">
+    <article class="legal-card">
+      <div class="legal-card-head">
+        <p class="legal-kicker">Protection des données</p>
+        <h1>Politique de confidentialité</h1>
+        <p class="legal-lead">
+          Cette page explique quelles données personnelles peuvent être
+          collectées, dans quel but elles sont utilisées et quels sont les
+          droits des utilisateurs sur la plateforme.
+        </p>
+
+        <div class="legal-actions">
+          <a class="legal-action legal-action-primary" href="/">Retour à l'accueil</a>
+          <a class="legal-action" href="/legal/mentions-legales">Voir les mentions légales</a>
+        </div>
+      </div>
+
+      <div class="legal-sections">
+        <section class="legal-section">
+          <span class="legal-meta">Collecte</span>
+          <h2>Données collectées</h2>
+          <p>
+            Dans le cadre de son fonctionnement, l'application peut collecter
+            certaines données personnelles : nom, prénom, adresse email,
+            informations de profil et disponibilités des interprètes.
+          </p>
+        </section>
+
+        <section class="legal-section">
+          <span class="legal-meta">Finalité</span>
+          <h2>Finalité de la collecte</h2>
+          <p>Ces données sont utilisées uniquement pour :</p>
+          <ul class="legal-list">
+            <li>La gestion des comptes utilisateurs</li>
+            <li>La recherche d'interprètes</li>
+            <li>La mise en relation entre utilisateurs et interprètes</li>
+            <li>La gestion des demandes et réservations</li>
+          </ul>
+        </section>
+
+        <section class="legal-section">
+          <span class="legal-meta">Partage</span>
+          <h2>Partage des données</h2>
+          <p>
+            Aucune donnée personnelle n'est vendue, échangée ou transmise à des
+            tiers. Les données sont utilisées uniquement dans le cadre de
+            l'application.
+          </p>
+        </section>
+
+        <section class="legal-section">
+          <span class="legal-meta">Conservation</span>
+          <h2>Conservation des données</h2>
+          <p>
+            Les données sont conservées pendant la durée nécessaire à
+            l'utilisation du service et peuvent être supprimées à la demande de
+            l'utilisateur.
+          </p>
+        </section>
+
+        <section class="legal-section">
+          <span class="legal-meta">Sécurité</span>
+          <h2>Sécurité</h2>
+          <p>
+            Des mesures de sécurité sont mises en place afin de protéger les
+            données des utilisateurs, notamment via le hachage des mots de
+            passe et la sécurisation des accès.
+          </p>
+        </section>
+
+        <section class="legal-section">
+          <span class="legal-meta">Droits</span>
+          <h2>Droits des utilisateurs</h2>
+          <p>
+            Conformément à la réglementation (RGPD), chaque utilisateur dispose
+            d'un droit d'accès, de modification et de suppression de ses
+            données personnelles.
+          </p>
+        </section>
+      </div>
+    </article>
+  </section>
+</main>
+{% endblock %}
