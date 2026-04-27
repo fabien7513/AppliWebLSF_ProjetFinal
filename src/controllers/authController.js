@@ -63,6 +63,8 @@ export async function postRegister(req, res) {
 
 //...........................................CONNEXION......................................................
 export async function getLogin(req, res) {
+    console.log("SAlut");
+    
     res.render("pages/login.twig", {
         title: "Connexion"
     })
