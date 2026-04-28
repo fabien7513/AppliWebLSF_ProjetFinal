@@ -3,6 +3,7 @@ model User {
     lastName  String @db.VarChar(50)
     firstName String @db.VarChar(50)
     mail      String @unique
+    role      UserRole @default(INTERPRETER)
 
     description String?
     photo       String?
@@ -10,7 +11,7 @@ model User {
     password String
 
     phone       String? @db.VarChar(20)
-    siretNumber String @unique @db.VarChar(14) 
+    siretNumber String? @unique @db.VarChar(14) 
 
     profilStatus String?
 
@@ -22,7 +23,12 @@ model User {
     interventionZones InterventionZone[]
     availabilities    Availability[]
 
-    events Event[]
+    interpreterEvents Event[] @relation("InterpreterEvents")
 
     address Address?
+}
+
+enum UserRole {
+    CLIENT
+    INTERPRETER
 }

@@ -1,0 +1,109 @@
+{% extends "../layout/base.twig" %}
+
+{% block style %}
+  <link rel="stylesheet" href="/static/assets/css/interpreterRequests.css">
+{% endblock %}
+
+{% block title %}
+  <title>Demandes reçues</title>
+{% endblock %}
+
+{% block main %}
+
+<main class="requests-page">
+  <section class="requests-top">
+    <a href="/" class="requests-logo">
+      <img src="/static/assets/images/logo2.png" alt="Logo Réseau LSF">
+    </a>
+
+    <h1>Demandes reçues</h1>
+  </section>
+
+  <section class="requests-section">
+    <div class="requests-container">
+
+      <div class="requests-card">
+        <h2>En attente</h2>
+
+        {% if success %}
+          <p class="success-message">{{ success }}</p>
+        {% endif %}
+
+        {% if error %}
+          <p class="error-message">{{ error }}</p>
+        {% endif %}
+
+        <div class="requests-list">
+          {% if pendingRequests|length == 0 %}
+            <p class="empty-text">Aucune demande en attente.</p>
+          {% else %}
+            {% for request in pendingRequests %}
+              <article class="request-item">
+                <h3>{{ request.title }}</h3>
+                <p><strong>Client :</strong> {{ request.clientName }}</p>
+                <p><strong>Email :</strong> {{ request.clientMail }}</p>
+                {% if request.clientPhone %}
+                  <p><strong>Téléphone :</strong> {{ request.clientPhone }}</p>
+                {% endif %}
+                <p><strong>Début :</strong> {{ request.startLabel }}</p>
+                <p><strong>Fin :</strong> {{ request.endLabel }}</p>
+                <p><strong>Lieu :</strong> {{ request.location }}</p>
+                {% if request.message %}
+                  <p><strong>Message :</strong> {{ request.message }}</p>
+                {% endif %}
+
+                <div class="request-actions">
+                  <form action="/interpreter/requests/{{ request.id }}/accept" method="post">
+                    <button type="submit" class="accept-btn">Accepter</button>
+                  </form>
+
+                  <form action="/interpreter/requests/{{ request.id }}/refuse" method="post">
+                    <button type="submit" class="refuse-btn">Refuser</button>
+                  </form>
+                </div>
+              </article>
+            {% endfor %}
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="requests-card">
+        <h2>Déjà traitées</h2>
+
+        <div class="requests-list">
+          {% if handledRequests|length == 0 %}
+            <p class="empty-text">Aucune demande traitée pour le moment.</p>
+          {% else %}
+            {% for request in handledRequests %}
+              <article class="request-item">
+                <h3>{{ request.title }}</h3>
+                <p><strong>Client :</strong> {{ request.clientName }}</p>
+                {% if request.clientMail %}
+                  <p><strong>Email :</strong> {{ request.clientMail }}</p>
+                {% endif %}
+                {% if request.clientPhone %}
+                  <p><strong>Téléphone :</strong> {{ request.clientPhone }}</p>
+                {% endif %}
+                <p>
+                  <strong>Statut :</strong>
+                  <span class="request-status request-status-{{ request.status|lower }}">
+                    {{ request.statusLabel }}
+                  </span>
+                </p>
+                <p><strong>Début :</strong> {{ request.startLabel }}</p>
+                <p><strong>Fin :</strong> {{ request.endLabel }}</p>
+                <p><strong>Lieu :</strong> {{ request.location }}</p>
+                {% if request.message %}
+                  <p><strong>Message :</strong> {{ request.message }}</p>
+                {% endif %}
+              </article>
+            {% endfor %}
+          {% endif %}
+        </div>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+{% endblock %}

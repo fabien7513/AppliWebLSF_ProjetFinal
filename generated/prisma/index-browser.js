@@ -145,11 +145,18 @@ exports.Prisma.AvailabilityScalarFieldEnum = {
 exports.Prisma.EventScalarFieldEnum = {
   id_demande: 'id_demande',
   createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
   location: 'location',
   startDateTime: 'startDateTime',
   endDateTime: 'endDateTime',
   interventionType: 'interventionType',
-  status: 'status'
+  message: 'message',
+  status: 'status',
+  clientFirstName: 'clientFirstName',
+  clientLastName: 'clientLastName',
+  clientEmail: 'clientEmail',
+  clientPhone: 'clientPhone',
+  interpreterId: 'interpreterId'
 };
 
 exports.Prisma.InterventionZoneScalarFieldEnum = {
@@ -166,6 +173,7 @@ exports.Prisma.UserScalarFieldEnum = {
   lastName: 'lastName',
   firstName: 'firstName',
   mail: 'mail',
+  role: 'role',
   description: 'description',
   photo: 'photo',
   password: 'password',
@@ -201,7 +209,12 @@ exports.Prisma.AvailabilityOrderByRelevanceFieldEnum = {
 
 exports.Prisma.EventOrderByRelevanceFieldEnum = {
   location: 'location',
-  interventionType: 'interventionType'
+  interventionType: 'interventionType',
+  message: 'message',
+  clientFirstName: 'clientFirstName',
+  clientLastName: 'clientLastName',
+  clientEmail: 'clientEmail',
+  clientPhone: 'clientPhone'
 };
 
 exports.Prisma.InterventionZoneOrderByRelevanceFieldEnum = {
@@ -225,6 +238,11 @@ exports.EventStatus = exports.$Enums.EventStatus = {
   ACCEPTED: 'ACCEPTED',
   REFUSED: 'REFUSED',
   CANCELLED: 'CANCELLED'
+};
+
+exports.UserRole = exports.$Enums.UserRole = {
+  CLIENT: 'CLIENT',
+  INTERPRETER: 'INTERPRETER'
 };
 
 exports.Prisma.ModelName = {

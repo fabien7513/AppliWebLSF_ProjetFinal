@@ -115,10 +115,11 @@
 					<p class="event-detail-line"><strong>Fin</strong><span id="event-details-end"></span></p>
 					<p class="event-detail-line"><strong>Lieu</strong><span id="event-details-location"></span></p>
 					<p class="event-detail-line"><strong>Commentaire</strong><span id="event-details-comment"></span></p>
+					<p class="event-detail-line"><strong>Participant</strong><span id="event-details-participant"></span></p>
 				</div>
 
 				{% if editable %}
-					<div class="event-modal-edit">
+					<div id="event-modal-edit" class="event-modal-edit">
 						<h4>Modifier les horaires</h4>
 						<label for="event-edit-start">Debut</label>
 						<input id="event-edit-start" type="datetime-local">
@@ -129,7 +130,7 @@
 						<p class="event-modal-edit-help">Ajustez ce creneau puis validez la modification.</p>
 					</div>
 
-					<div class="event-modal-actions">
+					<div id="event-modal-actions" class="event-modal-actions">
 						<button id="save-selected-event" type="button" class="save-event-btn">
 							Mettre a jour
 						</button>
@@ -144,6 +145,7 @@
 		<script>
 			const interpreter = {{ interpreter | json_encode | raw }};
 const availabilities = {{ availabilities | json_encode | raw }};
+const bookings = {{ bookings | json_encode | raw }};
 const editable = {{ editable ? 'true' : 'false' }};
 		</script>
 

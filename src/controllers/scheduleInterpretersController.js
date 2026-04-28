@@ -12,10 +12,24 @@ export async function getScheduleInterpreters(req, res) {
 
     const interpreter = await prisma.user.findUnique({
       where: { id_user: selectedUserId },
-      include: { availabilities: true }
+      include: {
+        availabilities: {
+          orderBy: {
+            startDateTime: "asc"
+          }
+        },
+        interpreterEvents: {
+          where: {
+            status: "ACCEPTED"
+          },
+          orderBy: {
+            startDateTime: "asc"
+          }
+        }
+      }
     });
 
-    if (!interpreter) {
+    if (!interpreter || interpreter.role !== "INTERPRETER") {
       return res.redirect("/interpreters");
     }
 
@@ -26,6 +40,7 @@ export async function getScheduleInterpreters(req, res) {
       title: "Planning interprète",
       interpreter,
       availabilities: interpreter.availabilities,
+      bookings: interpreter.interpreterEvents,
       editable: isOwner
     });
 
@@ -39,6 +54,10 @@ export async function postScheduleInterpreters(req, res) {
   try {
     if (!req.session.user) {
       return res.status(401).json({ error: "Non autorisé" });
+    }
+
+    if (req.session.user.role !== "INTERPRETER") {
+      return res.status(403).json({ error: "Accès réservé aux interprètes" });
     }
 
     const { startDateTime, endDateTime, interventionType, comment, location } = req.body;
@@ -81,6 +100,10 @@ export async function deleteScheduleInterpreters(req, res) {
       return res.status(401).json({ error: "Non autorisé" });
     }
 
+    if (req.session.user.role !== "INTERPRETER") {
+      return res.status(403).json({ error: "Accès réservé aux interprètes" });
+    }
+
     const { id } = req.params;
     const userId = req.session.user.id_user;
 
@@ -108,6 +131,10 @@ export async function putScheduleInterpreters(req, res) {
   try {
     if (!req.session.user) {
       return res.status(401).json({ error: "Non autorisé" });
+    }
+
+    if (req.session.user.role !== "INTERPRETER") {
+      return res.status(403).json({ error: "Accès réservé aux interprètes" });
     }
 
     const { id } = req.params;

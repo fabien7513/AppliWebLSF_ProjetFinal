@@ -175,6 +175,31 @@ body{
   color:#333;
 }
 
+.reservation-status{
+  display:inline-flex;
+  align-items:center;
+  padding:4px 10px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:700;
+}
+
+.reservation-status-pending{
+  background:#fff3cf;
+  color:#8a6700;
+}
+
+.reservation-status-accepted{
+  background:#dff5e8;
+  color:#1d6f42;
+}
+
+.reservation-status-refused,
+.reservation-status-cancelled{
+  background:#fde2df;
+  color:#aa3f32;
+}
+
 @media (max-width: 900px){
   .reservations-section{
     padding:40px 16px 56px;

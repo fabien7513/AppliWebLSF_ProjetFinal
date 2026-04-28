@@ -52,11 +52,23 @@ export namespace $Enums {
 
 export type EventStatus = (typeof EventStatus)[keyof typeof EventStatus]
 
+
+export const UserRole: {
+  CLIENT: 'CLIENT',
+  INTERPRETER: 'INTERPRETER'
+};
+
+export type UserRole = (typeof UserRole)[keyof typeof UserRole]
+
 }
 
 export type EventStatus = $Enums.EventStatus
 
 export const EventStatus: typeof $Enums.EventStatus
+
+export type UserRole = $Enums.UserRole
+
+export const UserRole: typeof $Enums.UserRole
 
 /**
  * ##  Prisma Client ʲˢ
@@ -1205,50 +1217,19 @@ export namespace Prisma {
 
 
   /**
-   * Count Type EventCountOutputType
-   */
-
-  export type EventCountOutputType = {
-    users: number
-  }
-
-  export type EventCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    users?: boolean | EventCountOutputTypeCountUsersArgs
-  }
-
-  // Custom InputTypes
-  /**
-   * EventCountOutputType without action
-   */
-  export type EventCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the EventCountOutputType
-     */
-    select?: EventCountOutputTypeSelect<ExtArgs> | null
-  }
-
-  /**
-   * EventCountOutputType without action
-   */
-  export type EventCountOutputTypeCountUsersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: UserWhereInput
-  }
-
-
-  /**
    * Count Type UserCountOutputType
    */
 
   export type UserCountOutputType = {
     interventionZones: number
     availabilities: number
-    events: number
+    interpreterEvents: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     interventionZones?: boolean | UserCountOutputTypeCountInterventionZonesArgs
     availabilities?: boolean | UserCountOutputTypeCountAvailabilitiesArgs
-    events?: boolean | UserCountOutputTypeCountEventsArgs
+    interpreterEvents?: boolean | UserCountOutputTypeCountInterpreterEventsArgs
   }
 
   // Custom InputTypes
@@ -1279,7 +1260,7 @@ export namespace Prisma {
   /**
    * UserCountOutputType without action
    */
-  export type UserCountOutputTypeCountEventsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type UserCountOutputTypeCountInterpreterEventsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: EventWhereInput
   }
 
@@ -3310,80 +3291,126 @@ export namespace Prisma {
 
   export type EventAvgAggregateOutputType = {
     id_demande: number | null
+    interpreterId: number | null
   }
 
   export type EventSumAggregateOutputType = {
     id_demande: number | null
+    interpreterId: number | null
   }
 
   export type EventMinAggregateOutputType = {
     id_demande: number | null
     createdAt: Date | null
+    updatedAt: Date | null
     location: string | null
     startDateTime: Date | null
     endDateTime: Date | null
     interventionType: string | null
+    message: string | null
     status: $Enums.EventStatus | null
+    clientFirstName: string | null
+    clientLastName: string | null
+    clientEmail: string | null
+    clientPhone: string | null
+    interpreterId: number | null
   }
 
   export type EventMaxAggregateOutputType = {
     id_demande: number | null
     createdAt: Date | null
+    updatedAt: Date | null
     location: string | null
     startDateTime: Date | null
     endDateTime: Date | null
     interventionType: string | null
+    message: string | null
     status: $Enums.EventStatus | null
+    clientFirstName: string | null
+    clientLastName: string | null
+    clientEmail: string | null
+    clientPhone: string | null
+    interpreterId: number | null
   }
 
   export type EventCountAggregateOutputType = {
     id_demande: number
     createdAt: number
+    updatedAt: number
     location: number
     startDateTime: number
     endDateTime: number
     interventionType: number
+    message: number
     status: number
+    clientFirstName: number
+    clientLastName: number
+    clientEmail: number
+    clientPhone: number
+    interpreterId: number
     _all: number
   }
 
 
   export type EventAvgAggregateInputType = {
     id_demande?: true
+    interpreterId?: true
   }
 
   export type EventSumAggregateInputType = {
     id_demande?: true
+    interpreterId?: true
   }
 
   export type EventMinAggregateInputType = {
     id_demande?: true
     createdAt?: true
+    updatedAt?: true
     location?: true
     startDateTime?: true
     endDateTime?: true
     interventionType?: true
+    message?: true
     status?: true
+    clientFirstName?: true
+    clientLastName?: true
+    clientEmail?: true
+    clientPhone?: true
+    interpreterId?: true
   }
 
   export type EventMaxAggregateInputType = {
     id_demande?: true
     createdAt?: true
+    updatedAt?: true
     location?: true
     startDateTime?: true
     endDateTime?: true
     interventionType?: true
+    message?: true
     status?: true
+    clientFirstName?: true
+    clientLastName?: true
+    clientEmail?: true
+    clientPhone?: true
+    interpreterId?: true
   }
 
   export type EventCountAggregateInputType = {
     id_demande?: true
     createdAt?: true
+    updatedAt?: true
     location?: true
     startDateTime?: true
     endDateTime?: true
     interventionType?: true
+    message?: true
     status?: true
+    clientFirstName?: true
+    clientLastName?: true
+    clientEmail?: true
+    clientPhone?: true
+    interpreterId?: true
     _all?: true
   }
 
@@ -3476,11 +3503,18 @@ export namespace Prisma {
   export type EventGroupByOutputType = {
     id_demande: number
     createdAt: Date
+    updatedAt: Date
     location: string
     startDateTime: Date
     endDateTime: Date
-    interventionType: string
+    interventionType: string | null
+    message: string | null
     status: $Enums.EventStatus
+    clientFirstName: string | null
+    clientLastName: string | null
+    clientEmail: string | null
+    clientPhone: string | null
+    interpreterId: number
     _count: EventCountAggregateOutputType | null
     _avg: EventAvgAggregateOutputType | null
     _sum: EventSumAggregateOutputType | null
@@ -3505,13 +3539,19 @@ export namespace Prisma {
   export type EventSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id_demande?: boolean
     createdAt?: boolean
+    updatedAt?: boolean
     location?: boolean
     startDateTime?: boolean
     endDateTime?: boolean
     interventionType?: boolean
+    message?: boolean
     status?: boolean
-    users?: boolean | Event$usersArgs<ExtArgs>
-    _count?: boolean | EventCountOutputTypeDefaultArgs<ExtArgs>
+    clientFirstName?: boolean
+    clientLastName?: boolean
+    clientEmail?: boolean
+    clientPhone?: boolean
+    interpreterId?: boolean
+    interpreter?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["event"]>
 
 
@@ -3519,32 +3559,45 @@ export namespace Prisma {
   export type EventSelectScalar = {
     id_demande?: boolean
     createdAt?: boolean
+    updatedAt?: boolean
     location?: boolean
     startDateTime?: boolean
     endDateTime?: boolean
     interventionType?: boolean
+    message?: boolean
     status?: boolean
+    clientFirstName?: boolean
+    clientLastName?: boolean
+    clientEmail?: boolean
+    clientPhone?: boolean
+    interpreterId?: boolean
   }
 
-  export type EventOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_demande" | "createdAt" | "location" | "startDateTime" | "endDateTime" | "interventionType" | "status", ExtArgs["result"]["event"]>
+  export type EventOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_demande" | "createdAt" | "updatedAt" | "location" | "startDateTime" | "endDateTime" | "interventionType" | "message" | "status" | "clientFirstName" | "clientLastName" | "clientEmail" | "clientPhone" | "interpreterId", ExtArgs["result"]["event"]>
   export type EventInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    users?: boolean | Event$usersArgs<ExtArgs>
-    _count?: boolean | EventCountOutputTypeDefaultArgs<ExtArgs>
+    interpreter?: boolean | UserDefaultArgs<ExtArgs>
   }
 
   export type $EventPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Event"
     objects: {
-      users: Prisma.$UserPayload<ExtArgs>[]
+      interpreter: Prisma.$UserPayload<ExtArgs>
     }
     scalars: $Extensions.GetPayloadResult<{
       id_demande: number
       createdAt: Date
+      updatedAt: Date
       location: string
       startDateTime: Date
       endDateTime: Date
-      interventionType: string
+      interventionType: string | null
+      message: string | null
       status: $Enums.EventStatus
+      clientFirstName: string | null
+      clientLastName: string | null
+      clientEmail: string | null
+      clientPhone: string | null
+      interpreterId: number
     }, ExtArgs["result"]["event"]>
     composites: {}
   }
@@ -3885,7 +3938,7 @@ export namespace Prisma {
    */
   export interface Prisma__EventClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    users<T extends Event$usersArgs<ExtArgs> = {}>(args?: Subset<T, Event$usersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    interpreter<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3917,11 +3970,18 @@ export namespace Prisma {
   interface EventFieldRefs {
     readonly id_demande: FieldRef<"Event", 'Int'>
     readonly createdAt: FieldRef<"Event", 'DateTime'>
+    readonly updatedAt: FieldRef<"Event", 'DateTime'>
     readonly location: FieldRef<"Event", 'String'>
     readonly startDateTime: FieldRef<"Event", 'DateTime'>
     readonly endDateTime: FieldRef<"Event", 'DateTime'>
     readonly interventionType: FieldRef<"Event", 'String'>
+    readonly message: FieldRef<"Event", 'String'>
     readonly status: FieldRef<"Event", 'EventStatus'>
+    readonly clientFirstName: FieldRef<"Event", 'String'>
+    readonly clientLastName: FieldRef<"Event", 'String'>
+    readonly clientEmail: FieldRef<"Event", 'String'>
+    readonly clientPhone: FieldRef<"Event", 'String'>
+    readonly interpreterId: FieldRef<"Event", 'Int'>
   }
     
 
@@ -4262,30 +4322,6 @@ export namespace Prisma {
      * Limit how many Events to delete.
      */
     limit?: number
-  }
-
-  /**
-   * Event.users
-   */
-  export type Event$usersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the User
-     */
-    select?: UserSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the User
-     */
-    omit?: UserOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: UserInclude<ExtArgs> | null
-    where?: UserWhereInput
-    orderBy?: UserOrderByWithRelationInput | UserOrderByWithRelationInput[]
-    cursor?: UserWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: UserScalarFieldEnum | UserScalarFieldEnum[]
   }
 
   /**
@@ -5318,6 +5354,7 @@ export namespace Prisma {
     lastName: string | null
     firstName: string | null
     mail: string | null
+    role: $Enums.UserRole | null
     description: string | null
     photo: string | null
     password: string | null
@@ -5334,6 +5371,7 @@ export namespace Prisma {
     lastName: string | null
     firstName: string | null
     mail: string | null
+    role: $Enums.UserRole | null
     description: string | null
     photo: string | null
     password: string | null
@@ -5350,6 +5388,7 @@ export namespace Prisma {
     lastName: number
     firstName: number
     mail: number
+    role: number
     description: number
     photo: number
     password: number
@@ -5376,6 +5415,7 @@ export namespace Prisma {
     lastName?: true
     firstName?: true
     mail?: true
+    role?: true
     description?: true
     photo?: true
     password?: true
@@ -5392,6 +5432,7 @@ export namespace Prisma {
     lastName?: true
     firstName?: true
     mail?: true
+    role?: true
     description?: true
     photo?: true
     password?: true
@@ -5408,6 +5449,7 @@ export namespace Prisma {
     lastName?: true
     firstName?: true
     mail?: true
+    role?: true
     description?: true
     photo?: true
     password?: true
@@ -5511,11 +5553,12 @@ export namespace Prisma {
     lastName: string
     firstName: string
     mail: string
+    role: $Enums.UserRole
     description: string | null
     photo: string | null
     password: string
     phone: string | null
-    siretNumber: string
+    siretNumber: string | null
     profilStatus: string | null
     planning_public: boolean
     createdAt: Date
@@ -5546,6 +5589,7 @@ export namespace Prisma {
     lastName?: boolean
     firstName?: boolean
     mail?: boolean
+    role?: boolean
     description?: boolean
     photo?: boolean
     password?: boolean
@@ -5557,7 +5601,7 @@ export namespace Prisma {
     updatedAt?: boolean
     interventionZones?: boolean | User$interventionZonesArgs<ExtArgs>
     availabilities?: boolean | User$availabilitiesArgs<ExtArgs>
-    events?: boolean | User$eventsArgs<ExtArgs>
+    interpreterEvents?: boolean | User$interpreterEventsArgs<ExtArgs>
     address?: boolean | User$addressArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
@@ -5569,6 +5613,7 @@ export namespace Prisma {
     lastName?: boolean
     firstName?: boolean
     mail?: boolean
+    role?: boolean
     description?: boolean
     photo?: boolean
     password?: boolean
@@ -5580,11 +5625,11 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_user" | "lastName" | "firstName" | "mail" | "description" | "photo" | "password" | "phone" | "siretNumber" | "profilStatus" | "planning_public" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id_user" | "lastName" | "firstName" | "mail" | "role" | "description" | "photo" | "password" | "phone" | "siretNumber" | "profilStatus" | "planning_public" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     interventionZones?: boolean | User$interventionZonesArgs<ExtArgs>
     availabilities?: boolean | User$availabilitiesArgs<ExtArgs>
-    events?: boolean | User$eventsArgs<ExtArgs>
+    interpreterEvents?: boolean | User$interpreterEventsArgs<ExtArgs>
     address?: boolean | User$addressArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
@@ -5594,7 +5639,7 @@ export namespace Prisma {
     objects: {
       interventionZones: Prisma.$InterventionZonePayload<ExtArgs>[]
       availabilities: Prisma.$AvailabilityPayload<ExtArgs>[]
-      events: Prisma.$EventPayload<ExtArgs>[]
+      interpreterEvents: Prisma.$EventPayload<ExtArgs>[]
       address: Prisma.$AddressPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
@@ -5602,11 +5647,12 @@ export namespace Prisma {
       lastName: string
       firstName: string
       mail: string
+      role: $Enums.UserRole
       description: string | null
       photo: string | null
       password: string
       phone: string | null
-      siretNumber: string
+      siretNumber: string | null
       profilStatus: string | null
       planning_public: boolean
       createdAt: Date
@@ -5953,7 +5999,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     interventionZones<T extends User$interventionZonesArgs<ExtArgs> = {}>(args?: Subset<T, User$interventionZonesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$InterventionZonePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     availabilities<T extends User$availabilitiesArgs<ExtArgs> = {}>(args?: Subset<T, User$availabilitiesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AvailabilityPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    events<T extends User$eventsArgs<ExtArgs> = {}>(args?: Subset<T, User$eventsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    interpreterEvents<T extends User$interpreterEventsArgs<ExtArgs> = {}>(args?: Subset<T, User$interpreterEventsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$EventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     address<T extends User$addressArgs<ExtArgs> = {}>(args?: Subset<T, User$addressArgs<ExtArgs>>): Prisma__AddressClient<$Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -5988,6 +6034,7 @@ export namespace Prisma {
     readonly lastName: FieldRef<"User", 'String'>
     readonly firstName: FieldRef<"User", 'String'>
     readonly mail: FieldRef<"User", 'String'>
+    readonly role: FieldRef<"User", 'UserRole'>
     readonly description: FieldRef<"User", 'String'>
     readonly photo: FieldRef<"User", 'String'>
     readonly password: FieldRef<"User", 'String'>
@@ -6388,9 +6435,9 @@ export namespace Prisma {
   }
 
   /**
-   * User.events
+   * User.interpreterEvents
    */
-  export type User$eventsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+  export type User$interpreterEventsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     /**
      * Select specific fields to fetch from the Event
      */
@@ -6494,11 +6541,18 @@ export namespace Prisma {
   export const EventScalarFieldEnum: {
     id_demande: 'id_demande',
     createdAt: 'createdAt',
+    updatedAt: 'updatedAt',
     location: 'location',
     startDateTime: 'startDateTime',
     endDateTime: 'endDateTime',
     interventionType: 'interventionType',
-    status: 'status'
+    message: 'message',
+    status: 'status',
+    clientFirstName: 'clientFirstName',
+    clientLastName: 'clientLastName',
+    clientEmail: 'clientEmail',
+    clientPhone: 'clientPhone',
+    interpreterId: 'interpreterId'
   };
 
   export type EventScalarFieldEnum = (typeof EventScalarFieldEnum)[keyof typeof EventScalarFieldEnum]
@@ -6521,6 +6575,7 @@ export namespace Prisma {
     lastName: 'lastName',
     firstName: 'firstName',
     mail: 'mail',
+    role: 'role',
     description: 'description',
     photo: 'photo',
     password: 'password',
@@ -6571,7 +6626,12 @@ export namespace Prisma {
 
   export const EventOrderByRelevanceFieldEnum: {
     location: 'location',
-    interventionType: 'interventionType'
+    interventionType: 'interventionType',
+    message: 'message',
+    clientFirstName: 'clientFirstName',
+    clientLastName: 'clientLastName',
+    clientEmail: 'clientEmail',
+    clientPhone: 'clientPhone'
   };
 
   export type EventOrderByRelevanceFieldEnum = (typeof EventOrderByRelevanceFieldEnum)[keyof typeof EventOrderByRelevanceFieldEnum]
@@ -6637,6 +6697,13 @@ export namespace Prisma {
    * Reference to a field of type 'EventStatus'
    */
   export type EnumEventStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'EventStatus'>
+    
+
+
+  /**
+   * Reference to a field of type 'UserRole'
+   */
+  export type EnumUserRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserRole'>
     
 
 
@@ -6802,23 +6869,37 @@ export namespace Prisma {
     NOT?: EventWhereInput | EventWhereInput[]
     id_demande?: IntFilter<"Event"> | number
     createdAt?: DateTimeFilter<"Event"> | Date | string
+    updatedAt?: DateTimeFilter<"Event"> | Date | string
     location?: StringFilter<"Event"> | string
     startDateTime?: DateTimeFilter<"Event"> | Date | string
     endDateTime?: DateTimeFilter<"Event"> | Date | string
-    interventionType?: StringFilter<"Event"> | string
+    interventionType?: StringNullableFilter<"Event"> | string | null
+    message?: StringNullableFilter<"Event"> | string | null
     status?: EnumEventStatusFilter<"Event"> | $Enums.EventStatus
-    users?: UserListRelationFilter
+    clientFirstName?: StringNullableFilter<"Event"> | string | null
+    clientLastName?: StringNullableFilter<"Event"> | string | null
+    clientEmail?: StringNullableFilter<"Event"> | string | null
+    clientPhone?: StringNullableFilter<"Event"> | string | null
+    interpreterId?: IntFilter<"Event"> | number
+    interpreter?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
   export type EventOrderByWithRelationInput = {
     id_demande?: SortOrder
     createdAt?: SortOrder
+    updatedAt?: SortOrder
     location?: SortOrder
     startDateTime?: SortOrder
     endDateTime?: SortOrder
-    interventionType?: SortOrder
+    interventionType?: SortOrderInput | SortOrder
+    message?: SortOrderInput | SortOrder
     status?: SortOrder
-    users?: UserOrderByRelationAggregateInput
+    clientFirstName?: SortOrderInput | SortOrder
+    clientLastName?: SortOrderInput | SortOrder
+    clientEmail?: SortOrderInput | SortOrder
+    clientPhone?: SortOrderInput | SortOrder
+    interpreterId?: SortOrder
+    interpreter?: UserOrderByWithRelationInput
     _relevance?: EventOrderByRelevanceInput
   }
 
@@ -6828,22 +6909,36 @@ export namespace Prisma {
     OR?: EventWhereInput[]
     NOT?: EventWhereInput | EventWhereInput[]
     createdAt?: DateTimeFilter<"Event"> | Date | string
+    updatedAt?: DateTimeFilter<"Event"> | Date | string
     location?: StringFilter<"Event"> | string
     startDateTime?: DateTimeFilter<"Event"> | Date | string
     endDateTime?: DateTimeFilter<"Event"> | Date | string
-    interventionType?: StringFilter<"Event"> | string
+    interventionType?: StringNullableFilter<"Event"> | string | null
+    message?: StringNullableFilter<"Event"> | string | null
     status?: EnumEventStatusFilter<"Event"> | $Enums.EventStatus
-    users?: UserListRelationFilter
+    clientFirstName?: StringNullableFilter<"Event"> | string | null
+    clientLastName?: StringNullableFilter<"Event"> | string | null
+    clientEmail?: StringNullableFilter<"Event"> | string | null
+    clientPhone?: StringNullableFilter<"Event"> | string | null
+    interpreterId?: IntFilter<"Event"> | number
+    interpreter?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id_demande">
 
   export type EventOrderByWithAggregationInput = {
     id_demande?: SortOrder
     createdAt?: SortOrder
+    updatedAt?: SortOrder
     location?: SortOrder
     startDateTime?: SortOrder
     endDateTime?: SortOrder
-    interventionType?: SortOrder
+    interventionType?: SortOrderInput | SortOrder
+    message?: SortOrderInput | SortOrder
     status?: SortOrder
+    clientFirstName?: SortOrderInput | SortOrder
+    clientLastName?: SortOrderInput | SortOrder
+    clientEmail?: SortOrderInput | SortOrder
+    clientPhone?: SortOrderInput | SortOrder
+    interpreterId?: SortOrder
     _count?: EventCountOrderByAggregateInput
     _avg?: EventAvgOrderByAggregateInput
     _max?: EventMaxOrderByAggregateInput
@@ -6857,11 +6952,18 @@ export namespace Prisma {
     NOT?: EventScalarWhereWithAggregatesInput | EventScalarWhereWithAggregatesInput[]
     id_demande?: IntWithAggregatesFilter<"Event"> | number
     createdAt?: DateTimeWithAggregatesFilter<"Event"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"Event"> | Date | string
     location?: StringWithAggregatesFilter<"Event"> | string
     startDateTime?: DateTimeWithAggregatesFilter<"Event"> | Date | string
     endDateTime?: DateTimeWithAggregatesFilter<"Event"> | Date | string
-    interventionType?: StringWithAggregatesFilter<"Event"> | string
+    interventionType?: StringNullableWithAggregatesFilter<"Event"> | string | null
+    message?: StringNullableWithAggregatesFilter<"Event"> | string | null
     status?: EnumEventStatusWithAggregatesFilter<"Event"> | $Enums.EventStatus
+    clientFirstName?: StringNullableWithAggregatesFilter<"Event"> | string | null
+    clientLastName?: StringNullableWithAggregatesFilter<"Event"> | string | null
+    clientEmail?: StringNullableWithAggregatesFilter<"Event"> | string | null
+    clientPhone?: StringNullableWithAggregatesFilter<"Event"> | string | null
+    interpreterId?: IntWithAggregatesFilter<"Event"> | number
   }
 
   export type InterventionZoneWhereInput = {
@@ -6935,18 +7037,19 @@ export namespace Prisma {
     lastName?: StringFilter<"User"> | string
     firstName?: StringFilter<"User"> | string
     mail?: StringFilter<"User"> | string
+    role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
     description?: StringNullableFilter<"User"> | string | null
     photo?: StringNullableFilter<"User"> | string | null
     password?: StringFilter<"User"> | string
     phone?: StringNullableFilter<"User"> | string | null
-    siretNumber?: StringFilter<"User"> | string
+    siretNumber?: StringNullableFilter<"User"> | string | null
     profilStatus?: StringNullableFilter<"User"> | string | null
     planning_public?: BoolFilter<"User"> | boolean
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
     interventionZones?: InterventionZoneListRelationFilter
     availabilities?: AvailabilityListRelationFilter
-    events?: EventListRelationFilter
+    interpreterEvents?: EventListRelationFilter
     address?: XOR<AddressNullableScalarRelationFilter, AddressWhereInput> | null
   }
 
@@ -6955,18 +7058,19 @@ export namespace Prisma {
     lastName?: SortOrder
     firstName?: SortOrder
     mail?: SortOrder
+    role?: SortOrder
     description?: SortOrderInput | SortOrder
     photo?: SortOrderInput | SortOrder
     password?: SortOrder
     phone?: SortOrderInput | SortOrder
-    siretNumber?: SortOrder
+    siretNumber?: SortOrderInput | SortOrder
     profilStatus?: SortOrderInput | SortOrder
     planning_public?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
     interventionZones?: InterventionZoneOrderByRelationAggregateInput
     availabilities?: AvailabilityOrderByRelationAggregateInput
-    events?: EventOrderByRelationAggregateInput
+    interpreterEvents?: EventOrderByRelationAggregateInput
     address?: AddressOrderByWithRelationInput
     _relevance?: UserOrderByRelevanceInput
   }
@@ -6980,6 +7084,7 @@ export namespace Prisma {
     NOT?: UserWhereInput | UserWhereInput[]
     lastName?: StringFilter<"User"> | string
     firstName?: StringFilter<"User"> | string
+    role?: EnumUserRoleFilter<"User"> | $Enums.UserRole
     description?: StringNullableFilter<"User"> | string | null
     photo?: StringNullableFilter<"User"> | string | null
     password?: StringFilter<"User"> | string
@@ -6990,7 +7095,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"User"> | Date | string
     interventionZones?: InterventionZoneListRelationFilter
     availabilities?: AvailabilityListRelationFilter
-    events?: EventListRelationFilter
+    interpreterEvents?: EventListRelationFilter
     address?: XOR<AddressNullableScalarRelationFilter, AddressWhereInput> | null
   }, "id_user" | "mail" | "siretNumber">
 
@@ -6999,11 +7104,12 @@ export namespace Prisma {
     lastName?: SortOrder
     firstName?: SortOrder
     mail?: SortOrder
+    role?: SortOrder
     description?: SortOrderInput | SortOrder
     photo?: SortOrderInput | SortOrder
     password?: SortOrder
     phone?: SortOrderInput | SortOrder
-    siretNumber?: SortOrder
+    siretNumber?: SortOrderInput | SortOrder
     profilStatus?: SortOrderInput | SortOrder
     planning_public?: SortOrder
     createdAt?: SortOrder
@@ -7023,11 +7129,12 @@ export namespace Prisma {
     lastName?: StringWithAggregatesFilter<"User"> | string
     firstName?: StringWithAggregatesFilter<"User"> | string
     mail?: StringWithAggregatesFilter<"User"> | string
+    role?: EnumUserRoleWithAggregatesFilter<"User"> | $Enums.UserRole
     description?: StringNullableWithAggregatesFilter<"User"> | string | null
     photo?: StringNullableWithAggregatesFilter<"User"> | string | null
     password?: StringWithAggregatesFilter<"User"> | string
     phone?: StringNullableWithAggregatesFilter<"User"> | string | null
-    siretNumber?: StringWithAggregatesFilter<"User"> | string
+    siretNumber?: StringNullableWithAggregatesFilter<"User"> | string | null
     profilStatus?: StringNullableWithAggregatesFilter<"User"> | string | null
     planning_public?: BoolWithAggregatesFilter<"User"> | boolean
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
@@ -7182,73 +7289,117 @@ export namespace Prisma {
 
   export type EventCreateInput = {
     createdAt?: Date | string
+    updatedAt?: Date | string
     location: string
     startDateTime: Date | string
     endDateTime: Date | string
-    interventionType: string
+    interventionType?: string | null
+    message?: string | null
     status?: $Enums.EventStatus
-    users?: UserCreateNestedManyWithoutEventsInput
+    clientFirstName?: string | null
+    clientLastName?: string | null
+    clientEmail?: string | null
+    clientPhone?: string | null
+    interpreter: UserCreateNestedOneWithoutInterpreterEventsInput
   }
 
   export type EventUncheckedCreateInput = {
     id_demande?: number
     createdAt?: Date | string
+    updatedAt?: Date | string
     location: string
     startDateTime: Date | string
     endDateTime: Date | string
-    interventionType: string
+    interventionType?: string | null
+    message?: string | null
     status?: $Enums.EventStatus
-    users?: UserUncheckedCreateNestedManyWithoutEventsInput
+    clientFirstName?: string | null
+    clientLastName?: string | null
+    clientEmail?: string | null
+    clientPhone?: string | null
+    interpreterId: number
   }
 
   export type EventUpdateInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     location?: StringFieldUpdateOperationsInput | string
     startDateTime?: DateTimeFieldUpdateOperationsInput | Date | string
     endDateTime?: DateTimeFieldUpdateOperationsInput | Date | string
-    interventionType?: StringFieldUpdateOperationsInput | string
+    interventionType?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
-    users?: UserUpdateManyWithoutEventsNestedInput
+    clientFirstName?: NullableStringFieldUpdateOperationsInput | string | null
+    clientLastName?: NullableStringFieldUpdateOperationsInput | string | null
+    clientEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    clientPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    interpreter?: UserUpdateOneRequiredWithoutInterpreterEventsNestedInput
   }
 
   export type EventUncheckedUpdateInput = {
     id_demande?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     location?: StringFieldUpdateOperationsInput | string
     startDateTime?: DateTimeFieldUpdateOperationsInput | Date | string
     endDateTime?: DateTimeFieldUpdateOperationsInput | Date | string
-    interventionType?: StringFieldUpdateOperationsInput | string
+    interventionType?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
-    users?: UserUncheckedUpdateManyWithoutEventsNestedInput
+    clientFirstName?: NullableStringFieldUpdateOperationsInput | string | null
+    clientLastName?: NullableStringFieldUpdateOperationsInput | string | null
+    clientEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    clientPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    interpreterId?: IntFieldUpdateOperationsInput | number
   }
 
   export type EventCreateManyInput = {
     id_demande?: number
     createdAt?: Date | string
+    updatedAt?: Date | string
     location: string
     startDateTime: Date | string
     endDateTime: Date | string
-    interventionType: string
+    interventionType?: string | null
+    message?: string | null
     status?: $Enums.EventStatus
+    clientFirstName?: string | null
+    clientLastName?: string | null
+    clientEmail?: string | null
+    clientPhone?: string | null
+    interpreterId: number
   }
 
   export type EventUpdateManyMutationInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     location?: StringFieldUpdateOperationsInput | string
     startDateTime?: DateTimeFieldUpdateOperationsInput | Date | string
     endDateTime?: DateTimeFieldUpdateOperationsInput | Date | string
-    interventionType?: StringFieldUpdateOperationsInput | string
+    interventionType?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
+    clientFirstName?: NullableStringFieldUpdateOperationsInput | string | null
+    clientLastName?: NullableStringFieldUpdateOperationsInput | string | null
+    clientEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    clientPhone?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type EventUncheckedUpdateManyInput = {
     id_demande?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     location?: StringFieldUpdateOperationsInput | string
     startDateTime?: DateTimeFieldUpdateOperationsInput | Date | string
     endDateTime?: DateTimeFieldUpdateOperationsInput | Date | string
-    interventionType?: StringFieldUpdateOperationsInput | string
+    interventionType?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
+    clientFirstName?: NullableStringFieldUpdateOperationsInput | string | null
+    clientLastName?: NullableStringFieldUpdateOperationsInput | string | null
+    clientEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    clientPhone?: NullableStringFieldUpdateOperationsInput | string | null
+    interpreterId?: IntFieldUpdateOperationsInput | number
   }
 
   export type InterventionZoneCreateInput = {
@@ -7314,18 +7465,19 @@ export namespace Prisma {
     lastName: string
     firstName: string
     mail: string
+    role?: $Enums.UserRole
     description?: string | null
     photo?: string | null
     password: string
     phone?: string | null
-    siretNumber: string
+    siretNumber?: string | null
     profilStatus?: string | null
     planning_public?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     interventionZones?: InterventionZoneCreateNestedManyWithoutUserInput
     availabilities?: AvailabilityCreateNestedManyWithoutUserInput
-    events?: EventCreateNestedManyWithoutUsersInput
+    interpreterEvents?: EventCreateNestedManyWithoutInterpreterInput
     address?: AddressCreateNestedOneWithoutUserInput
   }
 
@@ -7334,18 +7486,19 @@ export namespace Prisma {
     lastName: string
     firstName: string
     mail: string
+    role?: $Enums.UserRole
     description?: string | null
     photo?: string | null
     password: string
     phone?: string | null
-    siretNumber: string
+    siretNumber?: string | null
     profilStatus?: string | null
     planning_public?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     interventionZones?: InterventionZoneUncheckedCreateNestedManyWithoutUserInput
     availabilities?: AvailabilityUncheckedCreateNestedManyWithoutUserInput
-    events?: EventUncheckedCreateNestedManyWithoutUsersInput
+    interpreterEvents?: EventUncheckedCreateNestedManyWithoutInterpreterInput
     address?: AddressUncheckedCreateNestedOneWithoutUserInput
   }
 
@@ -7353,18 +7506,19 @@ export namespace Prisma {
     lastName?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
     mail?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     description?: NullableStringFieldUpdateOperationsInput | string | null
     photo?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    siretNumber?: StringFieldUpdateOperationsInput | string
+    siretNumber?: NullableStringFieldUpdateOperationsInput | string | null
     profilStatus?: NullableStringFieldUpdateOperationsInput | string | null
     planning_public?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     interventionZones?: InterventionZoneUpdateManyWithoutUserNestedInput
     availabilities?: AvailabilityUpdateManyWithoutUserNestedInput
-    events?: EventUpdateManyWithoutUsersNestedInput
+    interpreterEvents?: EventUpdateManyWithoutInterpreterNestedInput
     address?: AddressUpdateOneWithoutUserNestedInput
   }
 
@@ -7373,18 +7527,19 @@ export namespace Prisma {
     lastName?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
     mail?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     description?: NullableStringFieldUpdateOperationsInput | string | null
     photo?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    siretNumber?: StringFieldUpdateOperationsInput | string
+    siretNumber?: NullableStringFieldUpdateOperationsInput | string | null
     profilStatus?: NullableStringFieldUpdateOperationsInput | string | null
     planning_public?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     interventionZones?: InterventionZoneUncheckedUpdateManyWithoutUserNestedInput
     availabilities?: AvailabilityUncheckedUpdateManyWithoutUserNestedInput
-    events?: EventUncheckedUpdateManyWithoutUsersNestedInput
+    interpreterEvents?: EventUncheckedUpdateManyWithoutInterpreterNestedInput
     address?: AddressUncheckedUpdateOneWithoutUserNestedInput
   }
 
@@ -7393,11 +7548,12 @@ export namespace Prisma {
     lastName: string
     firstName: string
     mail: string
+    role?: $Enums.UserRole
     description?: string | null
     photo?: string | null
     password: string
     phone?: string | null
-    siretNumber: string
+    siretNumber?: string | null
     profilStatus?: string | null
     planning_public?: boolean
     createdAt?: Date | string
@@ -7408,11 +7564,12 @@ export namespace Prisma {
     lastName?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
     mail?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     description?: NullableStringFieldUpdateOperationsInput | string | null
     photo?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    siretNumber?: StringFieldUpdateOperationsInput | string
+    siretNumber?: NullableStringFieldUpdateOperationsInput | string | null
     profilStatus?: NullableStringFieldUpdateOperationsInput | string | null
     planning_public?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -7424,11 +7581,12 @@ export namespace Prisma {
     lastName?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
     mail?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     description?: NullableStringFieldUpdateOperationsInput | string | null
     photo?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    siretNumber?: StringFieldUpdateOperationsInput | string
+    siretNumber?: NullableStringFieldUpdateOperationsInput | string | null
     profilStatus?: NullableStringFieldUpdateOperationsInput | string | null
     planning_public?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -7699,16 +7857,6 @@ export namespace Prisma {
     not?: NestedEnumEventStatusFilter<$PrismaModel> | $Enums.EventStatus
   }
 
-  export type UserListRelationFilter = {
-    every?: UserWhereInput
-    some?: UserWhereInput
-    none?: UserWhereInput
-  }
-
-  export type UserOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
   export type EventOrderByRelevanceInput = {
     fields: EventOrderByRelevanceFieldEnum | EventOrderByRelevanceFieldEnum[]
     sort: SortOrder
@@ -7718,39 +7866,62 @@ export namespace Prisma {
   export type EventCountOrderByAggregateInput = {
     id_demande?: SortOrder
     createdAt?: SortOrder
+    updatedAt?: SortOrder
     location?: SortOrder
     startDateTime?: SortOrder
     endDateTime?: SortOrder
     interventionType?: SortOrder
+    message?: SortOrder
     status?: SortOrder
+    clientFirstName?: SortOrder
+    clientLastName?: SortOrder
+    clientEmail?: SortOrder
+    clientPhone?: SortOrder
+    interpreterId?: SortOrder
   }
 
   export type EventAvgOrderByAggregateInput = {
     id_demande?: SortOrder
+    interpreterId?: SortOrder
   }
 
   export type EventMaxOrderByAggregateInput = {
     id_demande?: SortOrder
     createdAt?: SortOrder
+    updatedAt?: SortOrder
     location?: SortOrder
     startDateTime?: SortOrder
     endDateTime?: SortOrder
     interventionType?: SortOrder
+    message?: SortOrder
     status?: SortOrder
+    clientFirstName?: SortOrder
+    clientLastName?: SortOrder
+    clientEmail?: SortOrder
+    clientPhone?: SortOrder
+    interpreterId?: SortOrder
   }
 
   export type EventMinOrderByAggregateInput = {
     id_demande?: SortOrder
     createdAt?: SortOrder
+    updatedAt?: SortOrder
     location?: SortOrder
     startDateTime?: SortOrder
     endDateTime?: SortOrder
     interventionType?: SortOrder
+    message?: SortOrder
     status?: SortOrder
+    clientFirstName?: SortOrder
+    clientLastName?: SortOrder
+    clientEmail?: SortOrder
+    clientPhone?: SortOrder
+    interpreterId?: SortOrder
   }
 
   export type EventSumOrderByAggregateInput = {
     id_demande?: SortOrder
+    interpreterId?: SortOrder
   }
 
   export type EnumEventStatusWithAggregatesFilter<$PrismaModel = never> = {
@@ -7810,6 +7981,13 @@ export namespace Prisma {
     userId?: SortOrder
   }
 
+  export type EnumUserRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserRole | EnumUserRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.UserRole[]
+    notIn?: $Enums.UserRole[]
+    not?: NestedEnumUserRoleFilter<$PrismaModel> | $Enums.UserRole
+  }
+
   export type BoolFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolFilter<$PrismaModel> | boolean
@@ -7861,6 +8039,7 @@ export namespace Prisma {
     lastName?: SortOrder
     firstName?: SortOrder
     mail?: SortOrder
+    role?: SortOrder
     description?: SortOrder
     photo?: SortOrder
     password?: SortOrder
@@ -7881,6 +8060,7 @@ export namespace Prisma {
     lastName?: SortOrder
     firstName?: SortOrder
     mail?: SortOrder
+    role?: SortOrder
     description?: SortOrder
     photo?: SortOrder
     password?: SortOrder
@@ -7897,6 +8077,7 @@ export namespace Prisma {
     lastName?: SortOrder
     firstName?: SortOrder
     mail?: SortOrder
+    role?: SortOrder
     description?: SortOrder
     photo?: SortOrder
     password?: SortOrder
@@ -7910,6 +8091,16 @@ export namespace Prisma {
 
   export type UserSumOrderByAggregateInput = {
     id_user?: SortOrder
+  }
+
+  export type EnumUserRoleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserRole | EnumUserRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.UserRole[]
+    notIn?: $Enums.UserRole[]
+    not?: NestedEnumUserRoleWithAggregatesFilter<$PrismaModel> | $Enums.UserRole
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumUserRoleFilter<$PrismaModel>
+    _max?: NestedEnumUserRoleFilter<$PrismaModel>
   }
 
   export type BoolWithAggregatesFilter<$PrismaModel = never> = {
@@ -7976,46 +8167,22 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutAvailabilitiesInput, UserUpdateWithoutAvailabilitiesInput>, UserUncheckedUpdateWithoutAvailabilitiesInput>
   }
 
-  export type UserCreateNestedManyWithoutEventsInput = {
-    create?: XOR<UserCreateWithoutEventsInput, UserUncheckedCreateWithoutEventsInput> | UserCreateWithoutEventsInput[] | UserUncheckedCreateWithoutEventsInput[]
-    connectOrCreate?: UserCreateOrConnectWithoutEventsInput | UserCreateOrConnectWithoutEventsInput[]
-    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
-  }
-
-  export type UserUncheckedCreateNestedManyWithoutEventsInput = {
-    create?: XOR<UserCreateWithoutEventsInput, UserUncheckedCreateWithoutEventsInput> | UserCreateWithoutEventsInput[] | UserUncheckedCreateWithoutEventsInput[]
-    connectOrCreate?: UserCreateOrConnectWithoutEventsInput | UserCreateOrConnectWithoutEventsInput[]
-    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
+  export type UserCreateNestedOneWithoutInterpreterEventsInput = {
+    create?: XOR<UserCreateWithoutInterpreterEventsInput, UserUncheckedCreateWithoutInterpreterEventsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutInterpreterEventsInput
+    connect?: UserWhereUniqueInput
   }
 
   export type EnumEventStatusFieldUpdateOperationsInput = {
     set?: $Enums.EventStatus
   }
 
-  export type UserUpdateManyWithoutEventsNestedInput = {
-    create?: XOR<UserCreateWithoutEventsInput, UserUncheckedCreateWithoutEventsInput> | UserCreateWithoutEventsInput[] | UserUncheckedCreateWithoutEventsInput[]
-    connectOrCreate?: UserCreateOrConnectWithoutEventsInput | UserCreateOrConnectWithoutEventsInput[]
-    upsert?: UserUpsertWithWhereUniqueWithoutEventsInput | UserUpsertWithWhereUniqueWithoutEventsInput[]
-    set?: UserWhereUniqueInput | UserWhereUniqueInput[]
-    disconnect?: UserWhereUniqueInput | UserWhereUniqueInput[]
-    delete?: UserWhereUniqueInput | UserWhereUniqueInput[]
-    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
-    update?: UserUpdateWithWhereUniqueWithoutEventsInput | UserUpdateWithWhereUniqueWithoutEventsInput[]
-    updateMany?: UserUpdateManyWithWhereWithoutEventsInput | UserUpdateManyWithWhereWithoutEventsInput[]
-    deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
-  }
-
-  export type UserUncheckedUpdateManyWithoutEventsNestedInput = {
-    create?: XOR<UserCreateWithoutEventsInput, UserUncheckedCreateWithoutEventsInput> | UserCreateWithoutEventsInput[] | UserUncheckedCreateWithoutEventsInput[]
-    connectOrCreate?: UserCreateOrConnectWithoutEventsInput | UserCreateOrConnectWithoutEventsInput[]
-    upsert?: UserUpsertWithWhereUniqueWithoutEventsInput | UserUpsertWithWhereUniqueWithoutEventsInput[]
-    set?: UserWhereUniqueInput | UserWhereUniqueInput[]
-    disconnect?: UserWhereUniqueInput | UserWhereUniqueInput[]
-    delete?: UserWhereUniqueInput | UserWhereUniqueInput[]
-    connect?: UserWhereUniqueInput | UserWhereUniqueInput[]
-    update?: UserUpdateWithWhereUniqueWithoutEventsInput | UserUpdateWithWhereUniqueWithoutEventsInput[]
-    updateMany?: UserUpdateManyWithWhereWithoutEventsInput | UserUpdateManyWithWhereWithoutEventsInput[]
-    deleteMany?: UserScalarWhereInput | UserScalarWhereInput[]
+  export type UserUpdateOneRequiredWithoutInterpreterEventsNestedInput = {
+    create?: XOR<UserCreateWithoutInterpreterEventsInput, UserUncheckedCreateWithoutInterpreterEventsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutInterpreterEventsInput
+    upsert?: UserUpsertWithoutInterpreterEventsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutInterpreterEventsInput, UserUpdateWithoutInterpreterEventsInput>, UserUncheckedUpdateWithoutInterpreterEventsInput>
   }
 
   export type UserCreateNestedOneWithoutInterventionZonesInput = {
@@ -8046,9 +8213,10 @@ export namespace Prisma {
     connect?: AvailabilityWhereUniqueInput | AvailabilityWhereUniqueInput[]
   }
 
-  export type EventCreateNestedManyWithoutUsersInput = {
-    create?: XOR<EventCreateWithoutUsersInput, EventUncheckedCreateWithoutUsersInput> | EventCreateWithoutUsersInput[] | EventUncheckedCreateWithoutUsersInput[]
-    connectOrCreate?: EventCreateOrConnectWithoutUsersInput | EventCreateOrConnectWithoutUsersInput[]
+  export type EventCreateNestedManyWithoutInterpreterInput = {
+    create?: XOR<EventCreateWithoutInterpreterInput, EventUncheckedCreateWithoutInterpreterInput> | EventCreateWithoutInterpreterInput[] | EventUncheckedCreateWithoutInterpreterInput[]
+    connectOrCreate?: EventCreateOrConnectWithoutInterpreterInput | EventCreateOrConnectWithoutInterpreterInput[]
+    createMany?: EventCreateManyInterpreterInputEnvelope
     connect?: EventWhereUniqueInput | EventWhereUniqueInput[]
   }
 
@@ -8072,9 +8240,10 @@ export namespace Prisma {
     connect?: AvailabilityWhereUniqueInput | AvailabilityWhereUniqueInput[]
   }
 
-  export type EventUncheckedCreateNestedManyWithoutUsersInput = {
-    create?: XOR<EventCreateWithoutUsersInput, EventUncheckedCreateWithoutUsersInput> | EventCreateWithoutUsersInput[] | EventUncheckedCreateWithoutUsersInput[]
-    connectOrCreate?: EventCreateOrConnectWithoutUsersInput | EventCreateOrConnectWithoutUsersInput[]
+  export type EventUncheckedCreateNestedManyWithoutInterpreterInput = {
+    create?: XOR<EventCreateWithoutInterpreterInput, EventUncheckedCreateWithoutInterpreterInput> | EventCreateWithoutInterpreterInput[] | EventUncheckedCreateWithoutInterpreterInput[]
+    connectOrCreate?: EventCreateOrConnectWithoutInterpreterInput | EventCreateOrConnectWithoutInterpreterInput[]
+    createMany?: EventCreateManyInterpreterInputEnvelope
     connect?: EventWhereUniqueInput | EventWhereUniqueInput[]
   }
 
@@ -8082,6 +8251,10 @@ export namespace Prisma {
     create?: XOR<AddressCreateWithoutUserInput, AddressUncheckedCreateWithoutUserInput>
     connectOrCreate?: AddressCreateOrConnectWithoutUserInput
     connect?: AddressWhereUniqueInput
+  }
+
+  export type EnumUserRoleFieldUpdateOperationsInput = {
+    set?: $Enums.UserRole
   }
 
   export type BoolFieldUpdateOperationsInput = {
@@ -8116,16 +8289,17 @@ export namespace Prisma {
     deleteMany?: AvailabilityScalarWhereInput | AvailabilityScalarWhereInput[]
   }
 
-  export type EventUpdateManyWithoutUsersNestedInput = {
-    create?: XOR<EventCreateWithoutUsersInput, EventUncheckedCreateWithoutUsersInput> | EventCreateWithoutUsersInput[] | EventUncheckedCreateWithoutUsersInput[]
-    connectOrCreate?: EventCreateOrConnectWithoutUsersInput | EventCreateOrConnectWithoutUsersInput[]
-    upsert?: EventUpsertWithWhereUniqueWithoutUsersInput | EventUpsertWithWhereUniqueWithoutUsersInput[]
+  export type EventUpdateManyWithoutInterpreterNestedInput = {
+    create?: XOR<EventCreateWithoutInterpreterInput, EventUncheckedCreateWithoutInterpreterInput> | EventCreateWithoutInterpreterInput[] | EventUncheckedCreateWithoutInterpreterInput[]
+    connectOrCreate?: EventCreateOrConnectWithoutInterpreterInput | EventCreateOrConnectWithoutInterpreterInput[]
+    upsert?: EventUpsertWithWhereUniqueWithoutInterpreterInput | EventUpsertWithWhereUniqueWithoutInterpreterInput[]
+    createMany?: EventCreateManyInterpreterInputEnvelope
     set?: EventWhereUniqueInput | EventWhereUniqueInput[]
     disconnect?: EventWhereUniqueInput | EventWhereUniqueInput[]
     delete?: EventWhereUniqueInput | EventWhereUniqueInput[]
     connect?: EventWhereUniqueInput | EventWhereUniqueInput[]
-    update?: EventUpdateWithWhereUniqueWithoutUsersInput | EventUpdateWithWhereUniqueWithoutUsersInput[]
-    updateMany?: EventUpdateManyWithWhereWithoutUsersInput | EventUpdateManyWithWhereWithoutUsersInput[]
+    update?: EventUpdateWithWhereUniqueWithoutInterpreterInput | EventUpdateWithWhereUniqueWithoutInterpreterInput[]
+    updateMany?: EventUpdateManyWithWhereWithoutInterpreterInput | EventUpdateManyWithWhereWithoutInterpreterInput[]
     deleteMany?: EventScalarWhereInput | EventScalarWhereInput[]
   }
 
@@ -8167,16 +8341,17 @@ export namespace Prisma {
     deleteMany?: AvailabilityScalarWhereInput | AvailabilityScalarWhereInput[]
   }
 
-  export type EventUncheckedUpdateManyWithoutUsersNestedInput = {
-    create?: XOR<EventCreateWithoutUsersInput, EventUncheckedCreateWithoutUsersInput> | EventCreateWithoutUsersInput[] | EventUncheckedCreateWithoutUsersInput[]
-    connectOrCreate?: EventCreateOrConnectWithoutUsersInput | EventCreateOrConnectWithoutUsersInput[]
-    upsert?: EventUpsertWithWhereUniqueWithoutUsersInput | EventUpsertWithWhereUniqueWithoutUsersInput[]
+  export type EventUncheckedUpdateManyWithoutInterpreterNestedInput = {
+    create?: XOR<EventCreateWithoutInterpreterInput, EventUncheckedCreateWithoutInterpreterInput> | EventCreateWithoutInterpreterInput[] | EventUncheckedCreateWithoutInterpreterInput[]
+    connectOrCreate?: EventCreateOrConnectWithoutInterpreterInput | EventCreateOrConnectWithoutInterpreterInput[]
+    upsert?: EventUpsertWithWhereUniqueWithoutInterpreterInput | EventUpsertWithWhereUniqueWithoutInterpreterInput[]
+    createMany?: EventCreateManyInterpreterInputEnvelope
     set?: EventWhereUniqueInput | EventWhereUniqueInput[]
     disconnect?: EventWhereUniqueInput | EventWhereUniqueInput[]
     delete?: EventWhereUniqueInput | EventWhereUniqueInput[]
     connect?: EventWhereUniqueInput | EventWhereUniqueInput[]
-    update?: EventUpdateWithWhereUniqueWithoutUsersInput | EventUpdateWithWhereUniqueWithoutUsersInput[]
-    updateMany?: EventUpdateManyWithWhereWithoutUsersInput | EventUpdateManyWithWhereWithoutUsersInput[]
+    update?: EventUpdateWithWhereUniqueWithoutInterpreterInput | EventUpdateWithWhereUniqueWithoutInterpreterInput[]
+    updateMany?: EventUpdateManyWithWhereWithoutInterpreterInput | EventUpdateManyWithWhereWithoutInterpreterInput[]
     deleteMany?: EventScalarWhereInput | EventScalarWhereInput[]
   }
 
@@ -8374,9 +8549,26 @@ export namespace Prisma {
     _max?: NestedEnumEventStatusFilter<$PrismaModel>
   }
 
+  export type NestedEnumUserRoleFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserRole | EnumUserRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.UserRole[]
+    notIn?: $Enums.UserRole[]
+    not?: NestedEnumUserRoleFilter<$PrismaModel> | $Enums.UserRole
+  }
+
   export type NestedBoolFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedEnumUserRoleWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.UserRole | EnumUserRoleFieldRefInput<$PrismaModel>
+    in?: $Enums.UserRole[]
+    notIn?: $Enums.UserRole[]
+    not?: NestedEnumUserRoleWithAggregatesFilter<$PrismaModel> | $Enums.UserRole
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumUserRoleFilter<$PrismaModel>
+    _max?: NestedEnumUserRoleFilter<$PrismaModel>
   }
 
   export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
@@ -8391,18 +8583,19 @@ export namespace Prisma {
     lastName: string
     firstName: string
     mail: string
+    role?: $Enums.UserRole
     description?: string | null
     photo?: string | null
     password: string
     phone?: string | null
-    siretNumber: string
+    siretNumber?: string | null
     profilStatus?: string | null
     planning_public?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     interventionZones?: InterventionZoneCreateNestedManyWithoutUserInput
     availabilities?: AvailabilityCreateNestedManyWithoutUserInput
-    events?: EventCreateNestedManyWithoutUsersInput
+    interpreterEvents?: EventCreateNestedManyWithoutInterpreterInput
   }
 
   export type UserUncheckedCreateWithoutAddressInput = {
@@ -8410,18 +8603,19 @@ export namespace Prisma {
     lastName: string
     firstName: string
     mail: string
+    role?: $Enums.UserRole
     description?: string | null
     photo?: string | null
     password: string
     phone?: string | null
-    siretNumber: string
+    siretNumber?: string | null
     profilStatus?: string | null
     planning_public?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     interventionZones?: InterventionZoneUncheckedCreateNestedManyWithoutUserInput
     availabilities?: AvailabilityUncheckedCreateNestedManyWithoutUserInput
-    events?: EventUncheckedCreateNestedManyWithoutUsersInput
+    interpreterEvents?: EventUncheckedCreateNestedManyWithoutInterpreterInput
   }
 
   export type UserCreateOrConnectWithoutAddressInput = {
@@ -8444,18 +8638,19 @@ export namespace Prisma {
     lastName?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
     mail?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     description?: NullableStringFieldUpdateOperationsInput | string | null
     photo?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    siretNumber?: StringFieldUpdateOperationsInput | string
+    siretNumber?: NullableStringFieldUpdateOperationsInput | string | null
     profilStatus?: NullableStringFieldUpdateOperationsInput | string | null
     planning_public?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     interventionZones?: InterventionZoneUpdateManyWithoutUserNestedInput
     availabilities?: AvailabilityUpdateManyWithoutUserNestedInput
-    events?: EventUpdateManyWithoutUsersNestedInput
+    interpreterEvents?: EventUpdateManyWithoutInterpreterNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAddressInput = {
@@ -8463,35 +8658,37 @@ export namespace Prisma {
     lastName?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
     mail?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     description?: NullableStringFieldUpdateOperationsInput | string | null
     photo?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    siretNumber?: StringFieldUpdateOperationsInput | string
+    siretNumber?: NullableStringFieldUpdateOperationsInput | string | null
     profilStatus?: NullableStringFieldUpdateOperationsInput | string | null
     planning_public?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     interventionZones?: InterventionZoneUncheckedUpdateManyWithoutUserNestedInput
     availabilities?: AvailabilityUncheckedUpdateManyWithoutUserNestedInput
-    events?: EventUncheckedUpdateManyWithoutUsersNestedInput
+    interpreterEvents?: EventUncheckedUpdateManyWithoutInterpreterNestedInput
   }
 
   export type UserCreateWithoutAvailabilitiesInput = {
     lastName: string
     firstName: string
     mail: string
+    role?: $Enums.UserRole
     description?: string | null
     photo?: string | null
     password: string
     phone?: string | null
-    siretNumber: string
+    siretNumber?: string | null
     profilStatus?: string | null
     planning_public?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     interventionZones?: InterventionZoneCreateNestedManyWithoutUserInput
-    events?: EventCreateNestedManyWithoutUsersInput
+    interpreterEvents?: EventCreateNestedManyWithoutInterpreterInput
     address?: AddressCreateNestedOneWithoutUserInput
   }
 
@@ -8500,17 +8697,18 @@ export namespace Prisma {
     lastName: string
     firstName: string
     mail: string
+    role?: $Enums.UserRole
     description?: string | null
     photo?: string | null
     password: string
     phone?: string | null
-    siretNumber: string
+    siretNumber?: string | null
     profilStatus?: string | null
     planning_public?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     interventionZones?: InterventionZoneUncheckedCreateNestedManyWithoutUserInput
-    events?: EventUncheckedCreateNestedManyWithoutUsersInput
+    interpreterEvents?: EventUncheckedCreateNestedManyWithoutInterpreterInput
     address?: AddressUncheckedCreateNestedOneWithoutUserInput
   }
 
@@ -8534,17 +8732,18 @@ export namespace Prisma {
     lastName?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
     mail?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     description?: NullableStringFieldUpdateOperationsInput | string | null
     photo?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    siretNumber?: StringFieldUpdateOperationsInput | string
+    siretNumber?: NullableStringFieldUpdateOperationsInput | string | null
     profilStatus?: NullableStringFieldUpdateOperationsInput | string | null
     planning_public?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     interventionZones?: InterventionZoneUpdateManyWithoutUserNestedInput
-    events?: EventUpdateManyWithoutUsersNestedInput
+    interpreterEvents?: EventUpdateManyWithoutInterpreterNestedInput
     address?: AddressUpdateOneWithoutUserNestedInput
   }
 
@@ -8553,29 +8752,31 @@ export namespace Prisma {
     lastName?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
     mail?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     description?: NullableStringFieldUpdateOperationsInput | string | null
     photo?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    siretNumber?: StringFieldUpdateOperationsInput | string
+    siretNumber?: NullableStringFieldUpdateOperationsInput | string | null
     profilStatus?: NullableStringFieldUpdateOperationsInput | string | null
     planning_public?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     interventionZones?: InterventionZoneUncheckedUpdateManyWithoutUserNestedInput
-    events?: EventUncheckedUpdateManyWithoutUsersNestedInput
+    interpreterEvents?: EventUncheckedUpdateManyWithoutInterpreterNestedInput
     address?: AddressUncheckedUpdateOneWithoutUserNestedInput
   }
 
-  export type UserCreateWithoutEventsInput = {
+  export type UserCreateWithoutInterpreterEventsInput = {
     lastName: string
     firstName: string
     mail: string
+    role?: $Enums.UserRole
     description?: string | null
     photo?: string | null
     password: string
     phone?: string | null
-    siretNumber: string
+    siretNumber?: string | null
     profilStatus?: string | null
     planning_public?: boolean
     createdAt?: Date | string
@@ -8585,16 +8786,17 @@ export namespace Prisma {
     address?: AddressCreateNestedOneWithoutUserInput
   }
 
-  export type UserUncheckedCreateWithoutEventsInput = {
+  export type UserUncheckedCreateWithoutInterpreterEventsInput = {
     id_user?: number
     lastName: string
     firstName: string
     mail: string
+    role?: $Enums.UserRole
     description?: string | null
     photo?: string | null
     password: string
     phone?: string | null
-    siretNumber: string
+    siretNumber?: string | null
     profilStatus?: string | null
     planning_public?: boolean
     createdAt?: Date | string
@@ -8604,61 +8806,77 @@ export namespace Prisma {
     address?: AddressUncheckedCreateNestedOneWithoutUserInput
   }
 
-  export type UserCreateOrConnectWithoutEventsInput = {
+  export type UserCreateOrConnectWithoutInterpreterEventsInput = {
     where: UserWhereUniqueInput
-    create: XOR<UserCreateWithoutEventsInput, UserUncheckedCreateWithoutEventsInput>
+    create: XOR<UserCreateWithoutInterpreterEventsInput, UserUncheckedCreateWithoutInterpreterEventsInput>
   }
 
-  export type UserUpsertWithWhereUniqueWithoutEventsInput = {
-    where: UserWhereUniqueInput
-    update: XOR<UserUpdateWithoutEventsInput, UserUncheckedUpdateWithoutEventsInput>
-    create: XOR<UserCreateWithoutEventsInput, UserUncheckedCreateWithoutEventsInput>
+  export type UserUpsertWithoutInterpreterEventsInput = {
+    update: XOR<UserUpdateWithoutInterpreterEventsInput, UserUncheckedUpdateWithoutInterpreterEventsInput>
+    create: XOR<UserCreateWithoutInterpreterEventsInput, UserUncheckedCreateWithoutInterpreterEventsInput>
+    where?: UserWhereInput
   }
 
-  export type UserUpdateWithWhereUniqueWithoutEventsInput = {
-    where: UserWhereUniqueInput
-    data: XOR<UserUpdateWithoutEventsInput, UserUncheckedUpdateWithoutEventsInput>
+  export type UserUpdateToOneWithWhereWithoutInterpreterEventsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutInterpreterEventsInput, UserUncheckedUpdateWithoutInterpreterEventsInput>
   }
 
-  export type UserUpdateManyWithWhereWithoutEventsInput = {
-    where: UserScalarWhereInput
-    data: XOR<UserUpdateManyMutationInput, UserUncheckedUpdateManyWithoutEventsInput>
+  export type UserUpdateWithoutInterpreterEventsInput = {
+    lastName?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    mail?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    photo?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    siretNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    profilStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    planning_public?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    interventionZones?: InterventionZoneUpdateManyWithoutUserNestedInput
+    availabilities?: AvailabilityUpdateManyWithoutUserNestedInput
+    address?: AddressUpdateOneWithoutUserNestedInput
   }
 
-  export type UserScalarWhereInput = {
-    AND?: UserScalarWhereInput | UserScalarWhereInput[]
-    OR?: UserScalarWhereInput[]
-    NOT?: UserScalarWhereInput | UserScalarWhereInput[]
-    id_user?: IntFilter<"User"> | number
-    lastName?: StringFilter<"User"> | string
-    firstName?: StringFilter<"User"> | string
-    mail?: StringFilter<"User"> | string
-    description?: StringNullableFilter<"User"> | string | null
-    photo?: StringNullableFilter<"User"> | string | null
-    password?: StringFilter<"User"> | string
-    phone?: StringNullableFilter<"User"> | string | null
-    siretNumber?: StringFilter<"User"> | string
-    profilStatus?: StringNullableFilter<"User"> | string | null
-    planning_public?: BoolFilter<"User"> | boolean
-    createdAt?: DateTimeFilter<"User"> | Date | string
-    updatedAt?: DateTimeFilter<"User"> | Date | string
+  export type UserUncheckedUpdateWithoutInterpreterEventsInput = {
+    id_user?: IntFieldUpdateOperationsInput | number
+    lastName?: StringFieldUpdateOperationsInput | string
+    firstName?: StringFieldUpdateOperationsInput | string
+    mail?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    photo?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: StringFieldUpdateOperationsInput | string
+    phone?: NullableStringFieldUpdateOperationsInput | string | null
+    siretNumber?: NullableStringFieldUpdateOperationsInput | string | null
+    profilStatus?: NullableStringFieldUpdateOperationsInput | string | null
+    planning_public?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    interventionZones?: InterventionZoneUncheckedUpdateManyWithoutUserNestedInput
+    availabilities?: AvailabilityUncheckedUpdateManyWithoutUserNestedInput
+    address?: AddressUncheckedUpdateOneWithoutUserNestedInput
   }
 
   export type UserCreateWithoutInterventionZonesInput = {
     lastName: string
     firstName: string
     mail: string
+    role?: $Enums.UserRole
     description?: string | null
     photo?: string | null
     password: string
     phone?: string | null
-    siretNumber: string
+    siretNumber?: string | null
     profilStatus?: string | null
     planning_public?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     availabilities?: AvailabilityCreateNestedManyWithoutUserInput
-    events?: EventCreateNestedManyWithoutUsersInput
+    interpreterEvents?: EventCreateNestedManyWithoutInterpreterInput
     address?: AddressCreateNestedOneWithoutUserInput
   }
 
@@ -8667,17 +8885,18 @@ export namespace Prisma {
     lastName: string
     firstName: string
     mail: string
+    role?: $Enums.UserRole
     description?: string | null
     photo?: string | null
     password: string
     phone?: string | null
-    siretNumber: string
+    siretNumber?: string | null
     profilStatus?: string | null
     planning_public?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
     availabilities?: AvailabilityUncheckedCreateNestedManyWithoutUserInput
-    events?: EventUncheckedCreateNestedManyWithoutUsersInput
+    interpreterEvents?: EventUncheckedCreateNestedManyWithoutInterpreterInput
     address?: AddressUncheckedCreateNestedOneWithoutUserInput
   }
 
@@ -8701,17 +8920,18 @@ export namespace Prisma {
     lastName?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
     mail?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     description?: NullableStringFieldUpdateOperationsInput | string | null
     photo?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    siretNumber?: StringFieldUpdateOperationsInput | string
+    siretNumber?: NullableStringFieldUpdateOperationsInput | string | null
     profilStatus?: NullableStringFieldUpdateOperationsInput | string | null
     planning_public?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     availabilities?: AvailabilityUpdateManyWithoutUserNestedInput
-    events?: EventUpdateManyWithoutUsersNestedInput
+    interpreterEvents?: EventUpdateManyWithoutInterpreterNestedInput
     address?: AddressUpdateOneWithoutUserNestedInput
   }
 
@@ -8720,17 +8940,18 @@ export namespace Prisma {
     lastName?: StringFieldUpdateOperationsInput | string
     firstName?: StringFieldUpdateOperationsInput | string
     mail?: StringFieldUpdateOperationsInput | string
+    role?: EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
     description?: NullableStringFieldUpdateOperationsInput | string | null
     photo?: NullableStringFieldUpdateOperationsInput | string | null
     password?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
-    siretNumber?: StringFieldUpdateOperationsInput | string
+    siretNumber?: NullableStringFieldUpdateOperationsInput | string | null
     profilStatus?: NullableStringFieldUpdateOperationsInput | string | null
     planning_public?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     availabilities?: AvailabilityUncheckedUpdateManyWithoutUserNestedInput
-    events?: EventUncheckedUpdateManyWithoutUsersNestedInput
+    interpreterEvents?: EventUncheckedUpdateManyWithoutInterpreterNestedInput
     address?: AddressUncheckedUpdateOneWithoutUserNestedInput
   }
 
@@ -8790,28 +9011,45 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type EventCreateWithoutUsersInput = {
+  export type EventCreateWithoutInterpreterInput = {
     createdAt?: Date | string
+    updatedAt?: Date | string
     location: string
     startDateTime: Date | string
     endDateTime: Date | string
-    interventionType: string
+    interventionType?: string | null
+    message?: string | null
     status?: $Enums.EventStatus
+    clientFirstName?: string | null
+    clientLastName?: string | null
+    clientEmail?: string | null
+    clientPhone?: string | null
   }
 
-  export type EventUncheckedCreateWithoutUsersInput = {
+  export type EventUncheckedCreateWithoutInterpreterInput = {
     id_demande?: number
     createdAt?: Date | string
+    updatedAt?: Date | string
     location: string
     startDateTime: Date | string
     endDateTime: Date | string
-    interventionType: string
+    interventionType?: string | null
+    message?: string | null
     status?: $Enums.EventStatus
+    clientFirstName?: string | null
+    clientLastName?: string | null
+    clientEmail?: string | null
+    clientPhone?: string | null
   }
 
-  export type EventCreateOrConnectWithoutUsersInput = {
+  export type EventCreateOrConnectWithoutInterpreterInput = {
     where: EventWhereUniqueInput
-    create: XOR<EventCreateWithoutUsersInput, EventUncheckedCreateWithoutUsersInput>
+    create: XOR<EventCreateWithoutInterpreterInput, EventUncheckedCreateWithoutInterpreterInput>
+  }
+
+  export type EventCreateManyInterpreterInputEnvelope = {
+    data: EventCreateManyInterpreterInput | EventCreateManyInterpreterInput[]
+    skipDuplicates?: boolean
   }
 
   export type AddressCreateWithoutUserInput = {
@@ -8895,20 +9133,20 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"Availability"> | Date | string
   }
 
-  export type EventUpsertWithWhereUniqueWithoutUsersInput = {
+  export type EventUpsertWithWhereUniqueWithoutInterpreterInput = {
     where: EventWhereUniqueInput
-    update: XOR<EventUpdateWithoutUsersInput, EventUncheckedUpdateWithoutUsersInput>
-    create: XOR<EventCreateWithoutUsersInput, EventUncheckedCreateWithoutUsersInput>
+    update: XOR<EventUpdateWithoutInterpreterInput, EventUncheckedUpdateWithoutInterpreterInput>
+    create: XOR<EventCreateWithoutInterpreterInput, EventUncheckedCreateWithoutInterpreterInput>
   }
 
-  export type EventUpdateWithWhereUniqueWithoutUsersInput = {
+  export type EventUpdateWithWhereUniqueWithoutInterpreterInput = {
     where: EventWhereUniqueInput
-    data: XOR<EventUpdateWithoutUsersInput, EventUncheckedUpdateWithoutUsersInput>
+    data: XOR<EventUpdateWithoutInterpreterInput, EventUncheckedUpdateWithoutInterpreterInput>
   }
 
-  export type EventUpdateManyWithWhereWithoutUsersInput = {
+  export type EventUpdateManyWithWhereWithoutInterpreterInput = {
     where: EventScalarWhereInput
-    data: XOR<EventUpdateManyMutationInput, EventUncheckedUpdateManyWithoutUsersInput>
+    data: XOR<EventUpdateManyMutationInput, EventUncheckedUpdateManyWithoutInterpreterInput>
   }
 
   export type EventScalarWhereInput = {
@@ -8917,11 +9155,18 @@ export namespace Prisma {
     NOT?: EventScalarWhereInput | EventScalarWhereInput[]
     id_demande?: IntFilter<"Event"> | number
     createdAt?: DateTimeFilter<"Event"> | Date | string
+    updatedAt?: DateTimeFilter<"Event"> | Date | string
     location?: StringFilter<"Event"> | string
     startDateTime?: DateTimeFilter<"Event"> | Date | string
     endDateTime?: DateTimeFilter<"Event"> | Date | string
-    interventionType?: StringFilter<"Event"> | string
+    interventionType?: StringNullableFilter<"Event"> | string | null
+    message?: StringNullableFilter<"Event"> | string | null
     status?: EnumEventStatusFilter<"Event"> | $Enums.EventStatus
+    clientFirstName?: StringNullableFilter<"Event"> | string | null
+    clientLastName?: StringNullableFilter<"Event"> | string | null
+    clientEmail?: StringNullableFilter<"Event"> | string | null
+    clientPhone?: StringNullableFilter<"Event"> | string | null
+    interpreterId?: IntFilter<"Event"> | number
   }
 
   export type AddressUpsertWithoutUserInput = {
@@ -8952,59 +9197,6 @@ export namespace Prisma {
     longitude?: NullableFloatFieldUpdateOperationsInput | number | null
   }
 
-  export type UserUpdateWithoutEventsInput = {
-    lastName?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
-    mail?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    photo?: NullableStringFieldUpdateOperationsInput | string | null
-    password?: StringFieldUpdateOperationsInput | string
-    phone?: NullableStringFieldUpdateOperationsInput | string | null
-    siretNumber?: StringFieldUpdateOperationsInput | string
-    profilStatus?: NullableStringFieldUpdateOperationsInput | string | null
-    planning_public?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    interventionZones?: InterventionZoneUpdateManyWithoutUserNestedInput
-    availabilities?: AvailabilityUpdateManyWithoutUserNestedInput
-    address?: AddressUpdateOneWithoutUserNestedInput
-  }
-
-  export type UserUncheckedUpdateWithoutEventsInput = {
-    id_user?: IntFieldUpdateOperationsInput | number
-    lastName?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
-    mail?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    photo?: NullableStringFieldUpdateOperationsInput | string | null
-    password?: StringFieldUpdateOperationsInput | string
-    phone?: NullableStringFieldUpdateOperationsInput | string | null
-    siretNumber?: StringFieldUpdateOperationsInput | string
-    profilStatus?: NullableStringFieldUpdateOperationsInput | string | null
-    planning_public?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    interventionZones?: InterventionZoneUncheckedUpdateManyWithoutUserNestedInput
-    availabilities?: AvailabilityUncheckedUpdateManyWithoutUserNestedInput
-    address?: AddressUncheckedUpdateOneWithoutUserNestedInput
-  }
-
-  export type UserUncheckedUpdateManyWithoutEventsInput = {
-    id_user?: IntFieldUpdateOperationsInput | number
-    lastName?: StringFieldUpdateOperationsInput | string
-    firstName?: StringFieldUpdateOperationsInput | string
-    mail?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    photo?: NullableStringFieldUpdateOperationsInput | string | null
-    password?: StringFieldUpdateOperationsInput | string
-    phone?: NullableStringFieldUpdateOperationsInput | string | null
-    siretNumber?: StringFieldUpdateOperationsInput | string
-    profilStatus?: NullableStringFieldUpdateOperationsInput | string | null
-    planning_public?: BoolFieldUpdateOperationsInput | boolean
-    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
   export type InterventionZoneCreateManyUserInput = {
     id_zone?: number
     department: number
@@ -9022,6 +9214,22 @@ export namespace Prisma {
     location?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
+  }
+
+  export type EventCreateManyInterpreterInput = {
+    id_demande?: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    location: string
+    startDateTime: Date | string
+    endDateTime: Date | string
+    interventionType?: string | null
+    message?: string | null
+    status?: $Enums.EventStatus
+    clientFirstName?: string | null
+    clientLastName?: string | null
+    clientEmail?: string | null
+    clientPhone?: string | null
   }
 
   export type InterventionZoneUpdateWithoutUserInput = {
@@ -9079,33 +9287,51 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type EventUpdateWithoutUsersInput = {
+  export type EventUpdateWithoutInterpreterInput = {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     location?: StringFieldUpdateOperationsInput | string
     startDateTime?: DateTimeFieldUpdateOperationsInput | Date | string
     endDateTime?: DateTimeFieldUpdateOperationsInput | Date | string
-    interventionType?: StringFieldUpdateOperationsInput | string
+    interventionType?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
+    clientFirstName?: NullableStringFieldUpdateOperationsInput | string | null
+    clientLastName?: NullableStringFieldUpdateOperationsInput | string | null
+    clientEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    clientPhone?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type EventUncheckedUpdateWithoutUsersInput = {
+  export type EventUncheckedUpdateWithoutInterpreterInput = {
     id_demande?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     location?: StringFieldUpdateOperationsInput | string
     startDateTime?: DateTimeFieldUpdateOperationsInput | Date | string
     endDateTime?: DateTimeFieldUpdateOperationsInput | Date | string
-    interventionType?: StringFieldUpdateOperationsInput | string
+    interventionType?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
+    clientFirstName?: NullableStringFieldUpdateOperationsInput | string | null
+    clientLastName?: NullableStringFieldUpdateOperationsInput | string | null
+    clientEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    clientPhone?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
-  export type EventUncheckedUpdateManyWithoutUsersInput = {
+  export type EventUncheckedUpdateManyWithoutInterpreterInput = {
     id_demande?: IntFieldUpdateOperationsInput | number
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     location?: StringFieldUpdateOperationsInput | string
     startDateTime?: DateTimeFieldUpdateOperationsInput | Date | string
     endDateTime?: DateTimeFieldUpdateOperationsInput | Date | string
-    interventionType?: StringFieldUpdateOperationsInput | string
+    interventionType?: NullableStringFieldUpdateOperationsInput | string | null
+    message?: NullableStringFieldUpdateOperationsInput | string | null
     status?: EnumEventStatusFieldUpdateOperationsInput | $Enums.EventStatus
+    clientFirstName?: NullableStringFieldUpdateOperationsInput | string | null
+    clientLastName?: NullableStringFieldUpdateOperationsInput | string | null
+    clientEmail?: NullableStringFieldUpdateOperationsInput | string | null
+    clientPhone?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
 

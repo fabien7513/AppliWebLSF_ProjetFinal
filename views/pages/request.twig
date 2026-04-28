@@ -44,6 +44,18 @@
           <p class="error-message">{{ error }}</p>
         {% endif %}
 
+        <label for="clientFirstName">Votre prénom</label>
+        <input id="clientFirstName" type="text" name="clientFirstName" value="{{ search.clientFirstName ?? '' }}">
+
+        <label for="clientLastName">Votre nom</label>
+        <input id="clientLastName" type="text" name="clientLastName" value="{{ search.clientLastName ?? '' }}">
+
+        <label for="clientEmail">Votre email</label>
+        <input id="clientEmail" type="email" name="clientEmail" value="{{ search.clientEmail ?? '' }}">
+
+        <label for="clientPhone">Votre téléphone</label>
+        <input id="clientPhone" type="text" name="clientPhone" value="{{ search.clientPhone ?? '' }}">
+
         <label for="meetingAddress">Lieu</label>
         <input id="meetingAddress" type="text" name="meetingAddress" value="{{ search.meetingAddress ?? '' }}" data-address-autocomplete>
 
@@ -56,8 +68,11 @@
         <label for="endTime">Heure fin</label>
         <input id="endTime" type="time" name="endTime" value="{{ search.endTime ?? '' }}">
 
+        <label for="interventionType">Type d'intervention</label>
+        <input id="interventionType" type="text" name="interventionType" value="{{ search.interventionType ?? '' }}" placeholder="Réunion, rendez-vous médical, formation...">
+
         <label for="message">Message</label>
-        <textarea id="message" name="message" rows="6" placeholder="Décrivez votre besoin"></textarea>
+        <textarea id="message" name="message" rows="6" placeholder="Décrivez votre besoin">{{ search.message ?? '' }}</textarea>
 
         <button type="submit">Envoyer la demande</button>
       </form>

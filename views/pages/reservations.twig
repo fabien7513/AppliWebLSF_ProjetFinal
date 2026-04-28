@@ -24,7 +24,7 @@
     <div class="reservations-container">
 
       <div class="reservation-card past-card">
-        <h2>Rendez-vous passés</h2>
+        <h2>Historique</h2>
 
         <div class="reservation-list">
           {% if error %}
@@ -48,6 +48,19 @@
                   {% for reservation in monthGroup.reservations %}
                     <article class="reservation-item">
                       <h3>{{ reservation.title }}</h3>
+                      <p><strong>{{ reservation.counterpartLabel }} :</strong> {{ reservation.counterpartName }}</p>
+                      {% if reservation.counterpartEmail %}
+                        <p><strong>Email :</strong> {{ reservation.counterpartEmail }}</p>
+                      {% endif %}
+                      {% if reservation.counterpartPhone %}
+                        <p><strong>Téléphone :</strong> {{ reservation.counterpartPhone }}</p>
+                      {% endif %}
+                      <p>
+                        <strong>Statut :</strong>
+                        <span class="reservation-status reservation-status-{{ reservation.status|lower }}">
+                          {{ reservation.statusLabel }}
+                        </span>
+                      </p>
                       <p><strong>Début :</strong> {{ reservation.startLabel }}</p>
                       <p><strong>Fin :</strong> {{ reservation.endLabel }}</p>
                       <p><strong>Lieu :</strong> {{ reservation.location }}</p>
@@ -75,6 +88,19 @@
             {% for reservation in upcomingReservations %}
               <article class="reservation-item">
                 <h3>{{ reservation.title }}</h3>
+                <p><strong>{{ reservation.counterpartLabel }} :</strong> {{ reservation.counterpartName }}</p>
+                {% if reservation.counterpartEmail %}
+                  <p><strong>Email :</strong> {{ reservation.counterpartEmail }}</p>
+                {% endif %}
+                {% if reservation.counterpartPhone %}
+                  <p><strong>Téléphone :</strong> {{ reservation.counterpartPhone }}</p>
+                {% endif %}
+                <p>
+                  <strong>Statut :</strong>
+                  <span class="reservation-status reservation-status-{{ reservation.status|lower }}">
+                    {{ reservation.statusLabel }}
+                  </span>
+                </p>
                 <p><strong>Début :</strong> {{ reservation.startLabel }}</p>
                 <p><strong>Fin :</strong> {{ reservation.endLabel }}</p>
                 <p><strong>Lieu :</strong> {{ reservation.location }}</p>

@@ -6,6 +6,9 @@ const prisma = new PrismaClient({ adapter });
 export async function getHome(req, res) {
   try {
     const interpreters = await prisma.user.findMany({
+      where: {
+        role: "INTERPRETER"
+      },
       include: {
         address: true
       }

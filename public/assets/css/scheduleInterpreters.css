@@ -382,6 +382,10 @@ body{
   display:none;
 }
 
+.hidden{
+  display:none !important;
+}
+
 .event-modal-card{
   position:relative;
   width:100%;

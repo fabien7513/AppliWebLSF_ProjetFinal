@@ -11,6 +11,7 @@ export async function authguard (req, res, next) {
                     lastName:true,
                     firstName:true,
                     mail:true,
+                    role:true,
                     description:true,
                     photo:true,
                     password:true,

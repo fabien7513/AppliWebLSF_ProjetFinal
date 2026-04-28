@@ -32,16 +32,24 @@ model Event {
   id_demande Int @id @default(autoincrement())
 
   createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   location      String
   startDateTime DateTime
   endDateTime   DateTime
 
-  interventionType String
+  interventionType String?
+  message          String?
 
   status EventStatus @default(PENDING)
 
-  users User[]
+  clientFirstName String?
+  clientLastName  String?
+  clientEmail     String?
+  clientPhone     String?
+  interpreterId   Int
+
+  interpreter User @relation("InterpreterEvents", fields: [interpreterId], references: [id_user], onDelete: Cascade)
 }
 
 enum EventStatus {
@@ -64,10 +72,11 @@ model InterventionZone {
 }
 
 model User {
-  id_user   Int    @id @default(autoincrement())
-  lastName  String @db.VarChar(50)
-  firstName String @db.VarChar(50)
-  mail      String @unique
+  id_user   Int      @id @default(autoincrement())
+  lastName  String   @db.VarChar(50)
+  firstName String   @db.VarChar(50)
+  mail      String   @unique
+  role      UserRole @default(INTERPRETER)
 
   description String?
   photo       String?
@@ -75,7 +84,7 @@ model User {
   password String
 
   phone       String? @db.VarChar(20)
-  siretNumber String  @unique @db.VarChar(14)
+  siretNumber String? @unique @db.VarChar(14)
 
   profilStatus String?
 
@@ -87,9 +96,14 @@ model User {
   interventionZones InterventionZone[]
   availabilities    Availability[]
 
-  events Event[]
+  interpreterEvents Event[] @relation("InterpreterEvents")
 
   address Address?
+}
+
+enum UserRole {
+  CLIENT
+  INTERPRETER
 }
 
 // This is your Prisma schema file,

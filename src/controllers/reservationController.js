@@ -28,23 +28,41 @@ function formatMonthLabel(date) {
   );
 }
 
-function mapAvailability(availability) {
+function formatStatus(status) {
+  const labels = {
+    PENDING: "En attente",
+    ACCEPTED: "Acceptée",
+    REFUSED: "Refusée",
+    CANCELLED: "Annulée"
+  };
+
+  return labels[status] || status;
+}
+
+function mapReservation(event) {
   return {
-    id: availability.id_availability,
-    title: availability.interventionType || "Creneau reserve",
-    location: availability.location || "Lieu non renseigne",
-    comment: availability.comment,
-    startLabel: formatDateTime(availability.startDateTime),
-    endLabel: formatDateTime(availability.endDateTime)
+    id: event.id_demande,
+    title: event.interventionType || "Demande d'interprétation",
+    location: event.location || "Lieu non renseigne",
+    comment: event.message,
+    startDateTime: event.startDateTime,
+    status: event.status,
+    statusLabel: formatStatus(event.status),
+    counterpartLabel: "Client",
+    counterpartName: `${event.clientFirstName || ""} ${event.clientLastName || ""}`.trim() || "Non renseigné",
+    counterpartEmail: event.clientEmail || "",
+    counterpartPhone: event.clientPhone || "",
+    startLabel: formatDateTime(event.startDateTime),
+    endLabel: formatDateTime(event.endDateTime)
   };
 }
 
-function groupReservationsByMonth(availabilities) {
+function groupReservationsByMonth(reservations) {
   const groups = [];
   let currentKey = null;
 
-  for (const availability of availabilities) {
-    const monthLabel = formatMonthLabel(availability.startDateTime);
+  for (const reservation of reservations) {
+    const monthLabel = formatMonthLabel(reservation.startDateTime);
 
     if (monthLabel !== currentKey) {
       currentKey = monthLabel;
@@ -54,7 +72,7 @@ function groupReservationsByMonth(availabilities) {
       });
     }
 
-    groups[groups.length - 1].reservations.push(mapAvailability(availability));
+    groups[groups.length - 1].reservations.push(reservation);
   }
 
   return groups;
@@ -69,21 +87,22 @@ export async function getReservation(req, res) {
     }
 
     const now = new Date();
-    const availabilities = await prisma.availability.findMany({
+    const events = await prisma.event.findMany({
       where: {
-        userId
+        interpreterId: userId
       },
       orderBy: {
         startDateTime: "asc"
       }
     });
 
-    const upcomingReservations = availabilities
-      .filter((availability) => availability.endDateTime >= now)
-      .map(mapAvailability);
+    const upcomingReservations = events
+      .filter((event) => event.endDateTime >= now)
+      .map(mapReservation);
 
-    const pastReservations = availabilities
-      .filter((availability) => availability.endDateTime < now)
+    const pastReservations = events
+      .filter((event) => event.endDateTime < now)
+      .map(mapReservation)
       .reverse();
 
     const pastReservationGroups = groupReservationsByMonth(pastReservations);

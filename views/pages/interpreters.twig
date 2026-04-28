@@ -28,7 +28,10 @@
 					<div id="user-dropdown" class="user-dropdown hidden">
 						<a href="/profile">Mon profil</a>
 						<a href="/reservations">Mes réservations</a>
-						<a href="/scheduleinterpreters">Mon planning</a>
+						{% if user.role == "INTERPRETER" %}
+							<a href="/interpreter/requests">Demandes reçues</a>
+							<a href="/scheduleinterpreters">Mon planning</a>
+						{% endif %}
 						<a href="/logout">Déconnexion</a>
 					</div>
 				</div>
@@ -119,7 +122,7 @@
 						</p>
 						<p>
 							<strong>N° SIRET :</strong>
-							{{ interpreter.siretNumber }}</p>
+							{{ interpreter.siretNumber ?? 'Non renseigné' }}</p>
 
 						<div class="card-actions">
 							<a href="/scheduleinterpreters?userId={{ interpreter.id_user }}" class="planning-btn">Planning</a>

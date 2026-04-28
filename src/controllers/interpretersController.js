@@ -61,6 +61,9 @@ function hasCoordinates(address) {
 export async function getListInterpreters(req, res) {
   try {
     const interpreters = await prisma.user.findMany({
+      where: {
+        role: "INTERPRETER"
+      },
       include: {
         address: true
       }
@@ -111,22 +114,37 @@ export async function searchInterpreters(req, res) {
 
     const interpreters = await prisma.user.findMany({
       where: {
-        NOT: {
-          availabilities: {
-            some: {
-              startDateTime: {
-                lt: requestedEnd
-              },
-              endDateTime: {
-                gt: requestedStart
+        role: "INTERPRETER",
+        NOT: [
+          {
+            availabilities: {
+              some: {
+                startDateTime: {
+                  lt: requestedEnd
+                },
+                endDateTime: {
+                  gt: requestedStart
+                }
+              }
+            }
+          },
+          {
+            interpreterEvents: {
+              some: {
+                status: "ACCEPTED",
+                startDateTime: {
+                  lt: requestedEnd
+                },
+                endDateTime: {
+                  gt: requestedStart
+                }
               }
             }
           }
-        }
+        ]
       },
       include: {
-        address: true,
-        availabilities: true
+        address: true
       }
     });
 
@@ -145,7 +163,7 @@ export async function searchInterpreters(req, res) {
           distanceKm
         };
       })
-      .filter((interpreter) => interpreter.distanceKm <= 50)
+      .filter((interpreter) => interpreter.distanceKm <= 150)
       .sort((a, b) => a.distanceKm - b.distanceKm);
 
     res.render("pages/interpreters.twig", {

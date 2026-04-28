@@ -7,8 +7,11 @@ document.addEventListener('DOMContentLoaded', function () {
   const detailsEnd = document.getElementById('event-details-end');
   const detailsLocation = document.getElementById('event-details-location');
   const detailsComment = document.getElementById('event-details-comment');
+  const detailsParticipant = document.getElementById('event-details-participant');
   const editStartInput = document.getElementById('event-edit-start');
   const editEndInput = document.getElementById('event-edit-end');
+  const eventModalEdit = document.getElementById('event-modal-edit');
+  const eventModalActions = document.getElementById('event-modal-actions');
   const saveSelectedEventBtn = document.getElementById('save-selected-event');
   const deleteSelectedEventBtn = document.getElementById('delete-selected-event');
 
@@ -21,21 +24,66 @@ document.addEventListener('DOMContentLoaded', function () {
   let selectedEvent = null;
   const compactBreakpoint = 760;
 
-  const events = Array.isArray(availabilities)
+  const availabilityEvents = Array.isArray(availabilities)
     ? availabilities.map((a) => ({
-      id: a.id_availability,
+      id: `availability-${a.id_availability}`,
       title: editableFlag ? (a.interventionType || "Créneau") : "Occupé",
       start: a.startDateTime,
       end: a.endDateTime,
+      editable: editableFlag,
       extendedProps: editableFlag
         ? {
+          sourceType: 'availability',
+          recordId: a.id_availability,
           comment: a.comment || "",
           location: a.location || "",
+          displayLocation: a.location || "Non renseigné",
+          displayComment: a.comment || "Aucun",
+          participant: "Non communiqué",
           interpreterId: a.userId || null
         }
-        : {}
+        : {
+          sourceType: 'availability',
+          recordId: a.id_availability,
+          displayLocation: "Non communiqué",
+          displayComment: "Non communiqué",
+          participant: "Non communiqué"
+        }
     }))
     : [];
+
+  const bookingEvents = Array.isArray(bookings)
+    ? bookings.map((booking) => ({
+      id: `booking-${booking.id_demande}`,
+      title: editableFlag ? (booking.interventionType || "Réservation confirmée") : "Occupé",
+      start: booking.startDateTime,
+      end: booking.endDateTime,
+      editable: false,
+      backgroundColor: '#db6f5c',
+      borderColor: '#db6f5c',
+      extendedProps: {
+        sourceType: 'booking',
+        recordId: booking.id_demande,
+        comment: booking.message || "",
+        location: booking.location || "",
+        displayLocation: editableFlag
+          ? (booking.location || "Non renseigné")
+          : "Non communiqué",
+        displayComment: editableFlag
+          ? (booking.message || "Aucun")
+          : "Non communiqué",
+        participant: editableFlag
+          ? `${booking.clientFirstName || ""} ${booking.clientLastName || ""}`.trim() || "Non renseigné"
+          : "Non communiqué"
+      }
+    }))
+    : [];
+
+  const events = [...availabilityEvents, ...bookingEvents];
+
+  function isEditableAvailability(event) {
+    return editableFlag && event?.extendedProps?.sourceType === 'availability';
+  }
 
   function formatDate(date) {
     if (!date) {
@@ -69,19 +117,26 @@ document.addEventListener('DOMContentLoaded', function () {
 
     selectedEvent = event;
 
+    const editableAvailability = isEditableAvailability(event);
+
     detailsTitle.textContent = event.title || "Créneau";
     detailsStart.textContent = formatDate(event.start);
     detailsEnd.textContent = formatDate(event.end);
-    detailsLocation.textContent = editableFlag
-      ? (event.extendedProps.location || "Non renseigné")
-      : "Non communiqué";
-    detailsComment.textContent = editableFlag
-      ? (event.extendedProps.comment || "Aucun")
-      : "Non communiqué";
+    detailsLocation.textContent = event.extendedProps.displayLocation || "Non communiqué";
+    detailsComment.textContent = event.extendedProps.displayComment || "Non communiqué";
+    detailsParticipant.textContent = event.extendedProps.participant || "Non communiqué";
 
-    if (editableFlag && editStartInput && editEndInput) {
+    if (editableAvailability && editStartInput && editEndInput) {
       editStartInput.value = formatDateTimeLocal(event.start);
       editEndInput.value = formatDateTimeLocal(event.end);
+    }
+
+    if (eventModalEdit) {
+      eventModalEdit.classList.toggle('hidden', !editableAvailability);
+    }
+
+    if (eventModalActions) {
+      eventModalActions.classList.toggle('hidden', !editableAvailability);
     }
 
     eventModal.classList.remove('hidden');
@@ -98,7 +153,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function deleteEvent(event) {
-    const availabilityId = event.id;
+    const availabilityId = event.extendedProps.recordId;
 
     fetch(`/scheduleinterpreters/${availabilityId}`, {
       method: 'DELETE'
@@ -119,7 +174,7 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   function saveEventTimes() {
-    if (!selectedEvent || !editStartInput || !editEndInput) {
+    if (!selectedEvent || !isEditableAvailability(selectedEvent) || !editStartInput || !editEndInput) {
       return;
     }
 
@@ -136,7 +191,7 @@ document.addEventListener('DOMContentLoaded', function () {
       return;
     }
 
-    fetch(`/scheduleinterpreters/${selectedEvent.id}`, {
+    fetch(`/scheduleinterpreters/${selectedEvent.extendedProps.recordId}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
@@ -286,13 +341,19 @@ document.addEventListener('DOMContentLoaded', function () {
           if (data?.availability) {
             // Ajouter au calendrier côté client
             const createdEvent = calendar.addEvent({
-              id: data.availability.id_availability,
+              id: `availability-${data.availability.id_availability}`,
               title: interventionType,
               start: info.start,
               end: info.end,
+              editable: true,
               extendedProps: {
+                sourceType: 'availability',
+                recordId: data.availability.id_availability,
                 comment: comment || '',
                 location: location || '',
+                displayLocation: location || 'Non renseigné',
+                displayComment: comment || 'Aucun',
+                participant: 'Non communiqué',
                 interpreterId: interpreter.id_user
               }
             });
@@ -309,12 +370,13 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     },
     eventDrop: function (info) {
-      if (!editableFlag) {
+      if (!editableFlag || info.event.extendedProps.sourceType !== 'availability') {
+        info.revert();
         alert("Ce créneau est occupé.");
         return;
       }
 
-      const availabilityId = info.event.id;
+      const availabilityId = info.event.extendedProps.recordId;
       const startDateTime = info.event.start.toISOString();
       const endDateTime = info.event.end.toISOString();
 

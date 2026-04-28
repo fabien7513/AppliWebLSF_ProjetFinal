@@ -7,25 +7,76 @@ import bcrypt from "bcrypt";
 //...........................................INSCRIPTION......................................................
 export function getRegister(req, res) {
     res.render("pages/register.twig", {
-        title: "Inscription"
+        title: "Inscription",
+        errors: {},
+        formData: {}
     })
 }
 
 export async function postRegister(req, res) {
     try {
-        const { id_user, lastName, firstName, mail, description, photo, password, phone, siretNumber, profilStatus } = req.body;
+        const {
+            lastName,
+            firstName,
+            mail,
+            confirm_mail,
+            password,
+            confirm_password,
+            siretNumber
+        } = req.body;
+        const errors = {};
+
+        if (!lastName?.trim()) {
+            errors.lastName = "Le nom est requis";
+        }
+
+        if (!firstName?.trim()) {
+            errors.firstName = "Le prénom est requis";
+        }
+
+        if (!mail?.trim()) {
+            errors.email = "L'email est requis";
+        }
+
+        if (mail !== confirm_mail) {
+            errors.confirmEmail = "Les emails ne correspondent pas";
+        }
+
+        if (!password) {
+            errors.password = "Le mot de passe est requis";
+        }
+
+        if (password !== confirm_password) {
+            errors.confirmPassword = "Les mots de passe ne correspondent pas";
+        }
+
+        if (!siretNumber?.trim()) {
+            errors.siretNumber = "Le numéro SIRET est requis pour un interprète";
+        }
+
+        if (Object.keys(errors).length > 0) {
+            return res.render("pages/register.twig", {
+                title: "Inscription",
+                errors,
+                formData: {
+                    lastName,
+                    firstName,
+                    mail,
+                    confirm_mail,
+                    siretNumber
+                }
+            });
+        }
+
         await prisma.user.create({
             data: {
-                id_user,
-                lastName,
-                firstName,
-                mail,
-                description,
-                photo,
+                lastName: lastName.trim(),
+                firstName: firstName.trim(),
+                mail: mail.trim().toLowerCase(),
                 password,
-                phone,
-                siretNumber,
-                profilStatus
+                siretNumber: siretNumber.trim(),
+                role: "INTERPRETER",
+                profilStatus: "INTERPRETER"
             }
         })
         res.redirect("/login")
@@ -56,7 +107,14 @@ export async function postRegister(req, res) {
         
         res.render("pages/register.twig", {
             title: "Inscription",
-            errors: errors
+            errors: errors,
+            formData: {
+                lastName: req.body.lastName,
+                firstName: req.body.firstName,
+                mail: req.body.mail,
+                confirm_mail: req.body.confirm_mail,
+                siretNumber: req.body.siretNumber
+            }
         })
     }
 }
@@ -69,11 +127,10 @@ export async function getLogin(req, res) {
 }
 
 export async function postLogin(req, res) {
-    const { mail, password } = req.body
     try {
         const user = await prisma.user.findFirst({
             where: {
-                mail: req.body.email
+                mail: req.body.email?.trim().toLowerCase()
             }
         })
         if (user) {
@@ -82,7 +139,8 @@ export async function postLogin(req, res) {
                 req.session.user = {
                     id_user: user.id_user,
                     firstName: user.firstName,
-                    lastName: user.lastName
+                    lastName: user.lastName,
+                    role: user.role
                 }
                 res.redirect("/")
             }
