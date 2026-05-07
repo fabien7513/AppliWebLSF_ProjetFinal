@@ -76,7 +76,8 @@ export async function postRegister(req, res) {
                 password,
                 siretNumber: siretNumber.trim(),
                 role: "INTERPRETER",
-                profilStatus: "INTERPRETER"
+                profilStatus: "INTERPRETER",
+                photo:"/static/uploads/1776175297887.png"
             }
         })
         res.redirect("/login")
