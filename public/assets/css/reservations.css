@@ -189,6 +189,11 @@ body{
   color:#8a6700;
 }
 
+.reservation-status-planned{
+  background:#dde8ff;
+  color:#1f3b6d;
+}
+
 .reservation-status-accepted{
   background:#dff5e8;
   color:#1d6f42;

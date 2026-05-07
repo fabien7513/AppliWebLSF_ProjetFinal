@@ -30,6 +30,7 @@ function formatMonthLabel(date) {
 
 function formatStatus(status) {
   const labels = {
+    PLANNED: "Créneau planning",
     PENDING: "En attente",
     ACCEPTED: "Acceptée",
     REFUSED: "Refusée",
@@ -39,13 +40,15 @@ function formatStatus(status) {
   return labels[status] || status;
 }
 
-function mapReservation(event) {
+function mapEventReservation(event) {
   return {
     id: event.id_demande,
     title: event.interventionType || "Demande d'interprétation",
     location: event.location || "Lieu non renseigne",
     comment: event.message,
     startDateTime: event.startDateTime,
+    endDateTime: event.endDateTime,
+    typeLabel: "Demande client",
     status: event.status,
     statusLabel: formatStatus(event.status),
     counterpartLabel: "Client",
@@ -54,6 +57,26 @@ function mapReservation(event) {
     counterpartPhone: event.clientPhone || "",
     startLabel: formatDateTime(event.startDateTime),
     endLabel: formatDateTime(event.endDateTime)
+  };
+}
+
+function mapAvailabilityReservation(availability) {
+  return {
+    id: availability.id_availability,
+    title: availability.interventionType || "Créneau planning",
+    location: availability.location || "Lieu non renseigne",
+    comment: availability.comment,
+    startDateTime: availability.startDateTime,
+    endDateTime: availability.endDateTime,
+    typeLabel: "Planning",
+    status: "PLANNED",
+    statusLabel: formatStatus("PLANNED"),
+    counterpartLabel: null,
+    counterpartName: "",
+    counterpartEmail: "",
+    counterpartPhone: "",
+    startLabel: formatDateTime(availability.startDateTime),
+    endLabel: formatDateTime(availability.endDateTime)
   };
 }
 
@@ -87,22 +110,37 @@ export async function getReservation(req, res) {
     }
 
     const now = new Date();
-    const events = await prisma.event.findMany({
-      where: {
-        interpreterId: userId
-      },
-      orderBy: {
-        startDateTime: "asc"
-      }
-    });
+    const [availabilities, events] = await Promise.all([
+      prisma.availability.findMany({
+        where: {
+          userId
+        },
+        orderBy: {
+          startDateTime: "asc"
+        }
+      }),
+      prisma.event.findMany({
+        where: {
+          interpreterId: userId
+        },
+        orderBy: {
+          startDateTime: "asc"
+        }
+      })
+    ]);
 
-    const upcomingReservations = events
-      .filter((event) => event.endDateTime >= now)
-      .map(mapReservation);
+    const reservations = [
+      ...availabilities.map(mapAvailabilityReservation),
+      ...events.map(mapEventReservation)
+    ].sort((firstReservation, secondReservation) => (
+      firstReservation.startDateTime - secondReservation.startDateTime
+    ));
 
-    const pastReservations = events
-      .filter((event) => event.endDateTime < now)
-      .map(mapReservation)
+    const upcomingReservations = reservations
+      .filter((reservation) => reservation.endDateTime >= now);
+
+    const pastReservations = reservations
+      .filter((reservation) => reservation.endDateTime < now)
       .reverse();
 
     const pastReservationGroups = groupReservationsByMonth(pastReservations);
