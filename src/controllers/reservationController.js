@@ -22,10 +22,17 @@ function formatMonthLabel(date) {
   return capitalize(
     new Intl.DateTimeFormat("fr-FR", {
       month: "long",
-      year: "numeric",
       timeZone: "Europe/Paris"
     }).format(date)
   );
+}
+
+function formatMonthKey(date) {
+  return new Intl.DateTimeFormat("fr-FR", {
+    month: "long",
+    year: "numeric",
+    timeZone: "Europe/Paris"
+  }).format(date);
 }
 
 function formatStatus(status) {
@@ -85,12 +92,12 @@ function groupReservationsByMonth(reservations) {
   let currentKey = null;
 
   for (const reservation of reservations) {
-    const monthLabel = formatMonthLabel(reservation.startDateTime);
+    const monthKey = formatMonthKey(reservation.startDateTime);
 
-    if (monthLabel !== currentKey) {
-      currentKey = monthLabel;
+    if (monthKey !== currentKey) {
+      currentKey = monthKey;
       groups.push({
-        label: monthLabel,
+        label: formatMonthLabel(reservation.startDateTime),
         reservations: []
       });
     }

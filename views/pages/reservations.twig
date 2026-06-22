@@ -34,15 +34,9 @@
           {% else %}
             {% for monthGroup in pastReservationGroups %}
               <details class="reservation-month" {% if loop.first %}open{% endif %}>
-                {% set count = monthGroup.reservations|length %}
                 <summary>
                   <span class="reservation-month-title">{{ monthGroup.label }}</span>
-                  <span class="reservation-month-meta">
-                    <span class="reservation-month-hint">Cliquer pour afficher</span>
-                    <span class="reservation-month-count">
-                      {{ count }} rendez-vous
-                    </span>
-                  </span>
+                  <span class="reservation-month-hint">Afficher les rendez-vous</span>
                 </summary>
                 <div class="reservation-month-list">
                   {% for reservation in monthGroup.reservations %}

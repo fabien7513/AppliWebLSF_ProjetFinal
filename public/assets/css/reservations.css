@@ -116,28 +116,10 @@ body{
   font-size:16px;
 }
 
-.reservation-month-meta{
-  display:flex;
-  align-items:center;
-  gap:10px;
-}
-
 .reservation-month-hint{
-  font-size:12px;
+  font-size:13px;
+  font-weight:600;
   color:#53708f;
-}
-
-.reservation-month-count{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  min-width:52px;
-  padding:6px 10px;
-  border-radius:999px;
-  background:#1f3b6d;
-  color:#fff;
-  font-size:12px;
-  font-weight:700;
 }
 
 .reservation-month-list{
@@ -222,11 +204,6 @@ body{
   .reservation-month summary{
     align-items:flex-start;
     flex-direction:column;
-  }
-
-  .reservation-month-meta{
-    width:100%;
-    justify-content:space-between;
   }
 }
 
