@@ -29,7 +29,7 @@ export async function authguard (req, res, next) {
                 return next()
             }
             else
-                throw new Error ("L'utilisateur a été surpprimé de la base de données")
+                throw new Error ("L'utilisateur a été supprimé de la base de données")
         }
         else{
             throw new Error("Aucun utilisateur enregistré en session");
